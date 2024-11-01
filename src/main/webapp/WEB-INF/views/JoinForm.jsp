@@ -18,9 +18,9 @@
                 </header>
 
                 <div class="DescWrap">
-                    <p><b>우리팀 서비스 이용을 위해 아래 정보를 입력해주세요.</b></p>
+                    <p><b>ARTI 이용을 위해 아래 정보를 입력해주세요.</b></p>
                 </div>
-				<form>
+				<form action="/welcome/join" method="post">
                 <div class="FormContainer">
 					<div class="info">
 						<header class="TitleWrap">
@@ -37,13 +37,27 @@
 					
 					<div class="info" style="margin-top: 24px">
 						<header class="TitleWrap">
+							<h1 class="tag">닉네임</h1>
+						</header>
+						<div class="Content">
+							<div>
+								<div class="InputWrap">
+									<input autocomplete="off" type="text" name="nickname" placeholder="닉네임 입력" class="InputInfo" value="" id="nickname">
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+					<div class="info" style="margin-top: 24px">
+						<header class="TitleWrap">
 							<h1 class="tag">비밀번호</h1>
 						</header>
 						<div class="Content">
 							<div>
 								<div class="InputWrap">
 									<input autocomplete="off" type="password" name="password" placeholder="8자리 이상 영문,숫자,특수문자 포함" class="InputInfo2" value="" id="password">
-									<button class="RightIcon"><img alt="check" src="/img/pwcheck2.png"></button>
+									<button class="RightIcon" type="button"><img alt="check" src="/img/pwcheck2.png"></button>
 								</div>
 							</div>
 						</div>
@@ -55,7 +69,7 @@
 							<div>
 								<div class="InputWrap">
 									<input autocomplete="off" type="password" name="passwordConfirm" placeholder="비밀번호 확인" class="InputInfo2" value="" id="passwordConfirm">
-									<button class="RightIcon"><img alt="check" src="/img/pwcheck2.png"></button>
+									<button class="RightIcon" type="button"><img alt="check" src="/img/pwcheck2.png"></button>
 								</div>
 							</div>
 						</div>
@@ -64,15 +78,15 @@
 					</div>
 					
                 </div>
-			</form>
-			
+		
                 <div class="BtnWrap">
-                    <button class="AgreeBtn" id="agreeBtn" onclick="href='/'" disabled>
+                    <button class="AgreeBtn" id="agreeBtn" type="submit" disabled>
                         <span class="join">회원가입 완료</span>
                     </button>
                 </div>
+            </form>
             </div>
-            
+            	
         </section>
         <%@ include file="Footer.jsp" %>
     </div>

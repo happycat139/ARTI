@@ -61,5 +61,17 @@
 		</div>
 	</div>
 </footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const goTopButton = document.querySelector('.GoTop');
+    
+    // GoTop 버튼 클릭 시 페이지 맨 위로 스크롤 이동
+    goTopButton.addEventListener('click', function() {
+        window.scrollTo({
+            top: 0,
+        });
+    });
+});
+</script>
 </body>
 </html>

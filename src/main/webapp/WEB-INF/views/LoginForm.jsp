@@ -231,7 +231,7 @@ button > span {
 			<p>ARTI 서비스 이용을 위해 로그인해주세요.</p>
 		</div>
 		
-		<form class="LC_Form">
+		<form class="LC_Form" action="/welcome/login" method="post">
 			<div class="LC_IdPwContainer">
 				<header class="LC_TitleWrap">
 					<h1 class="LC_Title">아이디</h1>
@@ -257,7 +257,7 @@ button > span {
 					</div>				
 				</div>
 			</div>
-			<button class="LC_SubmitBtn" style="margin-top:28px;" disabled>
+			<button class="LC_SubmitBtn" style="margin-top:28px;" type="submit" disabled>
 				<span class="LC_Text">로그인</span>
 			</button>
 		</form>	
