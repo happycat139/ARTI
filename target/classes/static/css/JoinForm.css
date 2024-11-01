@@ -1,0 +1,222 @@
+@charset "EUC-KR";
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, menu, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, main, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    		margin: 0px;
+    		padding: 0px;
+    		border: 0px;
+    		font: inherit;
+    		vertical-align: baseline;
+		}
+		
+        h1, h2, h3, h4, h5, h6, strong, b {
+            font-weight: 700;
+        }
+        
+        select, input, textarea, a {
+    		outline: none;
+		}
+		
+		textarea, input {
+    		appearance: none;
+		}
+		
+		* {
+    		box-sizing: border-box;
+		}
+
+        .Login-Container {
+            -webkit-box-flex: 1;
+            flex-grow: 1;
+            padding: 100px 0px 126px;
+        }
+
+        .Login-Container > div {
+            width: 476px;
+            margin: 0px auto;
+            border: 1px solid rgb(245, 245, 245);
+        }
+
+        .View-Box {
+            transition: padding 250ms ease-in-out;
+            padding: 68px;
+        }
+
+        .Header {
+            padding-bottom: 28px;
+            border-bottom: 1px solid rgb(245, 245, 245);
+        }
+
+        .Header > h1 {
+            color: rgb(34, 34, 34);
+            font-size: 30px;
+            line-height: 48px;
+            letter-spacing: -0.5px;
+            font-weight: 700;
+        }
+
+        .DescWrap {
+            padding-top: 28px;
+        }
+
+        .DescWrap > p {
+            color: rgb(34, 34, 34);
+            font-size: 14px;
+            line-height: 24px;
+            font-weight: 700;
+        }
+        
+        .FormContainer {
+    		padding-top: 48px;
+		}
+		
+		.info{
+    		flex: 0 0 auto;
+    		width: auto;
+		}
+		
+		.TitleWrap{
+			display: flex;
+    		-webkit-box-align: center;
+    		align-items: center;
+    		-webkit-box-pack: start;
+    		justify-content: flex-start;
+    		margin-bottom: 8px;
+		}
+		
+		.tag {
+			color: rgb(34, 34, 34);
+    		font-size: 14px;
+    		line-height: 24px;
+    		font-weight: 700;
+		}
+		
+		.Content {
+			flex: 0 0 auto;
+    		display: flex;
+    		width: 100%;
+		}
+		
+		.Content > div {
+   		 	-webkit-box-flex: 1;
+    		flex-grow: 1;
+    		display: flex;
+    		flex-flow: wrap;
+    		-webkit-box-pack: start;
+   		 	justify-content: flex-start;
+		}
+		
+		.InputWrap {
+			display: block;
+    		width: 100%;
+    		height: 44px;
+    		position: relative;
+		}
+
+		.InputInfo {
+		    width: 100%;
+    		height: 100%;
+    		color: rgb(34, 34, 34);
+    		font-size: 14px;
+    		line-height: 24px;
+    		font-weight: 400;
+    		padding: 0px 16px;
+    		border: 1px solid rgb(237, 237, 237);
+    		border-radius: 2px;
+    		background-color: rgb(255, 255, 255);
+    		transition: 150ms ease-out;
+    		user-select: none;
+    		box-sizing: border-box;
+		}
+		
+		.InputInfo2 {
+			width: 100%;
+    		height: 100%;
+   			color: rgb(34, 34, 34);
+    		font-size: 14px;
+    		line-height: 24px;
+    		font-weight: 400;
+    		padding: 0px 40px 0px 16px;
+    		border: 1px solid rgb(237, 237, 237);
+    		border-radius: 2px;
+    		background-color: rgb(255, 255, 255);
+    		transition: 150ms ease-out;
+    		user-select: none;
+		}
+		
+		.InputInfo:focus, .InputInfo2:focus {
+            border-color: black;
+        }
+		
+		.RightIcon {
+			width: 24px;
+    		height: 24px;
+    		position: absolute;
+    		top: 50%;
+    		transform: translateY(-50%);
+    		right: 8px;
+    		padding: 0px;
+    		border: 0px;
+    		background-color: transparent;
+    		cursor: pointer;
+		}
+		
+		.RightIcon.clicked {
+            background-image: url('/img/pwcheck.png'); 
+        }
+        
+        .BtnWrap {
+            margin-top: 36px;
+        }
+
+        .AgreeBtn {
+            flex: 0 0 auto;
+            display: inline-flex;
+            -webkit-box-align: center;
+            align-items: center;
+            -webkit-box-pack: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0px 16px;
+            color: rgb(255, 255, 255);
+            border: 0px;
+            border-radius: 4px;
+            transition: 150ms ease-out;
+            cursor: default;
+            height: 56px;
+            font-size: 14px;
+            line-height: 24px;
+            font-weight: 700;
+            background-color: rgb(151, 151, 151);
+        }
+        
+		.AgreeBtn:enabled {
+            cursor: pointer;
+            background-color: rgb(50, 108, 249);
+        }
+        
+         .AgreeBtn.enabled:hover {
+            background-color: rgb(30, 65, 208);
+        }
+
+        button > span {
+            position: relative;
+        }
+
+        .join {
+            margin-left: 0px;
+            margin-right: 0px;
+        }
+
+        .arrow-link {
+            color: rgb(151, 151, 151);
+            text-decoration: none;
+            font-size: 20px;
+            line-height: 20px;
+        }
+        
+        .error-message {
+            color: red;
+            font-size: 10px;
+            margin-top: 8px;
+            line-height: 20px;
+    		font-weight: 400;
+        }

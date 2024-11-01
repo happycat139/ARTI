@@ -19,7 +19,7 @@
                     </div>
                     <div class="AccountContainer">
                     	<div class="auth-button" onclick="location.href='/welcome'">
-                        	<a href="#">로그인</a>
+                        	<a href="/welcome">로그인</a>
                         <span>|</span>
                         	<a href="#">회원가입</a>
                     	</div>

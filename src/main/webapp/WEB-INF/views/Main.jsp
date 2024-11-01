@@ -73,7 +73,7 @@ h1, h2, h3, h4, h5, h6, strong, b {
         <div class="MainWrap2"></div>
         <div class="MainWrap3"></div>
         <div class="MainWrap4"></div>
-        
+        <%@ include file="Footer.jsp" %>
     </div>
 </div>
 </body>
