@@ -1,2 +1,5 @@
 # application private properties file
 application-private.properties
+
+# yml
+.yml

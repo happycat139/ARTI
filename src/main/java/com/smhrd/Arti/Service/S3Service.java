@@ -21,22 +21,10 @@ public class S3Service {
 
     private final S3Client s3Client;
 
-    @Value("${cloud.aws.credentials.accessKey}")
-    private String accessKey;
-
-    @Value("${cloud.aws.credentials.secretKey}")
-    private String secretKey;
-
-    @Value("${cloud.aws.s3.bucket}")
-    private String bucketName;
-
-    @Value("${cloud.aws.region.static}")
-    private String region;
-
     public S3Service() {
         AwsBasicCredentials awsCredentials = AwsBasicCredentials.create(accessKey, secretKey);
         this.s3Client = S3Client.builder()
-                .region(Region.of(region))
+                .region(Region.of(""))
                 .credentialsProvider(StaticCredentialsProvider.create(awsCredentials))
                 .build();
     }
