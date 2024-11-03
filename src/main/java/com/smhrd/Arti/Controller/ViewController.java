@@ -18,4 +18,10 @@ public class ViewController {
 		return "Main";
 	}
 	
+	/* 테스터 호출 */
+	@GetMapping("/test")
+	public String TestPage() {
+		return "Test";
+	}
+	
 }

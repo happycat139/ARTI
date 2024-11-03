@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.smhrd.Arti.Model.User;
 import com.smhrd.Arti.Service.UserService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -73,6 +74,18 @@ public class UserController {
 			session.setAttribute("user", loginUser);
 		}
 			
+		return "redirect:/";
+	}
+	
+	/* 로그아웃 메소드 */
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		HttpSession session = request.getSession(false);
+		
+		if (session != null) {
+			session.invalidate();
+		}
+		
 		return "redirect:/";
 	}
 	

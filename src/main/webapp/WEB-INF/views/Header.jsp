@@ -25,8 +25,9 @@
                         if (user != null) {
                     %>
                         <!-- 로그인 상태일 때 프로필 표시 -->
-                        <div class="auth-button" onclick="location.href='/profile'">
-                            <a href="#"><%=user.getNickname() %>님</a>
+                        <div class="profile-btn" onclick="location.href='/profile'">
+                            <img src="/img/default-profile.png" alt="프로필 이미지" class="rounded-profile" />
+                            <a href="#"><%=user.getNickname() %></a>
                         </div>
                     <%
                         } else {

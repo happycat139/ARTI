@@ -22,5 +22,15 @@ public class UserService {
     	return repo.findByEmailAndPassword(user.getEmail(), user.getPassword());
     }
     
+    // 닉네임 수정
+    public void updateNickname (Long uid, String newNickname) {
+    	
+    	User user = repo.findById(uid).orElseThrow();
+    	
+    	user.setNickname(newNickname);
+    	
+    	repo.save(user);
+    }
+    
 	
 }
