@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.smhrd.Arti.Component.S3Service;
 import com.smhrd.Arti.Model.User;
+import com.smhrd.Arti.Service.S3Service;
 import com.smhrd.Arti.Service.UserService;
 
 import jakarta.servlet.http.HttpSession;

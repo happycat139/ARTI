@@ -1,4 +1,4 @@
-package com.smhrd.Arti.Component;
+package com.smhrd.Arti.Service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
