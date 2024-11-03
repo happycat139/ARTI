@@ -45,7 +45,7 @@
                     <!-- 프로필 이미지 컨테이너 -->
                     <div class="Profile-img-Container">
                         <img src="/img/profile_img.png" alt="프로필 사진" class="profile-image">
-                    	<div class="Pr_edit-icon">
+                    	<div class="Pr_edit-icon" onclick="triggerFileUpload()">
                             <img src="/img/edit-icon.png" alt="편집 아이콘">
                         </div>
                         <input type="file" id="profileImageInput" style="display: none;" accept="image/*" onchange="uploadProfileImage()">
@@ -116,7 +116,6 @@ function triggerFileUpload() {
     const fileInput = document.getElementById('profileImageInput');
     fileInput.click(); // 파일 선택 창을 띄움
 }
-
 
 /* 프로필 사진 업로드 */
 function uploadProfileImage() {
