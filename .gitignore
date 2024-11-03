@@ -2,4 +2,4 @@
 application-private.properties
 
 # yml
-.yml
+*.yml
