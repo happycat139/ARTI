@@ -32,5 +32,10 @@ public class UserService {
     	repo.save(user);
     }
     
+    // 사용자 업데이트
+    public void updateUser(User user) {
+    	repo.save(user);
+    }
+    
 	
 }

@@ -48,6 +48,7 @@
                     	<div class="Pr_edit-icon">
                             <img src="/img/edit-icon.png" alt="편집 아이콘">
                         </div>
+                        <input type="file" id="profileImageInput" style="display: none;" accept="image/*" onchange="uploadProfileImage()">
                     </div>
                 </div>
                
@@ -101,6 +102,47 @@ function editNickname(event) {
         	
             alert('닉네임 변경에 실패했습니다. 다시 시도해주세요.');
             
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('오류가 발생했습니다. 다시 시도해주세요.');
+    });
+}
+
+
+/* 프로필 사진 업로드 트리거 */
+function triggerFileUpload() {
+    const fileInput = document.getElementById('profileImageInput');
+    fileInput.click(); // 파일 선택 창을 띄움
+}
+
+
+/* 프로필 사진 업로드 */
+function uploadProfileImage() {
+    const fileInput = document.getElementById('profileImageInput');
+    const selectedFile = fileInput.files[0];
+
+    if (!selectedFile) {
+        alert("이미지를 선택해주세요.");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('profileImage', selectedFile);
+
+    // 서버로 이미지 파일 전송
+    fetch('/profile/update/image', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('프로필 사진이 성공적으로 변경되었습니다.');
+            document.getElementById('profileImage').src = data.newImageUrl; // 변경된 이미지를 페이지에 반영
+        } else {
+            alert('프로필 사진 변경에 실패했습니다. 다시 시도해주세요.');
         }
     })
     .catch(error => {
