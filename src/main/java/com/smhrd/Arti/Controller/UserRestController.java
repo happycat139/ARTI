@@ -62,30 +62,30 @@ public class UserRestController {
     }
 	
 	
-	/* 프로필 사진 변경 메소드 */
-	public Map<String, Object> updateProfileImage(@RequestParam("profileImage") MultipartFile file, HttpSession session) {
-		
-		Map<String, Object> response = new HashMap<>();
-		
-		try {
-			
-			String filePath = s3Service.uploadFile(file);
-			
-			User user = (User) session.getAttribute("user");
-			user.setProfileImageUrl(filePath);
-			
-			service.updateUser(user);
-			
-			response.put("success", true);
-			response.put("newImageUrl", filePath);
-		} catch (Exception e) {
-			e.printStackTrace();
-			response.put("success", false);
-		}
-		
-		return response;
-		
-	}
+//	/* 프로필 사진 변경 메소드 */
+//	public Map<String, Object> updateProfileImage(@RequestParam("profileImage") MultipartFile file, HttpSession session) {
+//		
+//		Map<String, Object> response = new HashMap<>();
+//		
+//		try {
+//			
+//			//String filePath = s3Service.uploadFile(file);
+//			
+//			User user = (User) session.getAttribute("user");
+//			user.setProfileImageUrl(filePath);
+//			
+//			service.updateUser(user);
+//			
+//			response.put("success", true);
+//			response.put("newImageUrl", filePath);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//			response.put("success", false);
+//		}
+//		
+//		return response;
+//		
+//	}
 	
 }
 
