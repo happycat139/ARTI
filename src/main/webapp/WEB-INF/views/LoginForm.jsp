@@ -264,7 +264,7 @@ button > span {
 		<div class="LC_BtnWrap">
 			<button type="button">비밀번호 재설정</button>
 			<div></div>
-			<button type="button">이메일로 가입하기</button>
+			<button type="button" onclick="location.href='/welcome/join'">이메일로 가입하기</button>
 		</div>
 	</div>
 </section>
