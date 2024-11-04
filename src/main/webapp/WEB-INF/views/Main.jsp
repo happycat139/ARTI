@@ -69,6 +69,7 @@ h1, h2, h3, h4, h5, h6, strong, b {
 		<%@ include file="Header.jsp" %>
 		<%@ include file="MainContainer.jsp" %>
 		<%@ include file="SubContainer.jsp" %>
+		<%@ include file="SubContainer2.jsp" %>
         <div class="MainWrap1"></div>
         <div class="MainWrap2"></div>
         <div class="MainWrap3"></div>
