@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.smhrd.Arti.Model.User;
 import com.smhrd.Arti.Service.UserService;
@@ -64,7 +66,7 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	/* 회원가입 메소드 */ 
+	/* 로그인 메소드 */ 
 	@PostMapping("/welcome/login") 
 	public String login(User user, HttpSession session) {
 			
@@ -78,7 +80,7 @@ public class UserController {
 	}
 	
 	/* 로그아웃 메소드 */
-	@GetMapping("/logout")
+	@GetMapping("/user/logout")
 	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession(false);
 		
@@ -88,6 +90,23 @@ public class UserController {
 		
 		return "redirect:/";
 	}
+	
+	/* 회원탈퇴 메소드 */
+	@GetMapping("/user/delete")
+	public String delete(@RequestParam("uid") Long userId, RedirectAttributes redirectAttributes, HttpSession session) {
+		
+		boolean isDeleted = service.deleteUser(userId);
+		
+		if (isDeleted) {
+            redirectAttributes.addFlashAttribute("message", "회원 탈퇴가 완료되었습니다.");
+            session.invalidate();
+        } else {
+            redirectAttributes.addFlashAttribute("error", "회원 탈퇴에 실패했습니다.");
+        }
+		
+		return "redirect:/";
+	}
+	
 	
 	
 }

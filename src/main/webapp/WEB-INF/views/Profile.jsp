@@ -61,8 +61,8 @@
                             	<p><b>내 검사지</b></p>
                         	</div>
                        		<div class="DescWrap" style="margin-top: 30px; text-align: right;">
-                        		<button class="Pr_logout_btn" onclick="location.href='/logout'"><p>로그아웃</p></button>
-                        		<button class="Pr_exit_btn"><p>회원탈퇴</p></button>
+                        		<button class="Pr_logout_btn" onclick="location.href='/user/logout'"><p>로그아웃</p></button>
+                        		<button class="Pr_exit_btn" onclick="location.href='/user/delete?uid=<%=user1.getUid() %>'"><p>회원탈퇴</p></button>
                         	</div>
                     	</div>
                     </div>

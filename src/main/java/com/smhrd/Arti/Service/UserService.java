@@ -1,13 +1,7 @@
 package com.smhrd.Arti.Service;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.smhrd.Arti.Model.User;
 import com.smhrd.Arti.Repo.UserRepository;
@@ -43,9 +37,16 @@ public class UserService {
     	repo.save(user);
     }
     
-    
-    
-    
+    // 회원 탈퇴
+    public boolean deleteUser(Long userId) {
+        try {
+            repo.deleteById(userId);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
     
 	
 }
