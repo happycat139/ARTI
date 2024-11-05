@@ -24,4 +24,10 @@ public class ViewController {
 		return "Test";
 	}
 	
+	/* 테스터 호출 */
+	@GetMapping("/arti/test")
+	public String ArtiTestPage() {
+		return "ArtiTest";
+	}
+	
 }
