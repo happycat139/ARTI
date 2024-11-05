@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,14 +39,14 @@ textarea, input {
 	box-sizing: border-box;
 }
 
-.Login-Container {
+.Test-Container {
     -webkit-box-flex: 1;
     flex-grow: 1;
     padding: 20px 0px 206px;
 }
 
-.Login-Container > div {
-    width: 800px;
+.Test-Container > div {
+    width: 1400px;
     margin: 0px auto;
 }
 
@@ -54,11 +55,12 @@ textarea, input {
     padding: 68px;
 }
 
-.Header {
-    padding-bottom: 28px;        
+.TM_Header {
+    padding-bottom: 28px; 
+    padding-left: 20px;       
 }
 
-.Header > h1 {
+.TM_Header > h1 {
     color: rgb(34, 34, 34);
     font-size: 30px;
     line-height: 40px;
@@ -66,247 +68,118 @@ textarea, input {
     font-weight: 700;
 }
 
-.Header > p.Pf_EmailContent {
+.TM_Header > p.Pf_EmailContent {
 	color: gray;
 	margin-top: 15px;
 	font-family: 'STUNNING-Bd'; 
 } 
 
-.Profile-Container {
+.TM-Container {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
     gap: 40px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 40px;
+     overflow: hidden; 
 }
 
-.Profile-Details {
+.TM-Content-Container {
     flex: 1;
-}
-
-.Profile-img-Container {
-    position: relative;
-    width: 150px;
-    height: 150px;
-}
-
-.DescWrap > p {
-    color: rgb(34, 34, 34);
-    font-size: 20px;
-    line-height: 24px;
-    font-weight: 700;
-}
-
-.DescWrap > p.Pf_EmailContent {
-	color: gray;
-	margin-top: 15px;
-}     
-
-input {
-    width: calc(100% - 20px);
-    padding: 10px;
-    border: none;
-    background-color: #F6F6F6;
-    color: #333;
-    font-size: 16px;
-    border-radius: 4px;
-    margin-top: 10px;
-}
-
-input:focus {
-    background-color: #E7E4E4;
-}
- 
- 
-input::placeholder {
-	color: rgb(34, 34, 34);
-	margin-top: 15px;
-}
-
-.profile-image {
-    width: 150px;
-    height: 150px;
-    object-fit: cover;
-    margin-top: 10px;
-}
-
-.Pr_edit-icon {
-    position: absolute;
-    bottom: -12px;
-    right: 0;
-    width: 40px;
-    height: 40px;
-    background-color: rgb(209,203,203);
-    border-radius: 50%;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
-.Pr_edit-icon img {
-    width: 20px;
-    height: 20px;
-}
-
-.Pr_fix_btn {
-	font-size: 18px;
-	color: gray; 
-	margin-left: 368px;
-}
-
-.Pr_Pw_btn {
-    display: inline-flex;
-    align-items: center;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 4px;
-    text-decoration: none;
-    background-color: #E1E1FF;
-    color: #333;
-    font-weight: bold;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
-    color: blue;
-    width: 180px;
-    height: 50px;
-    font-family: 'STUNNING-Bd'; 
-}
-       
-.Pr_Pw_btn > p {
-	margin-left: 35px;
-}
-
-.Pr_Pw_btn:hover {
-    background-color: #7E7EFF;
-    color: white ;
+    
 }
 
 
-/* 밑 컨테이너 */
-
-/* 로그아웃 버튼 */
-
-.Pr_logout_btn {
-    display: inline-flex;
-    align-items: center;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 15px;
-    text-decoration: none;
-    background-color: #E9E9E9;
-    color: #333;
-    font-weight: bold;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
-    width: 120px;
-    height: 50px;
-    font-family: 'STUNNING-Bd'; 
-}
-       
-.Pr_logout_btn > p {
-	margin-left: 25px;
-	color: gray;
+.TM-Left-Section {
+	flex: 1; /* 왼쪽 영역이 더 넓어지도록 */
+	
 }
 
-.Pr_logout_btn:hover {
-    background-color: #DCDCDC;
-    color: white ;
+.TM-Left-Menu {
+    padding:30px 10px 30px 30px;
 }
 
-
-/* 회원탈퇴 버튼 */
-
-.Pr_exit_btn {
-    display: inline-flex;
-    align-items: center;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 15px;
-    text-decoration: none;
-    background-color: red;
-    color: #333;
-    font-weight: bold;
-    font-size: 14px;
-    transition: background-color 0.3s ease;
-    margin-top: 20px;
-    width: 120px;
-    height: 50px;
-    font-family: 'STUNNING-Bd'; 
-}
-       
-.Pr_exit_btn > p {
-	margin-left: 23px;
-	color: white;
+.TM-Left-Menu a {
+	display: block;
+    flex: 0 0 auto;
+    color: rgb(34, 34, 34);
+    font-size: 17px;
+    line-height: 26px;
+    font-weight: 400;
+    border-radius: 8px;
+    user-select: none;
+    background-color: rgb(255, 255, 255);
+	font-family: 'STUNNING-Bd';
+	padding: 15px 0 15px 10px;
+	margin-left :
+	
 }
 
-.Pr_exit_btn:hover {
-    background-color: #B40000;
-    color: white ;
+.TM-Left-Menu a:hover {
+    background-color: #bef5f7;
+    color: #4781ed;
 }
+
+.TM-Right-Section {
+	flex: 5;
+    display: flex;
+    align-items: left;
+    justify-content: left;
+    background-color: #F9F9F9 ;
+    padding:30px;
+    width: 80px;
+}
+
 
 </style>
 <body>
 
 <%@ include file="Header.jsp" %>
- <section class="Login-Container">
+ <section class="Test-Container">
             <div class="View-Box">
-                <header class="Header">
-                    <h1>ARTI HTP-검사</h1>
+            
+                <header class="TM_Header">
+                    <h1>ARTI 심리검사</h1>
                     <p class="Pf_EmailContent">내 아이의 마음을 알아보세요</p>
-                    
                 </header>
-               <div class="Profile-Container">
-                    <div class="Profile-Details">
-                    
-                        <div class="DescWrap">
-                            <p><b>이메일</b></p>
-                            <p class="Pf_EmailContent"></p>
-                        </div>
-                        
-                        <div class="DescWrap" style="margin-top: 30px;">
-                            <p>
-                            	<b>이름</b>
-                            	<a class="Pr_fix_btn" onclick="editNickname(event)">수정</a>
-                            </p>
-                            <input class="Pf_NicknameContent" id="nicknameInput" placeholder="" type="text">
-                        </div>
-                        
-                        <div class="DescWrap" style="margin-top: 30px;">
-                        	<p>비밀번호</p>
-                        	<button class="Pr_Pw_btn"><p>비밀번호 변경</p></button>
-                        </div>
-                        
-                    </div>
-                    
-                    <!-- 프로필 이미지 컨테이너 -->
-                    <div class="Profile-img-Container">
-                    	<div class="Pr_edit-icon" onclick="triggerFileUpload()">
-                            <img src="/img/edit-icon.png" alt="편집 아이콘">
-                        </div>
-                        <input type="file" id="profileImageInput" style="display: none;" accept="image/*" onchange="uploadProfileImage()">
-                    </div>
-                </div>
-               
-                    <hr style="border: none; border-top: 1px dotted #E9E9E9; margin: 40px 0;">
-                    
-                    <div class="Profile-Container">
-                    	<div class="Profile-Details">
-                    
-                        	<div class="DescWrap">
-                            	<p><b>내 검사지</b></p>
-                        	</div>
-                       		<div class="DescWrap" style="margin-top: 30px; text-align: right;">
-                        		<button class="Pr_logout_btn" onclick="location.href='/user/logout'"><p>로그아웃</p></button>
-                        	</div>
-                    	</div>
-                    </div>
-                    
-                </div>
                 
-            	
+               <div class="TM-Container">
+                    <div class="TM-Content-Container">
+                    
+                        <div class="TM-Left-Section">
+                        	<div class="TM-Left-Menu">
+								<a href="javascript:void(0);" onclick="loadContent('${pageContext.request.contextPath}/arti/test/info')">HTP검사 소개</a> <br>
+								<a href="javascript:void(0);" onclick="loadContent('${pageContext.request.contextPath}/arti/test/method')">HTP검사 방법</a> <br>
+								<a href="javascript:void(0);" onclick="loadContent('${pageContext.request.contextPath}/arti/test/htp')">HTP검사 시작</a>
+                        	</div>
+                        </div>
+                        
+                        <div class="TM-Right-Section" id="content-area">
+                        	<img src="/img/ArtiLogo.png">
+                        	<!-- 동적 컨텐츠 공간 -->
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
         </section>
 <%@ include file="Footer.jsp" %>
+
+<script>
+
+/* 왼쪽 메뉴에 따라 오른쪽 화면 호출 */
+function loadContent(url) {
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('content-area').innerHTML = data;
+        })
+        .catch(error => console.error('화면 호출 에러:', error));
+}
+
+</script>
 </body>
 </html>
