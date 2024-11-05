@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>ARTI</title>
+<link rel="icon" href="/img/favicon.ico">
 </head>
 <style>
 @font-face {
@@ -113,12 +114,16 @@ textarea, input {
     user-select: none;
     background-color: rgb(255, 255, 255);
 	font-family: 'STUNNING-Bd';
-	padding: 15px 0 15px 10px;
-	margin-left :
+	padding: 20px 0 15px 10px;
 	
 }
 
 .TM-Left-Menu a:hover {
+    background-color: #bef5f7;
+    color: #4781ed;
+}
+
+.TM-Left-Menu a:focus {
     background-color: #bef5f7;
     color: #4781ed;
 }
@@ -152,9 +157,10 @@ textarea, input {
                     
                         <div class="TM-Left-Section">
                         	<div class="TM-Left-Menu">
-								<a href="javascript:void(0);" onclick="loadContent('${pageContext.request.contextPath}/arti/test/info')">HTP검사 소개</a> <br>
-								<a href="javascript:void(0);" onclick="loadContent('${pageContext.request.contextPath}/arti/test/method')">HTP검사 방법</a> <br>
+								<a href="javascript:void(0);" onclick="loadContent('${pageContext.request.contextPath}/arti/test/info')">HTP검사 소개</a> 
+								<a href="javascript:void(0);" onclick="loadContent('${pageContext.request.contextPath}/arti/test/method')">HTP검사 방법</a>
 								<a href="javascript:void(0);" onclick="loadContent('${pageContext.request.contextPath}/arti/test/htp')">HTP검사 시작</a>
+								<a href="javascript:void(0);" onclick="loadContent('${pageContext.request.contextPath}/arti/test/faq')">자주묻는질문</a>
                         	</div>
                         </div>
                         

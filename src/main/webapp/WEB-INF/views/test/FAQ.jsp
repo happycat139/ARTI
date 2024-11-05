@@ -60,14 +60,13 @@
             <div class="TI-View-Box">
             
                 <header class="TI_Header">
-                    <h1>HTP검사</h1>
-                    <p class="TI_SubContent">내 아이의 마음을 확인해요</p>
+                    <h1>자주 묻는 질문</h1>
+                    <p class="TI_SubContent">궁금한게 있으신가요?</p>
                 </header>
                 
                <div class="TI-Container">
                
                     <div class="TI-Content-Container">
-                        
                     </div>
                 </div>
             </div>

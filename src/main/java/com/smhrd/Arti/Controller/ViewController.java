@@ -48,4 +48,10 @@ public class ViewController {
 		return "test/HtpTest";
 	}
 	
+	/* HTP검사 페이지 호출 */
+	@GetMapping("/arti/test/faq")
+	public String FaqPage() {
+		return "test/FAQ";
+	}
+	
 }
