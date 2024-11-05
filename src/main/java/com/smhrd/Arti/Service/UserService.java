@@ -48,5 +48,12 @@ public class UserService {
         }
     }
     
+    // 프로필 이미지 URL 업데이트
+    public void updateProfileImageUrl(Long uid, String newImageUrl) {
+        User user = repo.findById(uid).orElseThrow();
+        user.setProfileImageUrl(newImageUrl);
+        repo.save(user);
+    }
+    
 	
 }
