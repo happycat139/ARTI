@@ -129,8 +129,9 @@ textarea, input {
     align-items: left;
     justify-content: left;
     background-color: #F9F9F9 ;
-    padding:30px;
+    padding:20px;
     width: 80px;
+    height: 600px;
 }
 
 
