@@ -28,7 +28,7 @@
 				<p>또는</p>
 			</div>
 			<div class="SnsWrap">
-				<button>f</button>
+				<button><a href="/oauth2/authorization/google">구글 계정으로 로그인</a></button>
 			</div>
 			<div class="JoinWrap">
 				<p>아직 회원이 아니신가요?</p>
