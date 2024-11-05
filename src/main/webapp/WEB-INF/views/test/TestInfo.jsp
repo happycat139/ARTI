@@ -52,8 +52,7 @@
 
 .TI-Content-Container > img {
 	width: 950px;
-	padding-left: 100px;
-	padding-top: 10px;    
+	padding-top: 50px;    
 }
 
 .TI2 {
