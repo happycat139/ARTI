@@ -123,7 +123,7 @@ textarea, input {
     color: #4781ed;
 }
 
-.TM-Left-Menu a:focus {
+.TM-Left-Menu a.selected {
     background-color: #bef5f7;
     color: #4781ed;
 }
@@ -157,10 +157,10 @@ textarea, input {
                     
                         <div class="TM-Left-Section">
                         	<div class="TM-Left-Menu">
-								<a href="javascript:void(0);" onclick="loadContent('${pageContext.request.contextPath}/arti/test/info')">HTP검사 소개</a> 
-								<a href="javascript:void(0);" onclick="loadContent('${pageContext.request.contextPath}/arti/test/method')">HTP검사 방법</a>
-								<a href="javascript:void(0);" onclick="loadContent('${pageContext.request.contextPath}/arti/test/htp')">HTP검사 시작</a>
-								<a href="javascript:void(0);" onclick="loadContent('${pageContext.request.contextPath}/arti/test/faq')">자주묻는질문</a>
+								<a href="javascript:void(0);" onclick="loadContent('${pageContext.request.contextPath}/arti/test/info', this)">HTP검사 소개</a> 
+								<a href="javascript:void(0);" onclick="loadContent('${pageContext.request.contextPath}/arti/test/method', this)">HTP검사 방법</a>
+								<a href="javascript:void(0);" onclick="loadContent('${pageContext.request.contextPath}/arti/test/htp', this)">HTP검사 시작</a>
+								<a href="javascript:void(0);" onclick="loadContent('${pageContext.request.contextPath}/arti/test/faq', this)">자주묻는질문</a>
                         	</div>
                         </div>
                         
@@ -178,11 +178,16 @@ textarea, input {
 <script>
 
 /* 왼쪽 메뉴에 따라 오른쪽 화면 호출 */
-function loadContent(url) {
+function loadContent(url, element) {
     fetch(url)
         .then(response => response.text())
         .then(data => {
             document.getElementById('content-area').innerHTML = data;
+            
+         	// 모든 메뉴의 선택을 해제하고 현재 클릭된 메뉴만 선택하도록 설정
+            const links = document.querySelectorAll('.TM-Left-Menu a');
+            links.forEach(link => link.classList.remove('selected'));
+            element.classList.add('selected');
         })
         .catch(error => console.error('화면 호출 에러:', error));
 }
