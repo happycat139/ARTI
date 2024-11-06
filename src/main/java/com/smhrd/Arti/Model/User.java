@@ -2,11 +2,19 @@ package com.smhrd.Arti.Model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 public class User {
 
@@ -18,15 +26,18 @@ public class User {
 	private String nickname;
 	@Column(name = "profile_image_url")
 	private String profileImageUrl;
-	
-	// 소셜 로그인 관련 추가 필드
-	@Column(nullable = true) // nullable 설정을 명시적으로 추가할 수 있음
-	private String socialType; // 소셜 로그인 타입 (예: google)
-	
-	@Column(nullable = true)
-	private String socialId; // 소셜 로그인 시 제공되는 고유 사용자 ID
 
-    private boolean isSocial;  // 소셜 로그인 여부
+	@Enumerated(EnumType.STRING)
+	private UserRole role;
 	
-	
+	// provider : google이 들어감
+	private String provider;
+
+	// providerId : 구굴 로그인 한 유저의 고유 ID가 들어감
+	private String providerId;
+
+	// isSocial : 소셜 로그인 여부를 나타내는 필드 (기본값 false)
+	@Column(columnDefinition = "BOOLEAN DEFAULT false", nullable = false)
+	@Builder.Default
+	private Boolean isSocial= false;
 }

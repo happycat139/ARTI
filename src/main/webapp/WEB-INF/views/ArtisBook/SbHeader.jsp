@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Header</title>
-<link rel="stylesheet" href="/css/Header.css" />	
+<link rel="stylesheet" href="/css/SbHeader.css" />	
 </head>
 <body>
 		<header class="Top-Container">
@@ -14,9 +14,8 @@
                 <a href="/"><img src="/img/ArtiLogo.png"></a>
                 <div id="menu">
                     <div class="menu-container">
-                        <a href="/arti/test">심리검사</a>
-                        <a href="/arti/storybook/main">스케치북</a>
-                        <a href="#">분석결과</a>
+                        <a href="#">나의 동화책</a>
+                        <a href="#">공개 갤러리</a>
                         <a href="#">문의하기</a>
                     </div>
                     <div class="AccountContainer">

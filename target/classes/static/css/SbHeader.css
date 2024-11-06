@@ -1,0 +1,153 @@
+@charset "EUC-KR";
+@font-face {
+    font-family: 'STUNNING-Bd';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-2@1.0/STUNNING-Bd.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+		
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: white;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* 헤더 스타일 */
+.Top-Container {
+    display: flex;
+    flex: 0 0 auto;
+    width: 100%;
+    height: 80px;
+    border-bottom: 1px solid rgb(237, 237, 237);
+    z-index: 999;
+}
+
+#top-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+        
+#top-content > a > img {
+    width: 150px;
+    height: auto;
+}
+        
+a {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    outline: none;
+    touch-action: manipulation;
+}
+        
+* {
+	box-sizing: border-box;
+}
+        
+select, input, textarea, a {
+	outline: none;
+}
+
+#menu {
+    display: flex;
+    flex: 0 0 auto;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-left: auto;
+}
+
+.menu-container {
+    display: inline-flex;
+    align-items: center;
+}
+
+.menu-container a {
+    flex: 0 0 auto;
+    padding: 8px 16px;
+    color: rgb(34, 34, 34);
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 400;
+    border-radius: 8px;
+    user-select: none;
+    background-color: rgb(255, 255, 255);
+	font-family: 'STUNNING-Bd';
+}
+
+.menu-container a:hover {
+    background-color: #F7F7F7;
+}
+        
+#Account-Container {
+    flex: 0 0 auto;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+	margin-left: 40px;
+}
+        
+/* 로그인/회원가입 버튼 스타일 */
+.auth-button {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+    margin-left: 40px;
+}
+
+.auth-button:hover {
+    background-color: #F7F7F7;
+}
+
+.auth-button a {
+    margin-left: 10px;
+    margin-right: 10px;
+    text-decoration: none;
+    color: #333;
+    font-family: 'STUNNING-Bd';
+}
+
+/* 프로필 버튼 */
+.profile-btn {
+	display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+    margin-left: 40px;
+}
+
+.profile-btn a {
+    margin-left: 10px;
+    margin-right: 10px;
+    text-decoration: none;
+    color: #333;
+    font-family: 'STUNNING-Bd';
+}
+
+.profile-btn:hover {
+    background-color: #F7F7F7;
+}
+
+.rounded-profile {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    transition: border-color 0.3s;
+}

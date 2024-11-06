@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class ViewController {
 
 	/* 헤더 호출 */
-	@GetMapping("/header")
+	@GetMapping("/SbHeader")
 	public String Header() {
-		return "Header";
+		return "SbHeader";
 	}
 	
 	/* 메인 호출 */
@@ -23,6 +23,8 @@ public class ViewController {
 	public String TestPage() {
 		return "Test";
 	}
+	
+	/* 심리검사 관련 페이지 */
 	
 	/* 심리검사 페이지 호출 */
 	@GetMapping("/arti/test")
@@ -52,6 +54,14 @@ public class ViewController {
 	@GetMapping("/arti/test/faq")
 	public String FaqPage() {
 		return "test/FAQ";
+	}
+	
+	/* 스케치북 관련 페이지 */
+	
+	/* 스케치북 메인 페이지 호출 */
+	@GetMapping("/arti/storybook/main")
+	public String StMainPage() {
+		return "ArtisBook/ArtisBookMain";
 	}
 	
 }

@@ -1,5 +1,7 @@
 package com.smhrd.Arti.Repo;
 
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -19,4 +21,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Transactional
     @Query("UPDATE User u SET u.profileImageUrl = :imageUrl WHERE u.uid = :userId")
     void updateProfileImageUrl(@Param("userId") Long userId, @Param("imageUrl") String imageUrl);
+	
+	boolean existsByEmail(String email);
+    boolean existsByNickname(String nickname);
+    Optional<User> findByEmail(String email);
 }

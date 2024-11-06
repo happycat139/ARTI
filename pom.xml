@@ -94,6 +94,23 @@
     		<artifactId>spring-cloud-gcp-starter-storage</artifactId>
     		<version>3.5.0</version>
 		</dependency>
+		<!-- Spring Security OAuth2 Client -->
+    	<dependency>
+        	<groupId>org.springframework.security</groupId>
+        	<artifactId>spring-security-oauth2-client</artifactId>
+    	</dependency>
+
+    	<!-- Spring Security Starter -->
+    	<dependency>
+        	<groupId>org.springframework.boot</groupId>
+        	<artifactId>spring-boot-starter-security</artifactId>
+    	</dependency>
+
+    	<!-- Jakarta Validation API -->
+    	<dependency>
+        	<groupId>jakarta.validation</groupId>
+        	<artifactId>jakarta.validation-api</artifactId>
+    	</dependency>
 		
   </dependencies>
 
