@@ -20,7 +20,7 @@ font-style: normal;
     flex-grow: 1;
     background-color: rgb(67, 77, 104);
     overflow: hidden;
-    background-image: url('img/MainPage.png'); /* 배경 이미지 설정 */
+    background-image: url('/img/MainPage.png'); /* 배경 이미지 설정 */
     background-size: cover; /* 이미지가 div 전체를 덮도록 설정 */
     background-position: center; /* 이미지의 위치를 중앙으로 설정 */
     background-repeat: no-repeat; /* 이미지 반복 방지 */
