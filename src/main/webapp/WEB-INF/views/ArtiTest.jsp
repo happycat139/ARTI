@@ -188,10 +188,38 @@ function loadContent(url, element) {
             const links = document.querySelectorAll('.TM-Left-Menu a');
             links.forEach(link => link.classList.remove('selected'));
             element.classList.add('selected');
+            
         })
         .catch(error => console.error('화면 호출 에러:', error));
 }
 
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        console.log("Opening modal:", modalId); // 디버깅용 로그
+        modal.style.display = "block";
+    }
+}
+
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+        console.log("Closing modal:", modalId); // 디버깅용 로그
+        modal.style.display = "none";
+    }
+}
+
+window.onclick = function(event) {
+    const modals = document.querySelectorAll('.modal');
+    modals.forEach(modal => {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    });
+};
+
+
 </script>
+
 </body>
 </html>
