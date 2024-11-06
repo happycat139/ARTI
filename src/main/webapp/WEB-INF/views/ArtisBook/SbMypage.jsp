@@ -173,14 +173,26 @@ img {
 <%@ include file="SbHeader.jsp" %>
 <div class="content-wrapper">
 	<p class="p_pagetitle">나의 동화책</p>
-	<p class="p_greeting">로그인 후 이용해주세요.</p>
+	<%
+    	// 세션에서 로그인 상태 확인
+    	User user2 = (User) session.getAttribute("user");
+    	if (user2!= null) {
+    %>
+    	<p class="p_greeting">안녕하세요, <%=user.getNickname() %>님 </p>
+    <%
+    	} else {
+    %>
+		<p class="p_greeting">로그인 후 이용해주세요.</p>
+	<%
+    	} 
+    %>
 	
 	<div class="book-wrapper">
 	
 		<div class="book_info">
 			<div class="create_book">
 				<div class="create_book-inner">
-					<img src="/img/sb_create.png" style="width:21px;" alt="추가버튼">
+					<img src="/img/sb_create.png" style="width:21px;" alt="추가버튼" onclick="location.href='/arti/book/start'">
 					<p style="text-align:center;">
 						새로운 스토리
 					<br>
@@ -208,6 +220,21 @@ img {
 				<div class="book_item-coverimg"><img src="/img/file.png"></div>
 				<div class="booktitle-top-empty"></div>
 				<p>오빈의 행복 라이프</p>
+			</div>
+			<div class="book_date"></div>
+			<div class="book_info-hover"></div>
+		</div>
+		
+		<!-- sample 동화책 -->
+		<div class="book_info">
+			<div class="book_item">
+				<div class="tag_icon">
+					<img src="/img/tag-sample.png" style="width:64px;">
+				</div>
+				<div class="coverimg-top-empty"></div>
+				<div class="book_item-coverimg"><img src="/img/night.png"></div>
+				<div class="booktitle-top-empty"></div>
+				<p>오빈의 흑심</p>
 			</div>
 			<div class="book_date"></div>
 			<div class="book_info-hover"></div>

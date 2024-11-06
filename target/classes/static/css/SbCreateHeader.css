@@ -1,0 +1,95 @@
+@charset "EUC-KR";
+@font-face {
+    font-family: 'STUNNING-Bd';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-2@1.0/STUNNING-Bd.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+		
+.SBCH_Top-Container body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: white;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+/* 헤더 스타일 */
+.SBCH_Top-Container {
+    display: flex;
+    flex: 0 0 auto;
+    width: 100%;
+    height: 80px;
+    border-bottom: 1px solid rgb(237, 237, 237);
+    z-index: 999;
+    background-color: white;
+}
+
+#SBCH_top-content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+        
+#SBCH_top-content > a > img {
+    width: 150px;
+    height: auto;
+}
+        
+a {
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+    outline: none;
+    touch-action: manipulation;
+}
+        
+#SBCH_menu {
+    display: flex;
+    flex: 0 0 auto;
+    -webkit-box-align: center;
+    align-items: center;
+    margin-left: 30px;
+    
+}
+
+.SBCH_menu-container {
+    display: inline-flex;
+    align-items: center;
+}
+
+.SBCH_menu-container a {
+    flex: 0 0 auto;
+    padding: 8px 16px;
+    color: rgb(34, 34, 34);
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 400;
+    border-radius: 8px;
+    user-select: none;
+    background-color: rgb(255, 255, 255);
+	font-family: 'STUNNING-Bd';
+}
+
+.SBCH_menu-container p {
+    flex: 0 0 auto;
+    padding: 8px 16px;
+    color: #BFBFBF;
+    font-size: 16px;
+    line-height: 26px;
+    font-weight: 400;
+    border-radius: 8px;
+    user-select: none;
+    background-color: rgb(255, 255, 255);
+	font-family: 'STUNNING-Bd';
+}
+
+
+.SBCH_menu-container a:hover {
+    background-color: #F7F7F7;
+}
+        
