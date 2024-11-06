@@ -54,6 +54,18 @@
 	padding-top:5px;
 }
 
+
+.TI-FAQs{
+
+	padding:10px;
+
+
+}
+
+
+
+
+
 </style>
 <body>
 <section class="TestInfo-Container">
@@ -67,6 +79,32 @@
                <div class="TI-Container">
                
                     <div class="TI-Content-Container">
+                    
+                    
+                    <div class="TI-FAQs">
+                    
+                    	<div class="TI-FAQ">
+                    		<p> 1. 색칠은 흑백으로만 해야하나요? 색칠한 그림은 인식을 못하나요?
+                    	<div>
+                    	<div class="TI-FAQ">
+                    		<p> 1. 색칠은 흑백으로만 해야하나요? 색칠한 그림은 인식을 못하나요?
+                    	<div>
+                    	<div class="TI-FAQ">
+                    		<p> 1. 색칠은 흑백으로만 해야하나요? 색칠한 그림은 인식을 못하나요?
+                    	<div>
+                    	<div class="TI-FAQ">
+                    		<p> 1. 색칠은 흑백으로만 해야하나요? 색칠한 그림은 인식을 못하나요?
+                    	<div>
+                    	<div class="TI-FAQ">
+                    		<p> 1. 색칠은 흑백으로만 해야하나요? 색칠한 그림은 인식을 못하나요?
+                    	<div>
+                    
+                    
+                    
+                    
+                    </div>
+                    
+                    
                     </div>
                 </div>
             </div>
