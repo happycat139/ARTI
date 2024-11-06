@@ -77,15 +77,25 @@ textarea, input {
 <body>
  <section class="Test-Container">
             <div class="View-Box">
-            
-                <header class="TM_Header">
-                    <h1>나만의 동화책을 직접 만드는 경험 <br>
-						AI시대 교육 트렌드</h1>
-                    <p class="Pf_EmailContent">AI 도움으로 나만의 (한글, 영어) 동화책을 만들어 가면서, 자연스럽게 최신 생성형 <br>
-					AI 기술도 체험할 수 있고, AI 이해도와 성취감을 높여줄 수 있습니다.</p>
-                </header>
+            	<div class="">
+            		<div class="TM_Header">
+            			<h1>
+            				나만의 동화책을 직접 만드는 경험 
+            			<br>
+							AI시대 교육 트렌드
+						</h1>
+            		</div>
+            		<div class="Pf_EmailContent">
+            			<p> 
+            				AI 도움으로 나만의 (한글, 영어) 동화책을 만들어 가면서, 자연스럽게 최신 생성형 
+            			<br>
+							AI 기술도 체험할 수 있고, AI 이해도와 성취감을 높여줄 수 있습니다.
+						</p>
+            		</div>
+            		<br>
+            		<div class="btn"><img><a href="/arti/book/mypage">동화책 만들기</a></div>
                 
-               
+               </div>
             </div>
 </section>
 </body>

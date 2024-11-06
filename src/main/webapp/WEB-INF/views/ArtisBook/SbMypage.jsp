@@ -4,7 +4,8 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>ARTI</title>
+<link rel="icon" href="/img/favicon.ico">
 </head>
 <style>
 
@@ -15,11 +16,13 @@
 
 </style>
 <body>
+<%@ include file="SbHeader.jsp" %>
 <div class="content-wrapper">
 <p class="p_pagetitle">나의 동화책</p>
 <p class=""></p>
 <p class=""></p>
 <p class=""></p>
 </div>
+<%@ include file="SbFooter.jsp" %>
 </body>
 </html>
