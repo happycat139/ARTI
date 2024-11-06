@@ -57,12 +57,19 @@
 
 .TI-FAQs{
 
-	padding:10px;
+
+	padding:30px;
 
 
 }
 
-
+.TI-FAQ{
+	border: 1px solid black; /* 검정색 1px 테두리 */
+    padding: 10px; /* 안쪽 여백 */
+    width: 100%;
+    height: 100px;
+    margin-bottom: 20px;
+}
 
 
 
@@ -85,19 +92,28 @@
                     
                     	<div class="TI-FAQ">
                     		<p> 1. 색칠은 흑백으로만 해야하나요? 색칠한 그림은 인식을 못하나요?
-                    	<div>
+                    	</div>
                     	<div class="TI-FAQ">
                     		<p> 1. 색칠은 흑백으로만 해야하나요? 색칠한 그림은 인식을 못하나요?
-                    	<div>
+                    	</div>
                     	<div class="TI-FAQ">
                     		<p> 1. 색칠은 흑백으로만 해야하나요? 색칠한 그림은 인식을 못하나요?
-                    	<div>
+                    	</div>
                     	<div class="TI-FAQ">
                     		<p> 1. 색칠은 흑백으로만 해야하나요? 색칠한 그림은 인식을 못하나요?
-                    	<div>
+                    	</div>
                     	<div class="TI-FAQ">
                     		<p> 1. 색칠은 흑백으로만 해야하나요? 색칠한 그림은 인식을 못하나요?
-                    	<div>
+                    	</div>
+                    	<div class="TI-FAQ">
+                    		<p> 1. 색칠은 흑백으로만 해야하나요? 색칠한 그림은 인식을 못하나요?
+                    	</div>
+                    	<div class="TI-FAQ">
+                    		<p> 1. 색칠은 흑백으로만 해야하나요? 색칠한 그림은 인식을 못하나요?
+                    	</div>
+                    	<div class="TI-FAQ">
+                    		<p> 1. 색칠은 흑백으로만 해야하나요? 색칠한 그림은 인식을 못하나요?
+                    	</div>
                     
                     
                     
