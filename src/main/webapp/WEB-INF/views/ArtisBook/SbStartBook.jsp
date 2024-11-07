@@ -4,9 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <title>ARTI</title>
-<link rel="stylesheet" href="/css/SbStartBook.css">
-
-<!-- jQuery CDN 추가 -->
+<link rel="stylesheet" href="/css/SbSelect.css">
+<link rel="icon" href="/img/favicon.ico">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
@@ -33,7 +32,7 @@ $(document).ready(function() {
         <div class="SBC_index-page">
             <div id="SBC_name" class="SBC_title">안녕하세요 ___ 작가님!</div>
             <input id="SBC_input-field" class="SBC_writer" placeholder="작가님의 이름을 알려주세요." autocomplete="off">
-            <button id="SBC_next-button" class="SBC_submit-button index">다음</button>
+            <button id="SBC_next-button" class="SBC_submit-button index" onclick="location.href='/arti/book/select'">다음</button>
         </div>
     </div>
 </body>

@@ -17,7 +17,7 @@
                         <a href="/arti/test">심리검사</a>
                         <a href="/arti/storybook/main">스케치북</a>
                         <a href="#">분석결과</a>
-                        <a href="#">문의하기</a>
+                        <a href="/arti/board/main">문의하기</a>
                     </div>
                     <div class="AccountContainer">
                     <%
