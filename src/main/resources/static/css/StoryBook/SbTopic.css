@@ -13,65 +13,83 @@ body {
     background-color: #f7f7fc;
 }
 
-.SBC_container {
-    display: block;
-}
-
-.SBC_index-page {
-    display: block;
-    align-items: center;
-    height: auto;  /* 높이 값을 고정된 크기 대신 auto로 변경 */
+.SBT_page {
     width: 100%;
-    margin-top: 300px;  /* 고정된 위치 대신 마진을 사용해 위치 설정 */
+    display: block;
+    overflow: hidden;
+    align-items: center;
 }
 
-.SBC_title {
+.SBT_title {
     color: #000;
     text-align: center;
-    font-family: 'STUNNING-Bd';
+    font-family: "Noto Sans KR", sans-serif;
     font-size: 28px;
     font-style: normal;
     font-weight: 500;
-    line-height: 32px; /* 폰트 크기보다 크게 설정 */
-    letter-spacing: -0.56px;
-    overflow: visible; /* 텍스트가 잘리거나 숨겨지지 않도록 설정 */
+    line-height: 38px;
+    letter-spacing: 0.056px;
+    margin: 126px 0 0 0;
 }
 
-.SBC_writer {
+.SBT_Subtitle {
+    color: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 38px;
+    letter-spacing: 0.036px;
+}
+
+.SBT_input-field {
     display: block;
-    width: 34rem;
-    height: 2.75rem;
+    margin: 2.4rem auto 0.6rem;
+    width: 51.3rem;
+    height: 16.3rem;
     border: none;
     border-radius: 10px;
-    margin: 3rem auto 3rem;
-    padding-left: 10px;
+    padding: 9px 12px 9px 12px;
+    font-size: 16px;
+    font-family: "Noto Sans KR", sans-serif;
+    resize: none;
+    
 }
 
-.SBC_writer:focus {
-   	outline:none;
+.SBT_input-field:focus {
+    outline: none;
 }
 
-input {
-    font-size: 16px; /* 폰트 크기 설정 */
+.SBT_EX-content {
+    color: rgba(0, 0, 0, 0.35);
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 21px;
+    letter-spacing: 0.028px;
+    margin: 0 0 2rem calc(50vw - 412px);
+    align-self: flex-start;
+    flex-shrink: 0;
 }
 
-.SBC_submit-button.index {
+.SBT_request-button {
     display: block;
-    width: 139px;
-    height: 46px;
-    margin: 0 auto;
+    margin: 0 auto 106px;
+    width: 8.8rem;
+    height: 2.9rem;
+    flex-shrink: 0;
+    background-color: var(--story, #6133e2);
+    border: 1px solid #6133e2;
+    border-radius: 7px;
     color: #fff;
     text-align: center;
     font-family: "Noto Sans KR", sans-serif;
     font-size: 14px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 500;
     line-height: 24px;
     cursor: pointer;
 }
 
-.SBC_submit-button {
-    background-color: #6133e2;
-    border: #6133e2;
-    border-radius: 7px;
-}
