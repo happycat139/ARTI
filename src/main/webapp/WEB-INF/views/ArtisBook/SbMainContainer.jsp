@@ -73,6 +73,26 @@ textarea, input {
 	margin-top: 15px;
 } 
 
+.btn {
+	width: 165px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    border-color: transparent;
+    background: linear-gradient(to right bottom, #6C26FF, #A430FF);
+    height: 51px;
+    line-height: 51px;
+    margin-top: 25px;
+    text-align: center;
+    border-radius: 50px;
+    border: 1px solid #fff;
+    cursor: pointer;
+}
+
+.makeImg {
+	margin-right: 5px;
+}
+
 </style>
 <body>
  <section class="Test-Container">
@@ -93,7 +113,7 @@ textarea, input {
 						</p>
             		</div>
             		<br>
-            		<div class="btn"><img><a href="/arti/book/mypage">동화책 만들기</a></div>
+            		<div class="btn" onclick="location.href='/arti/book/mypage'"><img src="/img/ic_make.png" class="makeImg">동화책 만들기</div>
                 
                </div>
             </div>

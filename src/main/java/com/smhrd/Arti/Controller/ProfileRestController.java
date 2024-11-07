@@ -76,17 +76,31 @@ public class ProfileRestController {
         return response;
     }
     
+    
+    
+    /* 프로필 이미지 관련 */
+    
     @PostMapping("/image")
-    public ResponseEntity<Map<String, Object>> uploadProfileImage(@RequestParam("profileImageFile") MultipartFile file, @RequestParam("uid") Long uid) {
+    public ResponseEntity<Map<String, Object>> uploadProfileImage(@RequestParam("profileImageFile") MultipartFile file
+    															, @RequestParam("uid") Long uid
+    															, HttpSession session) {
         
     	Map<String, Object> response = new HashMap<>();
-        
+    	
+    	User user = getCurrentUserFromSession(session);
+    	
         try {
             // 파일을 Google Cloud Storage에 업로드
             String imageUrl = googleCloudStorageService.uploadFile(file);
 
             // 사용자 프로필에 새로운 이미지 URL 업데이트
             profileService.updateProfileImage(uid, imageUrl);
+            
+            // user 세션 객체 닉네임 업데이트
+            user.setProfileImageUrl(imageUrl);
+
+            // user 세션 객체 업데이트
+            session.setAttribute("user", user);
 
             response.put("success", true);
             response.put("message", "프로필 이미지 업로드 성공!");

@@ -113,6 +113,7 @@ input::placeholder {
     height: 150px;
     object-fit: cover;
     margin-top: 10px;
+    border-radius: 50%;
 }
 
 .Pr_edit-icon {
