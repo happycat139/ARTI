@@ -1,0 +1,135 @@
+@charset "EUC-KR";
+@font-face {
+    font-family: 'STUNNING-Bd';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-2@1.0/STUNNING-Bd.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'STUNNING-Bd';
+    background-color: #f7f7fc;
+}
+
+.SBS_tag {
+    width: 4.25rem;
+    height: 3.625rem;
+    border-radius: 0px 0px 10px 10px;
+    background: linear-gradient(112deg, #5e5eff -5.01%, #9533e2 96.64%);
+    color: #fff;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.0375rem;
+    box-sizing: border-box;
+    padding-top: 14px;
+    margin-right: 280px;
+}
+
+
+.SBS_page {
+    width: 100%;
+    display: block;
+    overflow: hidden;
+    align-items: center;
+}
+
+.SBS_title {
+    height: 38px;
+    color: #000;
+    text-align: center;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 38px;
+    letter-spacing: -0.56px;
+    margin: 106px 0 0 0;
+}
+
+.SBS_Container {
+    display: flex;  /* Flexbox 사용 */
+    justify-content: space-between;  /* 두 박스를 양쪽 끝으로 정렬 */
+    align-items: center;  /* 세로 중앙 정렬 */
+    width: 836px;
+    height: 474px;
+    margin: 30px auto 0;
+}
+
+.SBS_select_box {
+    display: flex;
+    flex-direction: column;  /* 아이템들을 세로로 정렬 */
+    align-items: center;  /* 중앙 정렬 */
+    border-radius: 20px;
+    border: 1px solid rgba(97, 51, 226, 0.15);
+    background: #fff;
+    width: 25.6rem;
+    height: 29.5rem;
+    margin-right: 0.75rem;
+}
+
+.SBS_select_icon {
+    margin: 72px 0 32px 0;  /* 아이콘을 중앙에 정렬 */
+}
+
+.SBS_select-icon.with-tag {
+	margin-top: 14px;
+}
+
+
+.SBS_select_box-title {
+    color: #000;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.66px;
+}
+
+.SBS_select-box-content {
+    color: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: -0.24px;
+    margin: 15px 0 43px 0;
+}
+
+.SBS_select_button.empty {
+    width: 9.6rem;
+    height: 2.9rem;
+    border-radius: 8px;
+    border: 1px solid var(--m, #6133e2);
+    color: var(--m, var(--story, #6133e2));
+    background-color: #fff;
+    margin-top: 40px;  /* 버튼을 아래쪽으로 위치시키기 */
+    cursor: pointer;
+}
+
+
+.SBS_select_button.filled {
+    width: 9.6rem;
+    height: 2.9rem;
+    border-radius: 8px;
+    background: var(--story, #6133e2);
+    color: #fff;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: -0.32px;
+    border: none;
+    margin-left: 129px;
+    cursor: pointer;
+}

@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="/css/SbCreateHeader.css">
+<link rel="stylesheet" href="/css/StoryBook/SbCreateHeader.css">
 </head>
 <body>
 <header class="SBCH_Top-Container">

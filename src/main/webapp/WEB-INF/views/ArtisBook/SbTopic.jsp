@@ -11,7 +11,7 @@
 <%@ include file="SbCreateHeader.jsp" %>
 <div class="SBS_page">   
     <div class="SBS_title">
-        이야기를 어떻게 쓸까요?
+        떠오르는 스토리를 자유롭게 적어주세요.
     </div>
     <div class="SBS_Container">
     	<div class="SBS_select_box">
@@ -40,7 +40,7 @@
     		<br>
                 AI 기술을 활용해서 글을 쓸 수 있어요.
     		</div>
-    		<button class="SBS_select_button filled" style="margin-top:40px; margin-right: 130px;">시작하기</button>
+    		<button onclick="location.href='/arti/book/topic'" class="SBS_select_button filled" style="margin-top:40px; margin-right: 130px;">시작하기</button>
     	</div>
     	
     </div>
