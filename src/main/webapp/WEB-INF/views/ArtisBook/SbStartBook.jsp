@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <title>ARTI</title>
-<link rel="stylesheet" href="/css/SbSelect.css">
+<link rel="stylesheet" href="/css/StoryBook/SbStartBook.css">
 <link rel="icon" href="/img/favicon.ico">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">

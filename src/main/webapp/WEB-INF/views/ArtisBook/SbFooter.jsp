@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>실전프로젝트 Footer</title>
-<link rel="stylesheet" href="/css/Footer.css">
+<link rel="stylesheet" href="/css/StoryBook/SbFooter.css">
 </head>
 <body>
 <footer class="footer">

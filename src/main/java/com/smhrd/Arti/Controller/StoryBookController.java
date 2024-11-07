@@ -27,4 +27,10 @@ public class StoryBookController {
 	public String SbSelectpage() {
 		return "ArtisBook/SbSelect";
 	}
+	
+	// 나의 동화책 선택 페이지 호출 
+	@GetMapping("/topic")
+	public String SbTopicpage() {
+		return "ArtisBook/SbTopic";
+	}
 }
