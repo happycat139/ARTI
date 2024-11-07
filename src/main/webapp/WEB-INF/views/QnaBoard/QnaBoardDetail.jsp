@@ -17,40 +17,27 @@
 		</div>
 		<div class="board_view_wrap">
 			<div class="board_view">
-				<div class="board_view_title">글 제목입니다</div>
+				<div class="board_view_title">${board.title}</div>
 				    <div class="board_view_info">
 					    <dl>
 						    <dt>번호</dt>
-						    <dd>1</dd>
+						    <dd>${board.idx}</dd>
 					    </dl>
 					    <dl>
 						    <dt>글쓴이</dt>
-						    <dd>김철수</dd>
+						    <dd>${board.content}</dd>
 					    </dl>
 					    <dl>
 						    <dt>작성일</dt>
-						    <dd>2024.11.06</dd>
-					    </dl>
-					    <dl>
-						    <dt>번호</dt>
-						    <dd>2</dd>
-					    </dl>
-					    <dl>
-						    <dt>글쓴이</dt>
-						    <dd>김영희</dd>
-					    </dl>
-					    <dl>
-						    <dt>작성일</dt>
-						    <dd>2024.11.06</dd>
+						    <dd>${board.created_at.toString().substring(0, 10)}</dd>
 					    </dl>
 				    </div>
 				        <div class="board_view_cont">
-					        글 내용입니다<br />
-					        글 내용입니다<br />
-					        글 내용입니다<br />
+				        	${board.content}
+						
 				        </div>
 				    <div class="bt_wrap">
-            		    <a href="/arti/board" class="on">목록</a>
+            		    <a href="/arti/board/main" class="on">목록</a>
         		    </div>
 			</div>
 		</div>
