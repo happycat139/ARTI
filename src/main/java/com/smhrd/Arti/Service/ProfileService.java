@@ -1,15 +1,12 @@
 package com.smhrd.Arti.Service;
 
-import java.io.IOException;
-import java.util.UUID;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
+import com.smhrd.Arti.Model.User;
 import com.smhrd.Arti.Repo.UserRepository;
 
-import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 
 @Service
 public class ProfileService {
@@ -17,11 +14,11 @@ public class ProfileService {
     @Autowired
     private UserRepository repo;
 
-    @Autowired
-    private HttpSession session;
-
     
-
-   
-    
+    @Transactional
+    public void updateProfileImage(Long uid, String imageUrl) {
+        User user = repo.findById(uid).orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다"));
+        user.setProfileImageUrl(imageUrl);
+        repo.save(user);
+    }
 }

@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>ARTI</title>
+<link rel="icon" href="/img/favicon.ico">
 <link rel="stylesheet" href="/css/Login.css" />
 </head>
 <body>
@@ -28,7 +29,7 @@
 				<p>또는</p>
 			</div>
 			<div class="SnsWrap">
-				<button><a href="/oauth2/authorization/google">구글 계정으로 로그인</a></button>
+				<button><a href="/oauth2/authorization/google"><img src="/img/google.png"></a></button>
 			</div>
 			<div class="JoinWrap">
 				<p>아직 회원이 아니신가요?</p>
