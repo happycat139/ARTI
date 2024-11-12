@@ -40,7 +40,7 @@
     		<br>
                 AI 기술을 활용해서 글을 쓸 수 있어요.
     		</div>
-    		<button onclick="location.href='arti/book/topic'" class="SBS_select_button filled" style="margin-top:40px; margin-right: 130px;">시작하기</button>
+    		<button onclick="location.href='${pageContext.request.contextPath}/arti/book/topic'" class="SBS_select_button filled" style="margin-top:40px; margin-right: 130px;">시작하기</button>
     	</div>
     	
     </div>
