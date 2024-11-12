@@ -33,4 +33,12 @@ public class StoryBookController {
 	public String SbTopicpage() {
 		return "ArtisBook/SbTopic";
 	}
+	
+	// 나의 동화책 선택 페이지 호출 
+	@GetMapping("/outline")
+	public String SbOutLinepage() {
+		return "ArtisBook/SbOutLine";
+	}
+	
+	
 }

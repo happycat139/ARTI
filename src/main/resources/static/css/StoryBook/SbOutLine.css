@@ -1,0 +1,198 @@
+@charset "EUC-KR";
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Noto Sans KR", sans-serif;
+    background-color: #f7f7fc;
+}
+
+.SO_Page {
+    display: block;
+    width: 100%;
+    padding-bottom: 76px;
+}
+
+.SO_Title.outline {
+    color: #000;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 38px;
+    letter-spacing: 0.056px;
+    margin-top: 86px;
+}
+
+.SO_SubTitle.outline {
+    color: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 38px;
+    letter-spacing: 0.036px;
+}
+
+.SO_Container {
+    display: flex;
+    flex-direction: row;
+}
+
+.SO_ElementBox {
+    width: 25.9rem;
+    height: 29.4rem;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    margin: 2.9rem 0.7rem 1.6rem calc(20vw - 117px);
+    padding-top: 1.6rem;
+}
+
+.SO_ElementCon {
+    display: flex;
+    flex-direction: row;
+}
+
+.SO_label.small {
+    float: left;
+    color: #000;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 25px;
+    letter-spacing: 0.03px;
+    margin: 19px 0 0 39px;
+    width: 46px;
+}
+
+.SO_element {
+    color: rgba(0, 0, 0, 0.7);
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.03px;
+    margin: 19px 0 0 1rem;
+    width: 16.7rem;
+    flex-shrink: 0;
+}
+
+.SO_OutlineBox {
+    width: 61.9rem;
+    height: 29.4rem;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.15);
+    margin: 2.9rem 10vw 0 0;
+    padding: 2.7rem 3.1rem 2.7rem 3.1rem;
+    box-sizing: border-box;
+}
+
+.SO_label.medium {
+    color: #000;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 25px;
+    letter-spacing: 0.03px;
+    margin-right: 7px;
+    float: left;
+}
+
+.SO_Content {
+    width: 55.6rem;
+    height: 20.8rem;
+    flex-shrink: 0;
+    color: rgba(0, 0, 0, 0.7);
+    font-family: "Nanum Myeongjo", serif;
+    transform: rotate(0.04deg);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 33px;
+    letter-spacing: -0.48px;
+    overflow-y: auto;
+    margin-top: 20px;
+}
+
+.SO_button-container {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0 0 calc(20vw - 117px);
+}
+
+.SO_modifyBtn {
+    width: 8.4rem;
+    height: 2.9rem;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid var(--m, #6133e2);
+    background: #fff;
+    color: var(--m, var(--story, #6133e2));
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.SO_modifyIcon {
+    margin-right: 6px;
+}
+
+.SO_pagination {
+    display: flex;
+    flex-direction: row;
+    margin: 0 28.5rem 0 24.3rem;
+}
+
+.SO_PageLabel {
+    color: #000;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: 0.032px;
+    width: 105px;
+    margin: 11px 30px 0 30px;
+}
+
+.submit-button.outline {
+    width: 14rem;
+    height: 3rem;
+}
+
+.SO_submitBtn {
+ 
+    flex-shrink: 0;
+    background-color: #6133e2;
+    border: #6133e2;
+    border-radius: 7px;
+    color: #fff;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    cursor: pointer;
+    margin-right: 400px; 
+}
+
+.SO_nextIcon {
+    margin-left: 9px;
+    cursor: pointer;
+}
