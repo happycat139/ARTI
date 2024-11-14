@@ -16,7 +16,7 @@
     <div class="SBT_Subtitle">
         ARTI가 적은 내용을 토대로 줄거리를 만들어드려요.
     </div>
-    <form action="/gpt/generateStoryline" method="post">
+    <form action="/arti/book/outline" method="post">
     <textarea class="SBT_input-field" name="prompt" placeholder="동화책의 내용을 적어주세요."></textarea>
 	<div class="SBT_EX-content">
 		예시1) 소피아가 신비로운 마법의 숲을 탐험하며 친구들과 함께 숲을 지켜내는 이야기

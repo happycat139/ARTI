@@ -1,12 +1,22 @@
 package com.smhrd.Arti.Controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.smhrd.Arti.Service.ChatGPTService;
 
 @Controller
 @RequestMapping("/arti/book")
 public class StoryBookController {
+	
+	
+
+
 
 	/* 페이지 관련 뷰 컨트롤러 */
 	
@@ -41,4 +51,26 @@ public class StoryBookController {
 	}
 	
 	
+	
+	// GPT api를 이용한 생성 기능
+	
+	private final ChatGPTService chatGPTService;
+	
+	@Autowired
+	public StoryBookController(ChatGPTService chatGPTService) {
+		this.chatGPTService = chatGPTService;
+	} 
+	
+	// 동화 줄거리 생성
+	@PostMapping("/outline")
+	public String generateStoryline(@RequestParam("prompt") String prompt, Model model) {
+
+		String storyline = chatGPTService.generateStoryline(prompt);
+		
+		model.addAttribute("storyline", storyline);
+		model.addAttribute("prompt", prompt); 
+		
+
+		return "ArtisBook/SbOutLine";  
+	}
 }

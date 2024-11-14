@@ -22,7 +22,7 @@ public class ChatGPTService {
 	private final RestTemplate restTemplate;
 
     // 줄거리 생성용 모델 설정
-    private final String storylineModel = "gpt-3.5-turbo";
+    private final String storylineModel = "gpt-4";
     private final String url = "https://api.openai.com/v1/chat/completions";
 
     @Autowired
@@ -33,7 +33,9 @@ public class ChatGPTService {
     public String generateStoryline(String prompt) {
     	
     	// 동화 형식으로 요청하는 메시지를 작성
-        String storyPrompt = prompt + " 이 주제로 동화 줄거리를 작성해 주세요. 대상은 초등학교 저학년입니다. 동화책에 들어갈 내용만 담아주세요.";
+        String storyPrompt = prompt + "라는 주제를 바탕으로 초등학교 저학년 수준의 동화를 11문단 분량으로 만들어줘. 만들 때 최대한 한국 유아 동화 스타일을 참고해주고 \n"
+        		+ "\n"
+        		+ "제목 , 장르, 배경, 주제, 주인공 이렇게 요약본도 따로 간단하게 알려줘 끝 붙이지마. 그리고 숫자도 붙이지 마 동화책에 들어갈 내용만 담아.";
     	
         // messages 파라미터 구성 (ChatMessage 객체로)
         List<ChatMessage> messages = Arrays.asList(
