@@ -8,14 +8,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.smhrd.Arti.Model.StoryBook;
 import com.smhrd.Arti.Service.ChatGPTService;
+import com.smhrd.Arti.Service.StoryBookService;
 
 @Controller
 @RequestMapping("/arti/book")
 public class StoryBookController {
 	
 	
-
+	@Autowired
+	StoryBookService service;
 
 
 	/* 페이지 관련 뷰 컨트롤러 */
@@ -66,6 +69,7 @@ public class StoryBookController {
 	public String generateStoryline(@RequestParam("prompt") String prompt, Model model) {
 
 		String storyline = chatGPTService.generateStoryline(prompt);
+		service.saveStoryline(storyline);
 		
 		model.addAttribute("storyline", storyline);
 		model.addAttribute("prompt", prompt); 
