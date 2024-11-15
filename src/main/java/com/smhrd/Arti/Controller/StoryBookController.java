@@ -47,10 +47,16 @@ public class StoryBookController {
 		return "ArtisBook/SbTopic";
 	}
 	
-	// 나의 동화책 선택 페이지 호출 
+	// 나의 동화책 줄거리 결과 페이지 호출 
 	@GetMapping("/outline")
 	public String SbOutLinepage() {
 		return "ArtisBook/SbOutLine";
+	}
+	
+	// 동화생성전 페이지 호출
+	@GetMapping("/plot")
+	public String SbPlotpage() {
+		return "ArtisBook/SbPlot";
 	}
 	
 	
