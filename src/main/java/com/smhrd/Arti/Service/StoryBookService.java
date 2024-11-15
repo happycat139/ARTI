@@ -8,6 +8,8 @@ import com.smhrd.Arti.Model.StoryBook;
 import com.smhrd.Arti.Repo.StoryBookRepository;
 import com.smhrd.Arti.Repo.StoryRepository;
 
+import jakarta.servlet.http.HttpSession;
+
 @Service
 public class StoryBookService {
 
@@ -17,13 +19,18 @@ public class StoryBookService {
 	@Autowired
 	StoryRepository repo2;
 	
-	public void saveStoryline(String storyline) {
+	public void saveStoryline(String storyline, HttpSession session) {
+		
+		// 입력받았던 작가 이름 가져오기
+		String b_writer = (String) session.getAttribute("b_writer");
+		
         String[] pages = storyline.split("###");
 
         Story story = new Story();
         story.setB_title(pages.length > 0 ? pages[0] : null);
         story.setB_genre(pages.length > 1 ? pages[1] : null);
         story.setB_Theme(pages.length > 3 ? pages[3] : null);
+        story.setB_writer(b_writer);
         Story savedStory = repo2.save(story);
         
         StoryBook storyBook = new StoryBook();

@@ -12,6 +12,8 @@ import com.smhrd.Arti.Model.StoryBook;
 import com.smhrd.Arti.Service.ChatGPTService;
 import com.smhrd.Arti.Service.StoryBookService;
 
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/arti/book")
 public class StoryBookController {
@@ -31,13 +33,14 @@ public class StoryBookController {
 	
 	// 나의 동화책 작가 등록 페이지 호출 
 	@GetMapping("/start")
-	public String SbCreatepage() {
+	public String SbCreatepage() {		
 		return "ArtisBook/SbStartBook";
 	}
 	
 	// 나의 동화책 선택 페이지 호출 
 	@GetMapping("/select")
-	public String SbSelectpage() {
+	public String SbSelectpage(@RequestParam("b_writer") String b_writer, HttpSession session) {
+		session.setAttribute("b_writer", b_writer.trim());
 		return "ArtisBook/SbSelect";
 	}
 	
@@ -72,11 +75,11 @@ public class StoryBookController {
 	
 	// 동화 줄거리 생성
 	@PostMapping("/outline")
-	public String generateStoryline(@RequestParam("prompt") String prompt, Model model) {
+	public String generateStoryline(@RequestParam("prompt") String prompt, Model model, HttpSession session) {
 
 		String storyline = chatGPTService.generateStoryline(prompt);
 		
-		service.saveStoryline(storyline);
+		service.saveStoryline(storyline, session);
 		
 		model.addAttribute("storyline", storyline);
 		model.addAttribute("prompt", prompt); 

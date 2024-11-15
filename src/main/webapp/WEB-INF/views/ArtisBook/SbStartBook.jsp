@@ -30,9 +30,11 @@ $(document).ready(function() {
 
     <div class="SBC_container">
         <div class="SBC_index-page">
+        <form action="/arti/book/select" method="get">
             <div id="SBC_name" class="SBC_title">안녕하세요 ___ 작가님!</div>
-            <input id="SBC_input-field" class="SBC_writer" placeholder="작가님의 이름을 알려주세요." autocomplete="off">
-            <button id="SBC_next-button" class="SBC_submit-button index" onclick="location.href='/arti/book/select'">다음</button>
+            <input id="SBC_input-field" class="SBC_writer" name="b_writer" placeholder="작가님의 이름을 알려주세요." autocomplete="off">
+            <button type="submit" id="SBC_next-button" class="SBC_submit-button index">다음</button>
+        </form>
         </div>
     </div>
 </body>
