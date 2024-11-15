@@ -1,0 +1,364 @@
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    font-family: "Noto Sans KR", sans-serif;
+    background-color: #f7f7fc;
+}
+
+
+/* SbPlot 관련 CSS */
+
+/* 상단 제목 div */
+.SbPlot-page {
+    display: block;
+    width: 100%;
+    padding-bottom: 86px;
+    overflow: hidden;
+}
+
+.SbPlot-Title.plot {
+    color: #000;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 38px;
+    letter-spacing: 0.056px;
+    margin-top: 86px;
+}
+
+.SbPlot-Title{
+	text-align: center;
+}
+
+.SBPlot-SubTitle.plot {
+    color: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 38px;
+    letter-spacing: 0.036px;
+    margin-bottom: 1.75rem;
+}
+
+/* 플롯 구역 div */
+
+.SbPlot-view {
+    width: 100vw;
+    display: flex;
+    background: rgba(190, 190, 224, 0.1);
+    flex-direction: row;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    margin-bottom: 21px;
+    cursor: default;
+}
+
+.SbPlot-box {
+    width: 428px;
+    min-height: 408px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.15);
+    padding: 1rem;
+    padding-bottom: 2rem;
+    margin: 1rem;
+    flex-shrink: 0;
+}
+
+.SbPlot-index {
+    color: #000;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 25px;
+    letter-spacing: 0.03px;
+    margin: 22px 0 0 35px;
+}
+
+.SbPlot-Content {
+    color: rgba(0, 0, 0, 0.7);
+    font-family: "Nanum Myeongjo", serif;
+    transform: rotate(0.04deg);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 31px;
+    letter-spacing: 0.032px;
+    margin: 12px 27px 10px 35px;
+    padding-right: 8px;
+    max-height: 23.5rem;
+    overflow-x: auto;
+}
+
+/* 밑에 버튼 div */
+
+.SbPlot-BtnContainer {
+    display: flex;
+    flex-direction: row;
+    margin: 0 0 0 calc(20vw - 117px);
+}
+
+.SbModify-btn {
+    width: 8.4rem;
+    height: 2.9rem;
+    flex-shrink: 0;
+    border-radius: 5px;
+    border: 1px solid var(--m, #6133e2);
+    background: #fff;
+    color: var(--m, var(--story, #6133e2));
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    cursor: pointer;
+}
+
+.SbModify-btn-icon {
+    margin-right: 6px;
+}
+
+.SbPlotPagination.plot {
+    margin: 0 calc(35vw - 220px) 0 calc(35vw - 220px);
+}
+
+.SbPlotPagination {
+    display: flex;
+    flex-direction: row;
+}
+
+.SbPlotPage-label {
+    color: #000;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 25px;
+    letter-spacing: 0.032px;
+    width: 105px;
+    margin: 11px 30px 0 30px;
+}
+
+.SbSubmit-btn.plot {
+    width: 165px;
+    height: 46px;
+    flex-shrink: 0;
+    color: #fff;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    cursor: pointer;
+}
+
+.SbSubmit-btn {
+    background-color: #6133e2;
+    border: #6133e2;
+    border-radius: 7px;
+}
+
+.SbSubmit-Nextbtn {
+    margin-left: 9px;
+    cursor: pointer;
+}
+
+/* 모달 관련 */
+
+.SbPlot-ConfirmModalBack {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    z-index: 2;
+}
+
+.SbPlot-ConfirmModal {
+    width: 432px;
+    height: 252px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background-color: #fff;
+    box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.15);
+    position: fixed;
+    top: 40%;
+    left: calc(50vw - 220px);
+}
+
+.SBP-closeBtn {
+    margin: 20.3px 0 0 392px;
+    cursor: pointer;
+}
+
+.SbPlotModalIcon {
+    margin: 0 192px 14px 192px;
+}
+
+.SbPlot-Highlight.plot {
+    margin-left: 110px;
+}
+
+.SbPlot-Highlight {
+    color: var(--m, #6133e2);
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    float: left;
+    margin-left: 95px;
+}
+
+.SbPlot-ModalTitle {
+    color: #000;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+}
+
+.SbPlot-ModalSubTitle {
+    color: rgba(0, 0, 0, 0.8);
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+}
+
+.SbPlot-CancelBtn {
+    width: 144px;
+    height: 46px;
+    flex-shrink: 0;
+    background-color: #fff;
+    border-radius: 8px;
+    border: 1px solid var(--m, #6133e2);
+    color: var(--m, var(--story, #6133e2));
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    margin: 26px 12px 0 66px;
+    cursor: pointer;
+}
+
+.SbPlotModal-Btn {
+    width: 144px;
+    height: 46px;
+    flex-shrink: 0;
+    border: 1px solid #6133e2;
+    border-radius: 8px;
+    background: var(--story, #6133e2);
+    color: #fff;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+/* 플롯 수정 관련 CSS */
+
+.SbPlot-ModifyModalBack {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    z-index: 2;
+}
+
+.SbPlot-ModifyModal {
+    width: 663px;
+    height: 520px;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.15);
+    position: fixed;
+    left: calc(50vw - 317px);
+    top: 22%;
+    
+}
+
+.SbPlotModalCloseBtn {
+    margin: 20px 0 15px 582px;
+}
+
+.SbPlot-ModifyTitle {
+    color: #000;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+}
+
+.SbPlot-ModifyInput {
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 20px;
+    width: 570px;
+    height: 276px;
+    border-radius: 8px;
+    border: white;
+    resize: none;
+    background: #f4f4fc;
+    margin: 24px 0 20px 30px;
+    padding: 16px;
+}
+
+.SbPlot-ModifyInput:focus {
+	outline:none;
+	border:none;
+}
+
+.Modify-SBPModal-btn {
+    float: right;
+    width: 234px;
+    height: 46px;
+    margin: 0 35px 0 15px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 1px solid #6133e2;
+    background-color: var(--story, #6133e2);
+    color: #fff;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.Modify-SBPModal-credit {
+    color: rgba(0, 0, 0, 0.7);
+    text-align: right;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 46px;
+    float: right;
+}
