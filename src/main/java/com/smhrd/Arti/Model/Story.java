@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "TB_Story")
+@Table(name = "tb_story")
 public class Story {
 
 	private Long uid;

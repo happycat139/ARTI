@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.smhrd.Arti.Model.Story;
 import com.smhrd.Arti.Model.StoryBook;
+import com.smhrd.Arti.Model.User;
 import com.smhrd.Arti.Repo.StoryBookRepository;
 import com.smhrd.Arti.Repo.StoryRepository;
 
@@ -23,6 +24,8 @@ public class StoryBookService {
 		
 		// 입력받았던 작가 이름 가져오기
 		String b_writer = (String) session.getAttribute("b_writer");
+		User user = (User)session.getAttribute("user");
+		
 		
         String[] pages = storyline.split("###");
 
@@ -31,6 +34,7 @@ public class StoryBookService {
         story.setB_genre(pages.length > 1 ? pages[1] : null);
         story.setB_Theme(pages.length > 3 ? pages[3] : null);
         story.setB_writer(b_writer);
+        story.setUid(user.getUid());
         Story savedStory = repo2.save(story);
         
         StoryBook storyBook = new StoryBook();
