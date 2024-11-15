@@ -17,7 +17,6 @@ import lombok.NoArgsConstructor;
 public class StoryBook {
 	
 	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long b_id;
 	
     private String b_content1;

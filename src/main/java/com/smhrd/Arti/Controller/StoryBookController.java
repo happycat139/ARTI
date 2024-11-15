@@ -75,6 +75,7 @@ public class StoryBookController {
 	public String generateStoryline(@RequestParam("prompt") String prompt, Model model) {
 
 		String storyline = chatGPTService.generateStoryline(prompt);
+		
 		service.saveStoryline(storyline);
 		
 		model.addAttribute("storyline", storyline);
