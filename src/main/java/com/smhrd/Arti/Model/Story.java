@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -27,9 +28,14 @@ public class Story {
 	private Long uid;
     private String b_writer;
     private String b_title;
+    private String b_background;
     private String b_thumbnail;
     private String b_genre;
     private String b_Theme;
+    private String b_mc;
+    
+    @Column(name = "b_summary", columnDefinition = "TEXT")
+    private String b_summary;
     
     @CreatedDate
     private LocalDateTime b_create_date;
