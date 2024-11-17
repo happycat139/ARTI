@@ -51,6 +51,7 @@ public class StoryBookService {
 
 	public void saveStory(String storyline, HttpSession session) {
 
+		// 이전 페이지의 동화 정보 가져오기
 		Story story = (Story) session.getAttribute("story");
 		
 		String[] pages = storyline.split("###");

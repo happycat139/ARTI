@@ -22,6 +22,16 @@ public class StoryBookController {
 	@Autowired
 	StoryBookService service;
 
+	// GPT api를 이용한 생성 기능
+	private final ChatGPTService chatGPTService;
+	
+	@Autowired
+	public StoryBookController(ChatGPTService chatGPTService) {
+		this.chatGPTService = chatGPTService;
+	}
+	
+	
+
 	/* 페이지 관련 뷰 컨트롤러 */
 
 	// 나의 동화책 페이지 호출
@@ -49,22 +59,8 @@ public class StoryBookController {
 		return "ArtisBook/SbTopic";
 	}
 
-	// 나의 동화책 줄거리 결과 페이지 호출
-	@GetMapping("/outline")
-	public String SbOutLinepage() {
-		return "ArtisBook/SbOutLine";
-	}
-
-	// GPT api를 이용한 생성 기능
-
-	private final ChatGPTService chatGPTService;
-
-	@Autowired
-	public StoryBookController(ChatGPTService chatGPTService) {
-		this.chatGPTService = chatGPTService;
-	}
-
-	// 동화 틀 생성
+	
+	// 동화 제목, 장르, 배경, 주제, 주인공 생성
 	@PostMapping("/outline")
 	public String SbOutlinepage(@RequestParam("prompt") String prompt, Model model, HttpSession session) {
 
@@ -78,7 +74,7 @@ public class StoryBookController {
 		return "ArtisBook/SbOutLine";
 	}
 
-	// 동화생성전 페이지 호출
+	// 동화 생성 전 임시 페이지 호출
 	@GetMapping("/plot")
 	public String SbPlotpage(HttpSession session) {
 
