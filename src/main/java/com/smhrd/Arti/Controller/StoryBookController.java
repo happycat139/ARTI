@@ -74,7 +74,7 @@ public class StoryBookController {
 		return "ArtisBook/SbOutLine";
 	}
 
-	// 동화 생성 전 임시 페이지 호출
+	// 임시 줄거리 페이지 호출
 	@GetMapping("/plot")
 	public String SbPlotpage(HttpSession session) {
 

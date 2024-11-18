@@ -1,6 +1,5 @@
 package com.smhrd.Arti.Model;
 
-import java.sql.Date;
 import java.time.LocalDateTime;
 
 import org.springframework.data.annotation.CreatedDate;
