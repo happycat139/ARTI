@@ -29,8 +29,9 @@
 					    </dl>
 					    <dl>
 						    <dt>작성일</dt>
-						    <dd>${board.created_at.toString().substring(0, 10)}</dd>
+						    <dd>${board.createdAt.toString().substring(0, 10)}</dd>
 					    </dl>
+					    <button onclick="deletePost(${board.idx})">삭제</button>
 				    </div>
 				        <div class="board_view_cont">
 				        	${board.content}
@@ -44,5 +45,24 @@
 	
 	</div>
 <jsp:include page="/WEB-INF/views/Footer.jsp" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function deletePost(idx) {
+        if (confirm("게시글을 삭제하시겠습니까?")) {
+            $.ajax({
+                url: `/arti/board/delete/${idx}`,
+                type: 'DELETE',
+                success: function(response) {
+                    alert("게시글이 삭제되었습니다.");
+                    location.href = "/arti/board/main";
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error:", error);
+                    alert("게시글 삭제에 실패했습니다.");
+                }
+            });
+        }
+    }
+</script>
 </body>
 </html>
