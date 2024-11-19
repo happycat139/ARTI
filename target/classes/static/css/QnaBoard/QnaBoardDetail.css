@@ -1,156 +1,157 @@
 @charset "EUC-KR";
 
 * {
-    	margin: 0;
-        padding: 0;
-    }
-    
-    html {
-        font-size: 10px;
-    }
-    
-    .board_wrap {
-        width: 1000px;
-        margin: 100px auto;
-    }
-    
-    .board_title {
-        margin-bottom: 30px;
-        /* 문의사항 밑으로 공백 */
-    }
-    
-    .board_title strong {
-        font-size: 3rem;
-    }
-    
-    .board_title p {
-        margin-top: 5px;
-        font-size: 1.4rem;
-    }
-    
-    .bt_wrap {
-        margin-top: 30px;
-        text-align: center;
-        font-size: 0;
-        text-align: center;
-    }
-    /* 버튼 사이의 여백 없애기 */
+	margin: 0;
+	padding: 0;
+}
 
-    .bt_wrap a {
-        display: inline-block;
-        min-width: 80px;
-        margin-left: 10px;
-        padding: 10px;
-        border: 1px solid #000;
-        border-radius: 2px;
-        font-size: 1.4rem;
-    }
-    
-    .bt_wrap a:first-child {
-        margin-left: 0;
-    }
-    
-    .bt_wrap a.on {
-        background: #000;
-        color: #fff;
-    }
-    
-	.board_view{
-		width: 100%;
-		border-top: 2px solid #000;
-		font-size: 1.4rem;
-	}
-		
-	.board_view_title {
-		padding: 20px 15px;
-		border-bottom: 1px dashed #ddd;
-		font-size: 2rem;
-	}
-		
-	.board_view_info {
-		padding: 15px;	
-		border-bottom: 1px solid #999;
-		font-size: 0;
-	}
-		
-	.board_view_info dl {
-		position: relative;
-		display: inline-block;
-		padding: 0 20px;
-	}
-		
-	.board_view_info dl:first-child {
-		padding-left: 0;
-	}
-		
-	.board_view_info dl::before {
-		content: "";
-		display: block;
-		width: 1px;
-		height: 13px;
-		background:  #ddd;
-		position: absolute;
-		top: 1px;
-		left: 0;
-	}
-		
-	.board_view_info dl:first-child::before {
-		display: none;
-	}
-		
-	.board_view_info dl dt,
-	.board_view_info dl dd {
-		display: inline-block;
-		font-size: 1.4rem;
-	}
-		
-	.board_view_info dl dd {
-		margin-left: 10px;
-		color: #777;
-	}
-		
-	.board_view_cont {
-		padding: 15px;
-		border-bottom: 1px solid #000;
-		line-height: 160%;
-		font-size: 1.4rem;
-	}
-	
+html {
+	font-size: 10px;
+}
+
+.board_wrap {
+	width: 1000px;
+	margin: 100px auto;
+}
+
+.board_title {
+	margin-bottom: 30px;
+	/* 문의사항 밑으로 공백 */
+}
+
+.board_title strong {
+	font-size: 3rem;
+}
+
+.board_title p {
+	margin-top: 5px;
+	font-size: 1.4rem;
+}
+
+.bt_wrap {
+	margin-top: 30px;
+	text-align: center;
+	font-size: 0;
+	text-align: center;
+}
+/* 버튼 사이의 여백 없애기 */
+.bt_wrap a {
+	display: inline-block;
+	min-width: 80px;
+	margin-left: 10px;
+	padding: 10px;
+	border: 1px solid #000;
+	border-radius: 2px;
+	font-size: 1.4rem;
+}
+
+.bt_wrap a:first-child {
+	margin-left: 0;
+}
+
+.bt_wrap a.on {
+	background: #000;
+	color: #fff;
+}
+
+.board_view {
+	width: 100%;
+	border-top: 2px solid #000;
+	font-size: 1.4rem;
+}
+
+.board_view_title {
+	padding: 20px 15px;
+	border-bottom: 1px dashed #ddd;
+	font-size: 2rem;
+}
+
+.board_view_info {
+	padding: 15px;
+	border-bottom: 1px solid #999;
+	font-size: 0;
+}
+
+.board_view_info dl {
+	position: relative;
+	display: inline-block;
+	padding: 0 20px;
+}
+
+.board_view_info dl:first-child {
+	padding-left: 0;
+}
+
+.board_view_info dl::before {
+	content: "";
+	display: block;
+	width: 1px;
+	height: 13px;
+	background: #ddd;
+	position: absolute;
+	top: 1px;
+	left: 0;
+}
+
+.board_view_info dl:first-child::before {
+	display: none;
+}
+
+.board_view_info dl dt, .board_view_info dl dd {
+	display: inline-block;
+	font-size: 1.4rem;
+}
+
+.board_view_info dl dd {
+	margin-left: 10px;
+	color: #777;
+}
+
+.board_view_cont {
+	padding: 15px;
+	border-bottom: 1px solid #000;
+	line-height: 160%;
+	font-size: 1.4rem;
+}
 
 .admin_reply_wrap {
     margin-top: 30px;
-    padding: 20px 15px; /* 상단과 동일한 패딩 */
+    padding: 20px 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
     background-color: #f9f9f9;
-    width: 65%; /* 상단과 동일한 너비 */
+    width: 65%; /* 기본 너비 */
+    max-width: 1100px; /* 최대 너비 제한 */
+    min-width: 300px; /* 최소 너비 제한 */
     box-sizing: border-box;
-    font-size: 1.4rem; /* 글씨 크기 조정 */
-    margin-left: 270px;
+    font-size: 1.4rem;
+    margin-left: auto; /* 가운데 정렬 */
+    margin-right: auto; /* 가운데 정렬 */
     margin-bottom: 100px;
 }
 
-.admin_reply_wrap form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* 각 요소 간 간격 */
-}
-
 .admin_reply_wrap textarea {
-    width: 100%; /* 상단 너비와 맞춤 */
-    height: 150px; /* 상단 높이와 비슷하게 */
+    width: 100%; /* 부모 요소의 너비에 맞춤 */
+    height: 150px;
     padding: 10px;
-    font-size: 1.4rem; /* 글씨 크기 조정 */
+    font-size: 1.4rem;
     border: 1px solid #ccc;
     border-radius: 4px;
     resize: none; /* 크기 조절 비활성화 */
     box-sizing: border-box;
+    display: block; /* 텍스트 영역이 블록 요소로 표시되도록 설정 */
 }
 
-.admin_reply_wrap button {
-    align-self: flex-end; /* 오른쪽 정렬 */
-    padding: 8px 14px; /* 버튼 크기 조정 */
-    font-size: 1.2rem; /* 버튼 글씨 크기 조정 */
+.button_wrap {
+    display: flex;
+    justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
+    margin-top: 10px; /* textarea와 버튼 간격 */
+    margin-right: 2px;
+}
+
+.button_wrap button {
+    padding: 8px 14px;
+    font-size: 1.2rem;
     color: #fff;
     background-color: #000;
     border: none;
@@ -158,9 +159,19 @@
     transition: background-color 0.3s ease;
 }
 
-.answer img {
-    width: 25px; 
-    height: 25px;
-    vertical-align: middle; /* 텍스트와 이미지 정렬 */
+/* 관리자 답변 추가 */
+.admin_answer {
+	margin-top: 20px;
+	padding: 10px;
+	background-color: #eef5ff;
+	border-left: 4px solid #007BFF;
+	border-radius: 5px;
+	color: #333;
+	font-size: 1.4rem;
 }
-	
+
+.answer img {
+	width: 25px;
+	height: 25px;
+	vertical-align: middle; /* 텍스트와 이미지 정렬 */
+}

@@ -36,8 +36,9 @@ public class QnaBoard {
 	@Column(name = "is_answered", columnDefinition = "TINYINT DEFAULT 0")
 	private Boolean isAnswered = false;
 	
-	@Column(name = "answer") // 새 컬럼
-    private String answer;
+	@Column(name = "answer")
+	private String answer = null;
+
 	
 	
 	

@@ -35,13 +35,26 @@
 					</dl>
 					<dl>
 						<dt>답변여부</dt>
-						<dd class="answer"><img
+						<dd class="answer">
+							<img
 								src="/img/${board.isAnswered ? 'board_yes.png' : 'board_no.png'}"
-								alt="답변 여부"></dd>
+								alt="답변 여부">
+						</dd>
 					</dl>
 					<button onclick="deletePost(${board.idx})">삭제</button>
 				</div>
 				<div class="board_view_cont">${board.content}</div>
+
+				<!-- 답변 내용 표시 -->
+				<c:if test="${board.isAnswered}">
+					<div class="admin_answer">
+						<strong>관리자 답변:</strong>
+						<p>${board.answer}</p>
+					</div>
+				</c:if>
+
+
+
 				<div class="bt_wrap">
 					<a href="/arti/board/main" class="on">목록</a>
 				</div>
@@ -53,10 +66,12 @@
 	<!-- 관리자 답변 폼 -->
 	<c:if test="${sessionScope.user.role == 'ADMIN'}">
 		<div class="admin_reply_wrap">
-			<form id="adminReplyForm" action="/arti/board/reply" method="post">
-				<input type="hidden" name="boardIdx" value="${board.idx}">
+			<form id="adminReplyForm">
+				<input type="hidden" name="idx" value="${board.idx}">
 				<textarea name="replyContent" placeholder="답변 내용을 입력하세요." required></textarea>
-				<button type="submit">답변하기</button>
+				<div class="button_wrap">
+					<button type="submit">${board.isAnswered ? '답변변경' : '답변하기'}</button>
+				</div>
 			</form>
 		</div>
 	</c:if>
@@ -89,6 +104,62 @@
             });
         }
     }
+    
+    
+ // 폼 제출 이벤트를 가로챔
+    document.getElementById("adminReplyForm").addEventListener("submit", function (e) {
+    e.preventDefault(); // 기본 폼 제출 동작 막기
+
+    const idx = document.querySelector("input[name='idx']").value;
+    const replyContent = document.querySelector("textarea[name='replyContent']").value;
+
+    if (!replyContent.trim()) {
+        alert("답변 내용을 입력하세요.");
+        return;
+    }
+
+    // AJAX 요청
+    $.ajax({
+        url: "/arti/board/reply",
+        type: "POST",
+        data: {
+            idx: idx,
+            replyContent: replyContent
+        },
+        success: function (response) {
+            alert(response.message);
+
+         // 기존 답변이 있는지 확인
+            const existingAnswerDiv = document.querySelector(".admin_answer");
+            if (existingAnswerDiv) {
+                // 기존 답변 내용 수정
+                existingAnswerDiv.innerHTML = "<strong>관리자 답변:</strong><p>" + response.answer + "</p>";
+            } else {
+                // 새 답변 추가
+                const answerDiv = document.createElement("div");
+                answerDiv.className = "admin_answer"; // 클래스 추가
+                answerDiv.innerHTML = "<strong>관리자 답변:</strong><p>" + response.answer + "</p>";
+                document.querySelector(".board_view").appendChild(answerDiv);
+            }
+
+            // 답변 여부 이미지 업데이트
+            document.querySelector(".answer img").src = "/img/board_yes.png";
+            
+            // "답변달기" 버튼의 텍스트를 "답변 변경"으로 변경
+            const submitButton = document.querySelector("#adminReplyForm button[type='submit']");
+            if (submitButton) {
+                submitButton.textContent = "답변변경";
+            }
+        },
+        error: function (xhr) {
+            alert("답변 등록/수정에 실패했습니다.");
+            console.error(xhr);
+        }
+    });
+});
+
+
+
 </script>
 </body>
 </html>
