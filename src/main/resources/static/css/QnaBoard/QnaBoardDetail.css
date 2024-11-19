@@ -115,3 +115,52 @@
 		line-height: 160%;
 		font-size: 1.4rem;
 	}
+	
+
+.admin_reply_wrap {
+    margin-top: 30px;
+    padding: 20px 15px; /* 상단과 동일한 패딩 */
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    width: 65%; /* 상단과 동일한 너비 */
+    box-sizing: border-box;
+    font-size: 1.4rem; /* 글씨 크기 조정 */
+    margin-left: 270px;
+    margin-bottom: 100px;
+}
+
+.admin_reply_wrap form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px; /* 각 요소 간 간격 */
+}
+
+.admin_reply_wrap textarea {
+    width: 100%; /* 상단 너비와 맞춤 */
+    height: 150px; /* 상단 높이와 비슷하게 */
+    padding: 10px;
+    font-size: 1.4rem; /* 글씨 크기 조정 */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: none; /* 크기 조절 비활성화 */
+    box-sizing: border-box;
+}
+
+.admin_reply_wrap button {
+    align-self: flex-end; /* 오른쪽 정렬 */
+    padding: 8px 14px; /* 버튼 크기 조정 */
+    font-size: 1.2rem; /* 버튼 글씨 크기 조정 */
+    color: #fff;
+    background-color: #000;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.answer img {
+    width: 25px; 
+    height: 25px;
+    vertical-align: middle; /* 텍스트와 이미지 정렬 */
+}
+	

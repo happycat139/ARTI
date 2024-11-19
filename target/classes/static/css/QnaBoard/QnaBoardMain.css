@@ -24,7 +24,11 @@ a {
 }
 
 .board_title {
+	flex-direction: column;
 	margin-bottom: 30px;
+	display: flex;
+	justify-content: center;
+	text-align: center;
 }
 
 .board_title strong {
@@ -32,28 +36,12 @@ a {
 }
 
 .board_title p {
-	margin-top: 5px;
+	margin-top: 10px;
 	font-size: 1.4rem;
 }
 
-.bt_wrap {
-	display: flex;
-	justify-content: center;
-	margin-top: 30px;
-	text-align: center;
-	font-size: 0;
-	text-align: center;
-}
 
-.bt_wrap a {
-	display: inline-block;
-	min-width: 80px;
-	margin-left: 500px;
-	padding: 10px;
-	border: 1px solid #000;
-	border-radius: 2px;
-	font-size: 1.4rem;
-}
+
 
 .bt_wrap a:first-child {
 	margin-left: 0;
@@ -86,7 +74,7 @@ a {
 	display: inline-block;
 	padding: 15px 0;
 	text-align: center;
-	font-size: 1.4rem;
+	font-size: 1.2rem;
 }
 
 .board_list>div.top>div {
@@ -98,7 +86,7 @@ a {
 }
 
 .board_list .title {
-	width: 60%;
+	width: 45%;
 	text-align: left;
 }
 
@@ -112,6 +100,10 @@ a {
 
 .board_list .date {
 	width: 19%;
+}
+
+.board_list .top .answer {
+	width: 16%;
 }
 
 .board_list .count {
@@ -159,14 +151,43 @@ a {
 }
 
 
+.pagination_wrap {
+    display: flex;
+    justify-content: space-between; /* 글쓰기 버튼과 페이징 버튼 사이 간격 */
+    align-items: center; /* 수직 정렬 */
+    margin-top: 20px;
+}
 
 .pagination {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	gap: 10px; /* 버튼 사이 간격 */
-	margin-top: 20px;
+    margin: 0 auto; /* 중앙 배치 */
+    display: flex;
+    gap: 10px; /* 버튼 간격 */
 }
+
+.bt_wrap {
+    display: flex;
+    justify-content: flex-end; /* 글쓰기 버튼을 오른쪽 끝에 배치 */
+}
+
+.bt_wrap a {
+    display: inline-block;
+    min-width: 100px;
+    padding: 10px 15px;
+    border: 1px solid #000;
+    border-radius: 4px;
+    font-size: 1.4rem;
+    text-align: center;
+    background: #000;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+.bt_wrap a:hover {
+    background-color: #fff;
+    color: #000;
+}
+
+
 
 .pagination a, .pagination span {
 	display: inline-block;
@@ -197,3 +218,11 @@ a {
 	border: 1px solid #000000;
 	pointer-events: none; /* 클릭 비활성화 */
 }
+
+.answer img {
+    width: 25px; 
+    height: 25px;
+    vertical-align: middle; /* 텍스트와 이미지 정렬 */
+}
+
+

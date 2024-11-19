@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.smhrd.Arti.Model.QnaBoard;
+import com.smhrd.Arti.Model.User;
+import com.smhrd.Arti.Model.UserRole;
 import com.smhrd.Arti.Service.QnaBoardService;
+
+import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/arti/board")
@@ -69,21 +73,27 @@ public class QnaBoardController {
 		model.addAttribute("board", board);
 		return "QnaBoard/QnaBoardDetail";
 	}
-	
-	@GetMapping("validate")
-	public String validatePassword(
-	    @RequestParam("idx") Long idx,
-	    @RequestParam("password") String password,
-	    RedirectAttributes redirectAttributes) {
-	    
-	    QnaBoard board = service.getDetail(idx);
 
-	    if (board != null && board.getPassword().equals(password)) {
-	        return "redirect:/arti/board/detail/" + idx;
-	    } else {
-	        redirectAttributes.addFlashAttribute("error", "비밀번호가 틀립니다.");
-	        return "redirect:/arti/board/main";
-	    }
+	@GetMapping("validate")
+	public String validatePassword(@RequestParam("idx") Long idx, @RequestParam("password") String password,
+			RedirectAttributes redirectAttributes, HttpSession session) {
+
+		// 세션에서 user 객체를 가져오기
+		User user = (User) session.getAttribute("user");
+
+		// 관리자라면 바로 게시글 상세 페이지로 리다이렉트
+		if (user != null && user.getRole() == UserRole.ADMIN) {
+			return "redirect:/arti/board/detail/" + idx;
+		}
+
+		QnaBoard board = service.getDetail(idx);
+
+		if (board != null && board.getPassword().equals(password)) {
+			return "redirect:/arti/board/detail/" + idx;
+		} else {
+			redirectAttributes.addFlashAttribute("error", "비밀번호가 틀립니다.");
+			return "redirect:/arti/board/main";
+		}
 	}
 
 }

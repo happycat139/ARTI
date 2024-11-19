@@ -22,16 +22,25 @@ import lombok.NoArgsConstructor;
 public class QnaBoard {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long idx;
 	private String title;
 	private String writer;
 	private String password;
 	private String content;
-	
+
 	@CreationTimestamp
-    @Column(name = "created_at")
+	@Column(name = "created_at")
 	private LocalDateTime createdAt;
+
+	@Column(name = "is_answered", columnDefinition = "TINYINT DEFAULT 0")
+	private Boolean isAnswered = false;
+	
+	@Column(name = "answer") // 새 컬럼
+    private String answer;
 	
 	
+	
+	
+
 }
