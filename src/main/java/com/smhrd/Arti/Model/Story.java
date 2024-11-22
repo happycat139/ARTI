@@ -26,10 +26,12 @@ public class Story {
 	
 	private Long uid;
     private String b_writer;
+    @Column(name = "b_title", length = 255)
     private String b_title;
     private String b_background;
     private String b_thumbnail;
     private String b_genre;
+    @Column(name = "b_Theme", length = 255)
     private String b_Theme;
     private String b_mc;
     

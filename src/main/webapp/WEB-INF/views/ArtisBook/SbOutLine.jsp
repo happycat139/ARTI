@@ -79,11 +79,13 @@
                 <div class="SO_modify_modal_title">
                     바꾸고 싶은 내용을 적으면 AI가 줄거리를 수정합니다.
                 </div>
-                <textarea class="SO_modify_modal_inputArea" 
+                <form action="/arti/book/outline2" method="post">
+                <textarea class="SO_modify_modal_inputArea" name="reprompt"
                           placeholder="예시) 주인공을 강아지로 수정해줘, 바닷속 보물을 찾아 떠나는 모험 이야기로 보고싶어" 
                           autofocus></textarea>
                 <button class="SO_modify_modal_Btn">생성하기</button>
                 <div class="SO_modify_ArtiCoin">잔여 아티코인 : 54</div>
+                </form>
             </div>
         </div>
     </div>

@@ -22,6 +22,8 @@ public class StoryBookService {
 	StoryRepository repo2;
 
 	public void saveBase(String storyline, HttpSession session) {
+		
+		System.out.println(storyline);
 
 		// 입력받았던 작가 이름 가져오기
 		String b_writer = (String) session.getAttribute("b_writer");
@@ -41,6 +43,7 @@ public class StoryBookService {
 
 		story.setB_writer(b_writer);
 		story.setUid(user.getUid());
+	
 		repo2.save(story);
 
 		// 세션에도 해당 객체를 담기

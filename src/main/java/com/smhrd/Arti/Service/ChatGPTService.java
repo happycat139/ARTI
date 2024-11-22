@@ -17,6 +17,8 @@ import com.smhrd.Arti.Model.ChatGPTResponse;
 import com.smhrd.Arti.Model.ChatMessage;
 import com.smhrd.Arti.Model.Story;
 
+import jakarta.servlet.http.HttpSession;
+
 @Service
 public class ChatGPTService {
 
@@ -34,7 +36,7 @@ public class ChatGPTService {
     
     
     // 동화의 틀 설정
-    public String makeBase(String prompt) {
+    public String makeBase(String prompt, HttpSession session) {
     	
     	// 동화 형식으로 요청하는 메시지를 작성
         String storyPrompt = prompt + "라는 주제를 바탕으로 초등학교 저학년 수준의 동화의 요약 줄거리를 500자 정도로 만들어줘. "
@@ -67,8 +69,61 @@ public class ChatGPTService {
         ResponseEntity<ChatGPTResponse> response = restTemplate.exchange(url, HttpMethod.POST, entity, ChatGPTResponse.class);
 
         // 응답에서 첫 번째 메시지의 내용 반환
-        return response.getBody().getChoices().get(0).getMessage().getContent();
+        String storyline = response.getBody().getChoices().get(0).getMessage().getContent();
+        
+     // 세션에 초기 요청/응답 저장
+        session.setAttribute("prompt", prompt);
+        session.setAttribute("storyline", storyline);
+
+        return storyline;
     }
+    
+    // 동화 기본정보 재생성
+    public String remakeBase(String reprompt, HttpSession session) {
+        // 세션에서 이전 요청과 응답 가져오기
+        String prompt = (String) session.getAttribute("prompt");
+        String storyline = (String) session.getAttribute("storyline");
+               
+        if (prompt == null || storyline == null) {
+            throw new IllegalArgumentException("이전에 생성된 데이터가 없어 재생성을 진행할 수 없습니다.");
+        }
+
+        // 재생성 요청 메시지 작성
+        String storyPrompt = """
+            이전 요청: %s
+            이전 응답: %s
+            추가 조건: %s
+            이전 요청과 응답을 보고 추가 조건 반영해 수정해서 이전 요청을 재작성해줘.
+            이전 요청의 조건들을 반드시 지켜서 다시 보내줘야해.
+            모든 요소들(제목,장르,배경,주제,주인공,요약줄거리)을 ###으로 나눠서 보내줘야 해.
+            맨 앞과 끝에 ### 붙이지 마.
+            """.formatted(prompt, storyline, reprompt);
+
+        // messages 구성
+        List<ChatMessage> messages = Arrays.asList(
+            new ChatMessage("system", "You are a helpful assistant."),
+            new ChatMessage("user", storyPrompt)
+        );
+
+        // 요청 데이터 구성
+        ChatGPTRequest request = new ChatGPTRequest(storylineModel, messages);
+        HttpEntity<ChatGPTRequest> entity = new HttpEntity<>(request);
+
+        // API 호출
+        ResponseEntity<ChatGPTResponse> response = restTemplate.exchange(url, HttpMethod.POST, entity, ChatGPTResponse.class);
+        storyline = response.getBody().getChoices().get(0).getMessage().getContent();
+
+     // 세션에 요청/응답 저장
+        session.setAttribute("prompt", prompt);
+        session.setAttribute("storyline", storyline);
+
+        return storyline;
+    }
+    
+    
+    
+    
+    
     
     
     

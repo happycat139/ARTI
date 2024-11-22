@@ -24,13 +24,11 @@ public class StoryBookController {
 
 	// GPT api를 이용한 생성 기능
 	private final ChatGPTService chatGPTService;
-	
+
 	@Autowired
 	public StoryBookController(ChatGPTService chatGPTService) {
 		this.chatGPTService = chatGPTService;
 	}
-	
-	
 
 	/* 페이지 관련 뷰 컨트롤러 */
 
@@ -59,20 +57,32 @@ public class StoryBookController {
 		return "ArtisBook/SbTopic";
 	}
 
-	
 	// 동화 제목, 장르, 배경, 주제, 주인공 생성
 	@PostMapping("/outline")
 	public String SbOutlinepage(@RequestParam("prompt") String prompt, Model model, HttpSession session) {
 
-		String storyline = chatGPTService.makeBase(prompt);
+			String storyline = chatGPTService.makeBase(prompt, session);
+			service.saveBase(storyline, session);
+			model.addAttribute("storyline", storyline);
 
-		service.saveBase(storyline, session);
+			return "ArtisBook/SbOutLine";
 
-		model.addAttribute("storyline", storyline);
-		model.addAttribute("prompt", prompt);
-
-		return "ArtisBook/SbOutLine";
 	}
+	
+	
+	// 동화 제목, 장르, 배경, 주제, 주인공 재생성
+		@PostMapping("/outline2")
+		public String SbOutlinepage2(@RequestParam("reprompt") String reprompt, Model model, HttpSession session) {
+
+				String storyline = chatGPTService.remakeBase(reprompt, session);
+
+				service.saveBase(storyline, session);
+				model.addAttribute("storyline", storyline);
+
+				return "ArtisBook/SbOutLine";
+
+		}
+	
 
 	// 임시 줄거리 페이지 호출
 	@GetMapping("/plot")
