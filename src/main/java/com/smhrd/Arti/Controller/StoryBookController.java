@@ -56,6 +56,14 @@ public class StoryBookController {
 	public String SbTopicpage() {
 		return "ArtisBook/SbTopic";
 	}
+	
+	// 동화책 에디터 페이지 호출
+	@GetMapping("/edit")
+	public String SbEditPage() {
+		return "ArtisBook/SbEdit";
+	}
+	
+	/* GPT관련 컨트롤러 */
 
 	// 동화 제목, 장르, 배경, 주제, 주인공 생성
 	@PostMapping("/outline")
