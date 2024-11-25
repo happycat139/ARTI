@@ -1,5 +1,13 @@
 @charset "EUC-KR";
 
+@font-face {
+    font-family: 'LINESeedKR-Bd';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+    font-weight: 400;
+    font-style: normal;
+}
+
+
 * {
 	margin: 0;
 	padding: 0;
@@ -24,6 +32,7 @@ a {
 }
 
 .board_title {
+	font-family: 'LINESeedKR-Bd';
 	flex-direction: column;
 	margin-bottom: 30px;
 	display: flex;
@@ -38,6 +47,7 @@ a {
 .board_title p {
 	margin-top: 10px;
 	font-size: 1.4rem;
+	color: #5A5A5A; 
 }
 
 
@@ -53,6 +63,7 @@ a {
 }
 
 .board_list {
+	font-family: 'LINESeedKR-Bd';
 	width: 100%;
 	border-top: 2px solid #000;
 }
@@ -95,7 +106,7 @@ a {
 }
 
 .board_list .writer {
-	width: 10%;
+	width: 14%;
 }
 
 .board_list .date {
@@ -103,11 +114,11 @@ a {
 }
 
 .board_list .top .answer {
-	width: 16%;
+	width: 11%;
 }
 
 .board_list .count {
-	width: 10%;
+	width: 5%;
 }
 
 .board_page {
@@ -170,6 +181,7 @@ a {
 }
 
 .bt_wrap a {
+	font-family: 'LINESeedKR-Bd';
     display: inline-block;
     min-width: 100px;
     padding: 10px 15px;
@@ -190,6 +202,7 @@ a {
 
 
 .pagination a, .pagination span {
+	font-family: 'LINESeedKR-Bd';
 	display: inline-block;
 	padding: 10px 15px;
 	text-decoration: none;

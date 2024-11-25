@@ -14,6 +14,17 @@
 		<div class="board_title">
 			<strong>글쓰기</strong>
 		</div>
+
+		<div class="qna_write_notice">
+			-글 작성 시 제목, 글쓴이 또는 본문 내에 <strong> <span class="qna-cont-p">개인정보(주민등록번호,
+					연락처, 이메일 등)가 포함되어 게시하지 않도록 유의</span>
+			</strong> 하시기 바랍니다. <span class="qna-cont-b">개인정보가 노출되면 악용될 수 있으며, 특히
+				타인의 개인정보가 노출될 경우, </span> <span class="qna-cont-ulb">개인정보보호법에 의해 처벌</span>
+			<span class="qna-cont-b">받을 수 있습니다. </span>
+		</div>
+
+
+		<div class="short_border"></div>
 		<form action="new" method="post">
 			<div class="board_write_wrap">
 				<div class="board_write">
@@ -21,7 +32,8 @@
 						<dl>
 							<dt>제목</dt>
 							<dd>
-								<input type="text" placeholder="제목 입력" name="title" required/>
+								<input type="text" placeholder="제목 입력" maxlength="30"
+									name="title" required />
 							</dd>
 						</dl>
 					</div>
@@ -29,13 +41,15 @@
 						<dl>
 							<dt>글쓴이</dt>
 							<dd>
-								<input type="text" placeholder="글쓴이 입력" name="writer" required/>
+								<input type="text" placeholder="글쓴이 입력" maxlength="10"
+									name="writer" required />
 							</dd>
 						</dl>
 						<dl>
 							<dt>비밀번호</dt>
 							<dd>
-								<input type="password" placeholder="비밀번호 입력" name="password" required/>
+								<input type="password" placeholder="비밀번호 입력" name="password"
+									required />
 							</dd>
 						</dl>
 					</div>
@@ -46,7 +60,8 @@
 			</div>
 
 			<div class="bt_wrap">
-				<input type="submit" class="on" value="등록"> <a href="main" id="write_x">취소</a>
+				<input type="submit" class="on" value="등록"> <a href="main"
+					id="write_x">취소</a>
 			</div>
 		</form>
 	</div>

@@ -3,6 +3,7 @@
 	pageEncoding="UTF-8"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
 <!DOCTYPE html>
@@ -38,9 +39,27 @@
 					<div class="top">
 						<div class="num">${status.index + 1}</div>
 						<div class="title">
-							<a href="javascript:checkPassword(${board.idx})">${board.title}</a>
+							<c:choose>
+								<c:when test="${fn:length(board.title) > 20}">
+									<a href="javascript:checkPassword(${board.idx})">
+										${fn:substring(board.title, 0, 20)}... </a>
+								</c:when>
+								<c:otherwise>
+									<a href="javascript:checkPassword(${board.idx})">
+										${board.title} </a>
+								</c:otherwise>
+							</c:choose>
 						</div>
-						<div class="writer">${board.writer}</div>
+						<div class="writer">
+							<c:choose>
+								<c:when test="${fn:length(board.writer) > 5}">
+                    ${fn:substring(board.writer, 0, 5)}...
+                </c:when>
+								<c:otherwise>
+                    ${board.writer}
+                </c:otherwise>
+							</c:choose>
+						</div>
 						<div class="date">${board.createdAt.toString().substring(0, 10)}</div>
 						<div class="answer">
 							<img

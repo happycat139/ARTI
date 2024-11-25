@@ -1,5 +1,19 @@
 @charset "EUC-KR";
 
+@font-face {
+    font-family: 'LINESeedKR-Bd';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://fastly.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight:100;
+    font-style: normal;
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -10,11 +24,13 @@ html {
 }
 
 .board_wrap {
+	min-height: calc(100vh - 100px);
 	width: 1000px;
 	margin: 100px auto;
 }
 
 .board_title {
+	font-family: 'LINESeedKR-Bd';
 	margin-bottom: 30px;
 	/* 문의사항 밑으로 공백 */
 }
@@ -29,6 +45,7 @@ html {
 }
 
 .bt_wrap {
+	font-family: 'Pretendard-Regular';
 	margin-top: 30px;
 	text-align: center;
 	font-size: 0;
@@ -41,7 +58,7 @@ html {
 	margin-left: 10px;
 	padding: 10px;
 	border: 1px solid #000;
-	border-radius: 2px;
+	border-radius: 4px;
 	font-size: 1.4rem;
 }
 
@@ -55,28 +72,42 @@ html {
 }
 
 .board_view {
+	font-family: 'Pretendard-Regular';
 	width: 100%;
-	border-top: 2px solid #000;
+	border-top: 4px solid #000;
 	font-size: 1.4rem;
 }
 
 .board_view_title {
+	margin-top: 10px;
 	padding: 20px 15px;
-	border-bottom: 1px dashed #ddd;
 	font-size: 2rem;
 }
 
 .board_view_info {
-	padding: 15px;
-	border-bottom: 1px solid #999;
-	font-size: 0;
+    display: flex; /* 플렉스 박스 적용 */
+    justify-content: space-between; /* 작성자 이름과 버튼 사이 간격 */
+    align-items: center; /* 수직 가운데 정렬 */
+    padding: 15px;
+    font-size: 1.4rem;
 }
 
 .board_view_info dl {
-	position: relative;
-	display: inline-block;
-	padding: 0 20px;
+    display: inline-block; /* 작성자 정보는 기본 인라인 */
 }
+
+#qnaDelBtn {
+    font-family: 'Pretendard-Regular';
+    padding: 8px 14px;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: #000;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
 
 .board_view_info dl:first-child {
 	padding-left: 0;
@@ -98,6 +129,7 @@ html {
 }
 
 .board_view_info dl dt, .board_view_info dl dd {
+	color: #777;
 	display: inline-block;
 	font-size: 1.4rem;
 }
@@ -109,9 +141,9 @@ html {
 
 .board_view_cont {
 	padding: 15px;
-	border-bottom: 1px solid #000;
-	line-height: 160%;
+	line-height: 200%;
 	font-size: 1.4rem;
+	margin-top: 20px;
 }
 
 .admin_reply_wrap {
@@ -121,7 +153,7 @@ html {
     border-radius: 5px;
     background-color: #f9f9f9;
     width: 65%; /* 기본 너비 */
-    max-width: 1100px; /* 최대 너비 제한 */
+    max-width: 1000px; /* 최대 너비 제한 */
     min-width: 300px; /* 최소 너비 제한 */
     box-sizing: border-box;
     font-size: 1.4rem;
@@ -131,6 +163,7 @@ html {
 }
 
 .admin_reply_wrap textarea {
+	font-family: 'Pretendard-Regular';
     width: 100%; /* 부모 요소의 너비에 맞춤 */
     height: 150px;
     padding: 10px;
@@ -143,6 +176,7 @@ html {
 }
 
 .button_wrap {
+	font-family: 'Pretendard-Regular';
     display: flex;
     justify-content: flex-end; /* 버튼을 오른쪽으로 정렬 */
     margin-top: 10px; /* textarea와 버튼 간격 */
@@ -150,28 +184,63 @@ html {
 }
 
 .button_wrap button {
+	font-family: 'Pretendard-Regular';
+	font-weight: 200;
     padding: 8px 14px;
     font-size: 1.2rem;
     color: #fff;
     background-color: #000;
     border: none;
     cursor: pointer;
+    border-radius: 4px;
     transition: background-color 0.3s ease;
 }
 
-/* 관리자 답변 추가 */
+/* 관리자 댓글 스타일 */
 .admin_answer {
-	margin-top: 20px;
-	padding: 10px;
-	background-color: #eef5ff;
-	border-left: 4px solid #007BFF;
-	border-radius: 5px;
-	color: #333;
-	font-size: 1.4rem;
+    margin-top: 80px; /* 위 내용과 간격 추가 */
+    padding: 20px; /* 박스 내부 여백 */
+    font-size: 1.6rem; /* 텍스트 크기 */
+    line-height: 1.8; /* 줄 간격 */
+    color: #333; /* 글자 색 */
+    background-color: #f7f7f7; /* 연한 회색 배경 */
+    border-radius: 8px; /* 둥근 모서리 */
+    max-width: 100%; /* 부모 요소에 맞게 */
+    word-wrap: break-word; /* 긴 텍스트 줄바꿈 */
+    overflow-wrap: break-word; /* 텍스트 넘침 방지 */
+    margin-bottom: 80px;
 }
+
+.admin_answer strong {
+    display: block; /* "관리자 답변:"을 한 줄로 표시 */
+    font-size: 1.4rem; /* 약간 작은 크기 */
+    font-weight: bold; /* 굵게 */
+    color: #555; /* 약간 연한 색상 */
+    margin-bottom: 15px; /* 텍스트와 간격 추가 */
+}
+
+
+.admin_answer p {
+    margin: 5px; /* 기본 여백 설정 */
+    overflow-wrap: break-word; /* 단어가 길 경우 줄바꿈 */
+    word-wrap: break-word; /* 줄바꿈 처리 (구형 브라우저 호환) */
+    word-break: break-word; /* 긴 단어도 줄바꿈 */
+    white-space: normal; /* 텍스트를 여러 줄로 표시 */
+    line-height: 1.8; /* 줄 간격 추가로 가독성 향상 */
+    color: #333; /* 글자 색상 유지 */
+}
+
+
+
+/* 일반 텍스트와의 조화 */
+.admin_answer p {
+    margin: 5px 0;
+}
+
 
 .answer img {
 	width: 25px;
 	height: 25px;
 	vertical-align: middle; /* 텍스트와 이미지 정렬 */
 }
+

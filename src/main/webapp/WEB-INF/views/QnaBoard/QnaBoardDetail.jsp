@@ -41,7 +41,7 @@
 								alt="답변 여부">
 						</dd>
 					</dl>
-					<button onclick="deletePost(${board.idx})">삭제</button>
+					<button id="qnaDelBtn" onclick="deletePost(${board.idx})">삭제</button>
 				</div>
 				<div class="board_view_cont">${board.content}</div>
 

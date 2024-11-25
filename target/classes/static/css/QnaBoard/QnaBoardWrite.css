@@ -1,138 +1,179 @@
 @charset "EUC-KR";
 
-
 * {
-    	margin: 0;
-        padding: 0;
-    }
-    
-    html {
-        font-size: 10px;
-    }
-    
-    ul,li {
-    	list-style: none;
-    }
-    
-    a {
-    	text-decoration: none;
-    	color: inherit;
-    }
-    
-    .board_wrap {
-    	width: 1000px;
-    	margin: 100px auto;
-    }
-    
-    .board_title {
-    	margin-bottom: 30px;
-    }
-    
-    .board_title strong {
-    	font-size: 3rem;
-    }
-    
-    .board_title p {
-    	margin-top: 5px;
-    	font-size: 1.4rem;
-    }
-    
-    .bt_wrap {
-    	margin-top: 30px;
-    	text-align: center;
-    	font-size: 0;
-    	text-align: center;
-    }
-    
-    .bt_wrap a {
-    	display: inline-block;
-    	min-width: 80px;
-    	padding: 10px;
-    	border: 1px solid #000;
-    	border-radius: 2px;
-    	font-size: 1.4rem;
-    }
-    
-    .bt_wrap input {
-    	min-width: 80px;
-    	padding: 10px;
-    	border: 1px solid #000;
-    	border-radius: 2px;
-    	font-size: 1.4rem;
-    }
-    
-    .bt_wrap a:first-child {
-    	margin-left: 0;
-    }
-    
-    .bt_wrap input.on {
-    	background: #000;
-    	color: #fff;
-    }
-    
-    .board_write {
-    	border-top: 2px solid #000;
-    }
-    
-    .board_write_title ,
-    .board_write_info {
-    	padding: 15px;
-    }
-    
-    .board_write_info{
-    	border-top: 1px dashed #ddd;
-    	border-bottom: 1px solid #000;
-    	font-size: 0;
-    }
-    
-    .board_write_title dl {
-    	font-size: 0;
-    }
-    
-    .board_write_info dl {
-    	display: inline-block;
-    	width: 50%;
-    	vertical-align: middle;
-    }
-    
-    .board_write_title dt,
-    .board_write_title dd,
-    .board_write_info dt,
-    .board_write_info dd {
-    	display: inline-block;
-    	vertical-align: middle;
-    	font-size: 1.4rem;
-    }
-    
-    .board_write_title dt,
-    .board_write_info dt {
-    	width: 100px;
-    }
-    
-    .board_write_title dd {
-    	width: calc(100% - 100px);
-    }
-    
-    .board_write_title input[type="text"],
-    .board_write_info input[type="text"],
-    .board_write_info input[type="password"] {
-    	padding: 10px;
-    	box-sizing: border-box;
-    }
-    
-    .board_write_title input[type="text"] {
-    	width: 80%;
-    }
-    
-    .board_write_cont {
-    	border-bottom: 1px solid #000;
-    }
+	margin: 0;
+	padding: 0;
+}
 
-	.board_write_cont textarea {
-		display: block;
-		width: 100%;
-		height: 300px;
-		box-sizing: border-box;
-		border: 0;
-		resize: vertical;
-	}
+html {
+	font-size: 10px;
+}
+
+ul, li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+.board_wrap {
+	width: 1000px;
+	margin: 100px auto;
+}
+
+.board_title {
+	margin-bottom: 30px;
+}
+
+.board_title strong {
+	margin-left: 50px;
+	font-size: 2rem;
+}
+
+.board_title p {
+	margin-top: 5px;
+	font-size: 1.4rem;
+}
+
+.bt_wrap {
+	margin-top: 30px;
+	text-align: center;
+	font-size: 0;
+	text-align: center;
+}
+
+.bt_wrap a {
+	display: inline-block;
+	min-width: 80px;
+	padding: 10px;
+	border: 1px solid #000;
+	border-radius: 2px;
+	font-size: 1.4rem;
+}
+
+.bt_wrap input {
+	min-width: 80px;
+	padding: 10px;
+	border: 1px solid #000;
+	border-radius: 2px;
+	font-size: 1.4rem;
+}
+
+.bt_wrap a:first-child {
+	margin-left: 0;
+}
+
+.bt_wrap input.on {
+	background: #000;
+	color: #fff;
+}
+
+.short_border {
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	width: 900px; /* 구분선 길이 */
+	height: 2px; /* 구분선 두께 */
+	background-color: #333; /* 구분선 색상 */
+	margin: 10px auto; /* 위아래 여백과 가운데 정렬 */
+}
+
+.board_write_title, .board_write_info {
+	padding: 10px;
+	margin-left: 50px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+.board_write_info {
+	font-size: 0;
+}
+
+.board_write_title dl {
+	font-size: 0;
+}
+
+.board_write_info dl {
+	display: inline-block;
+	width: 50%;
+	vertical-align: middle;
+}
+
+.board_write_title dt, .board_write_title dd, .board_write_info dt,
+	.board_write_info dd {
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 1.1rem;
+}
+
+.board_write_title dt, .board_write_info dt {
+	width: 100px;
+}
+
+.board_write_title dd {
+	width: calc(100% - 100px);
+}
+
+.board_write_title input[type="text"], .board_write_info input[type="text"],
+	.board_write_info input[type="password"] {
+	padding: 10px;
+	box-sizing: border-box;
+	border: 1px solid #adb5bd;
+}
+
+.board_write_title input[type="text"] {
+	width: 60%;
+}
+
+.board_write_cont {
+	border: 1px;
+}
+
+.board_write_cont textarea {
+	margin-top: 50px; margin-left : 50px;
+	display: block;
+	width: 80%;
+	height: 300px;
+	box-sizing: border-box;
+	resize: vertical;
+	font-size: 1.1rem;
+	padding: 10px;
+	border: 1px solid #ced4da;
+	margin-left: 50px;
+}
+
+/* 기본 텍스트 스타일 */
+.qna-text {
+	font-size: 1.4rem; /* 글자 크기 */
+	line-height: 1.8; /* 줄 간격 */
+	color: #333; /* 기본 글자 색상 */
+	margin: 20px 0;
+}
+
+/* 강조 텍스트: 분홍색 */
+.qna-cont-p {
+	font-weight: bold;
+	color: #e63946; /* 분홍색 강조 */
+}
+
+/* 강조 텍스트: 파란색 */
+.qna-cont-b {
+	color: #005fa3; /* 파란색 */
+	font-weight: bold;
+}
+
+/* 밑줄 강조 텍스트 */
+.qna-cont-ulb {
+	color: #005fa3; /* 파란색 */
+	font-weight: bold;
+	text-decoration: underline;
+}
+
+.qna_write_notice {
+	padding: 20px;
+	padding-left: 60px;
+	padding-right: 60px;
+	line-height: 1.5;
+}
