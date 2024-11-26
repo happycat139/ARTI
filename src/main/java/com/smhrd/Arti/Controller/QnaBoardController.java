@@ -62,20 +62,33 @@ public class QnaBoardController {
 	}
 
 	@PostMapping("new")
-	public String writeBoard(QnaBoard board) {
+	public String writeBoard(QnaBoard board, HttpSession session) {
+		
+		User user = (User) session.getAttribute("user");
+		
+		if (user != null) {
+	        // 세션이 있으면 이메일 설정
+	        String email = user.getEmail(); 
+	        board.setQna_email(email); 
+	        board.setQna_name(null); 
+	        board.setQna_pw(null);
+	    } else {
+	        board.setQna_email(null); 
+	    }
+
 		service.writeBoard(board);
 		return "redirect:/arti/board/main";
 	}
 
-	@GetMapping("detail/{idx}")
-	public String BoardDetailPage(@PathVariable Long idx, Model model) {
-		QnaBoard board = service.getDetail(idx);
+	@GetMapping("detail/{qna_idx}")
+	public String BoardDetailPage(@PathVariable Long qna_idx, Model model) {
+		QnaBoard board = service.getDetail(qna_idx);
 		model.addAttribute("board", board);
 		return "QnaBoard/QnaBoardDetail";
 	}
 
 	@GetMapping("validate")
-	public String validatePassword(@RequestParam("idx") Long idx, @RequestParam("password") String password,
+	public String validatePassword(@RequestParam("qna_idx") Long qna_idx, @RequestParam("qna_pw") String qna_pw,
 			RedirectAttributes redirectAttributes, HttpSession session) {
 
 		// 세션에서 user 객체를 가져오기
@@ -83,13 +96,13 @@ public class QnaBoardController {
 
 		// 관리자라면 바로 게시글 상세 페이지로 리다이렉트
 		if (user != null && user.getRole() == UTYPE.ADMIN) {
-			return "redirect:/arti/board/detail/" + idx;
+			return "redirect:/arti/board/detail/" + qna_idx;
 		}
 
-		QnaBoard board = service.getDetail(idx);
+		QnaBoard board = service.getDetail(qna_idx);
 
-		if (board != null && board.getPassword().equals(password)) {
-			return "redirect:/arti/board/detail/" + idx;
+		if (board != null && board.getQna_pw().equals(qna_pw)) {
+			return "redirect:/arti/board/detail/" + qna_idx;
 		} else {
 			redirectAttributes.addFlashAttribute("error", "비밀번호가 틀립니다.");
 			return "redirect:/arti/board/main";

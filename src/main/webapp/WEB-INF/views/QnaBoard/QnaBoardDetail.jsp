@@ -19,39 +19,49 @@
 		</div>
 		<div class="board_view_wrap">
 			<div class="board_view">
-				<div class="board_view_title">${board.title}</div>
+				<div class="board_view_title">${board.qna_title}</div>
 				<div class="board_view_info">
 					<dl>
 						<dt>번호</dt>
-						<dd>${board.idx}</dd>
+						<dd>${board.qna_idx}</dd>
 					</dl>
 					<dl>
 						<dt>글쓴이</dt>
-						<dd>${board.writer}</dd>
+						<dd>
+							<c:choose>
+								<c:when test="${board.qna_email != null}">
+          						  ${board.qna_email}
+        					 </c:when>
+								<c:otherwise>
+           						  ${board.qna_name}
+       						 </c:otherwise>
+							</c:choose>
+
+						</dd>
 					</dl>
 					<dl>
 						<dt>작성일</dt>
-						<dd>${board.createdAt.toString().substring(0, 10)}</dd>
+						<dd>${board.qnaDt.toString().substring(0, 10)}</dd>
 					</dl>
 					<dl>
 						<dt>답변여부</dt>
 						<dd class="answer">
-							<img
+							<%-- <img
 								src="/img/${board.isAnswered ? 'board_yes.png' : 'board_no.png'}"
-								alt="답변 여부">
+								alt="답변 여부"> --%>
 						</dd>
 					</dl>
-					<button id="qnaDelBtn" onclick="deletePost(${board.idx})">삭제</button>
+					<button id="qnaDelBtn" onclick="deletePost(${board.qna_idx})">삭제</button>
 				</div>
-				<div class="board_view_cont">${board.content}</div>
+				<div class="board_view_cont">${board.qna_content}</div>
 
 				<!-- 답변 내용 표시 -->
-				<c:if test="${board.isAnswered}">
+				<%-- <c:if test="${board.isAnswered}">
 					<div class="admin_answer">
 						<strong>관리자 답변:</strong>
 						<p>${board.answer}</p>
 					</div>
-				</c:if>
+				</c:if> --%>
 
 
 
@@ -67,10 +77,10 @@
 	<c:if test="${sessionScope.user.role == 'ADMIN'}">
 		<div class="admin_reply_wrap">
 			<form id="adminReplyForm">
-				<input type="hidden" name="idx" value="${board.idx}">
+				<input type="hidden" name="idx" value="${board.qna_idx}">
 				<textarea name="replyContent" placeholder="답변 내용을 입력하세요." required></textarea>
 				<div class="button_wrap">
-					<button type="submit">${board.isAnswered ? '답변변경' : '답변하기'}</button>
+					<button type="submit"><%-- ${board.isAnswered ? '답변변경' : '답변하기'} --%></button>
 				</div>
 			</form>
 		</div>

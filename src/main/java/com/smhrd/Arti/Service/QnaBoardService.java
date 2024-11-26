@@ -26,14 +26,11 @@ public class QnaBoardService {
 
 	// 게시물 리스트 보기 기능
 	public Page<QnaBoard> getBoards(int page, int size) {
-		Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+		Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "qnaDt"));
 		return repo.findAll(pageable);
 	}
 
-	public Page<QnaBoard> searchBoards(String keyword, int page, int size) {
-		Pageable pageable = PageRequest.of(page, size);
-		return repo.findByTitleOrWriterContaining(keyword, pageable);
-	}
+
 
 	// 게시물 상세보기 기능
 	public QnaBoard getDetail(Long idx) {

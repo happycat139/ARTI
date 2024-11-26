@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,28 +35,30 @@
 							<dt>제목</dt>
 							<dd>
 								<input type="text" placeholder="제목 입력" maxlength="30"
-									name="title" required />
+									name="qna_title" required />
 							</dd>
 						</dl>
 					</div>
-					<div class="board_write_info">
-						<dl>
-							<dt>글쓴이</dt>
-							<dd>
-								<input type="text" placeholder="글쓴이 입력" maxlength="10"
-									name="writer" required />
-							</dd>
-						</dl>
-						<dl>
-							<dt>비밀번호</dt>
-							<dd>
-								<input type="password" placeholder="비밀번호 입력" name="password"
-									required />
-							</dd>
-						</dl>
-					</div>
+					<c:if test="${sessionScope.user == null}">
+						<div class="board_write_info">
+							<dl>
+								<dt>글쓴이</dt>
+								<dd>
+									<input type="text" placeholder="글쓴이 입력" maxlength="10"
+										name="qna_name" required />
+								</dd>
+							</dl>
+							<dl>
+								<dt>비밀번호</dt>
+								<dd>
+									<input type="password" placeholder="비밀번호 입력" name="qna_pw"
+										required />
+								</dd>
+							</dl>
+						</div>
+					</c:if>
 					<div class="board_write_cont">
-						<textarea placeholder="내용 입력" name="content" required></textarea>
+						<textarea placeholder="내용 입력" name="qna_content" required></textarea>
 					</div>
 				</div>
 			</div>

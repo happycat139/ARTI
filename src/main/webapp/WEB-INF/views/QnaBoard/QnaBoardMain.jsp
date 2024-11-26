@@ -40,31 +40,47 @@
 						<div class="num">${currentPage * 10 + status.index + 1}</div>
 						<div class="title">
 							<c:choose>
-								<c:when test="${fn:length(board.title) > 20}">
-									<a href="javascript:checkPassword(${board.idx})">
-										${fn:substring(board.title, 0, 20)}... </a>
+								<c:when test="${fn:length(board.qna_title) > 20}">
+									<a href="javascript:checkPassword(${board.qna_idx})">
+										${fn:substring(board.qna_title, 0, 20)}... </a>
 								</c:when>
 								<c:otherwise>
-									<a href="javascript:checkPassword(${board.idx})">
-										${board.title} </a>
+									<a href="javascript:checkPassword(${board.qna_idx})">
+										${board.qna_title} </a>
 								</c:otherwise>
 							</c:choose>
 						</div>
+
 						<div class="writer">
 							<c:choose>
-								<c:when test="${fn:length(board.writer) > 5}">
-                    ${fn:substring(board.writer, 0, 5)}...
-                </c:when>
+								<c:when test="${board.qna_email != null}">
+									<c:choose>
+										<c:when test="${fn:length(board.qna_email) > 5}">
+                    						${fn:substring(board.qna_email, 0, 5)}...
+              					</c:when>
+										<c:otherwise>
+                    				${board.qna_email}
+                				</c:otherwise>
+									</c:choose>
+								</c:when>
 								<c:otherwise>
-                    ${board.writer}
-                </c:otherwise>
+									<c:choose>
+										<c:when test="${fn:length(board.qna_name) > 5}">
+                    					${fn:substring(board.qna_name, 0, 5)}...
+                					</c:when>
+										<c:otherwise>
+                    				${board.qna_name}
+                				</c:otherwise>
+									</c:choose>
+								</c:otherwise>
 							</c:choose>
 						</div>
-						<div class="date">${board.createdAt.toString().substring(0, 10)}</div>
+
+						<div class="date">${board.qnaDt.toString().substring(0, 10)}</div>
 						<div class="answer">
-							<img
+							<%-- <img
 								src="/img/${board.isAnswered ? 'board_yes.png' : 'board_no.png'}"
-								alt="답변 여부">
+								alt="답변 여부"> --%>
 						</div>
 					</div>
 				</c:forEach>
@@ -119,14 +135,14 @@
 		function checkPassword(idx) {
 			if (isAdmin === 'true') {
 				// 관리자는 비밀번호 입력 없이 검증 경로로 이동
-				location.href = "/arti/board/validate?idx=" + idx
-						+ "&password=";
+				location.href = "/arti/board/validate?qna_idx=" + idx
+						+ "&qna_pw=";
 			} else {
 				// 일반 사용자는 비밀번호 입력창 표시
 				const password = prompt("비밀번호를 입력하세요:");
 				if (password) {
-					location.href = "/arti/board/validate?idx=" + idx
-							+ "&password=" + password;
+					location.href = "/arti/board/validate?qna_idx=" + idx
+							+ "&qna_pw=" + password;
 				}
 			}
 		}

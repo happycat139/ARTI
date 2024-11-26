@@ -35,26 +35,25 @@ public class QnaBoardRestController {
 	        }
 	    }
 	 
-	 @PostMapping("reply")
-	 public ResponseEntity<Map<String, Object>> replyToQnaBoard(
-	         @RequestParam("idx") Long idx,
-	         @RequestParam("replyContent") String replyContent) {
-	     
-	     QnaBoard board = service.getDetail(idx);
-	     if (board != null) {
-	         board.setAnswer(replyContent);
-	         board.setIsAnswered(true);
-	         service.writeBoard(board);
-	         
-	      // JSON 응답 생성
-	         Map<String, Object> response = new HashMap<>();
-	         response.put("message", "답변이 저장되었습니다.");
-	         response.put("answer", replyContent);
-	         response.put("isAnswered", true);
-
-	         return ResponseEntity.ok(response);
-	     }
-	     return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message", "게시글을 찾을 수 없습니다."));
-	 }
+		/*
+		 * @PostMapping("reply") public ResponseEntity<Map<String, Object>>
+		 * replyToQnaBoard(
+		 * 
+		 * @RequestParam("idx") Long idx,
+		 * 
+		 * @RequestParam("replyContent") String replyContent) {
+		 * 
+		 * QnaBoard board = service.getDetail(idx); if (board != null) {
+		 * board.setAnswer(replyContent); board.setIsAnswered(true);
+		 * service.writeBoard(board);
+		 * 
+		 * // JSON 응답 생성 Map<String, Object> response = new HashMap<>();
+		 * response.put("message", "답변이 저장되었습니다."); response.put("answer",
+		 * replyContent); response.put("isAnswered", true);
+		 * 
+		 * return ResponseEntity.ok(response); } return
+		 * ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("message",
+		 * "게시글을 찾을 수 없습니다.")); }
+		 */
 
 }

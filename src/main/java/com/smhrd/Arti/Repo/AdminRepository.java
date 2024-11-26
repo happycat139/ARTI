@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.smhrd.Arti.Model.User;
 
 @Repository
-public interface AdminRepository extends JpaRepository<User, Long> {
+public interface AdminRepository extends JpaRepository<User, String> {
 
 }
