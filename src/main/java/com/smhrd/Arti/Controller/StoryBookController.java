@@ -63,6 +63,26 @@ public class StoryBookController {
 		return "ArtisBook/SbEdit";
 	}
 	
+	// 임시 줄거리 페이지 호출
+	@GetMapping("/plot")
+	public String SbPlotpage(HttpSession session) {
+
+		Story story = (Story) session.getAttribute("story");
+		String storyline = chatGPTService.makeStory(story);
+
+		service.saveStory(storyline, session);
+
+		return "ArtisBook/SbPlot";
+	}
+	
+	// 책 테스트 페이지 호출
+	@GetMapping("/test")
+	public String SbTestPage() {
+		return "ArtisBook/SbTest";
+	}
+		
+		
+	
 	/* GPT관련 컨트롤러 */
 
 	// 동화 제목, 장르, 배경, 주제, 주인공 생성
@@ -92,16 +112,6 @@ public class StoryBookController {
 		}
 	
 
-	// 임시 줄거리 페이지 호출
-	@GetMapping("/plot")
-	public String SbPlotpage(HttpSession session) {
-
-		Story story = (Story) session.getAttribute("story");
-		String storyline = chatGPTService.makeStory(story);
-
-		service.saveStory(storyline, session);
-
-		return "ArtisBook/SbPlot";
-	}
+	
 
 }
