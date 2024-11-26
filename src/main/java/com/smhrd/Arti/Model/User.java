@@ -30,7 +30,7 @@ public class User {
 	private String profileImageUrl;
 
 	@Enumerated(EnumType.STRING)
-	private UserRole role;
+	private UserRole role = UserRole.USER; // 기본값 User;
 	
 	// provider : google이 들어감
 	private String provider;
