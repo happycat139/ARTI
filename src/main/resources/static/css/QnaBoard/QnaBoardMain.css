@@ -166,7 +166,7 @@ a {
     display: flex;
     justify-content: space-between; /* 글쓰기 버튼과 페이징 버튼 사이 간격 */
     align-items: center; /* 수직 정렬 */
-    margin-top: 20px;
+    margin-top: 30px;
 }
 
 .pagination {
