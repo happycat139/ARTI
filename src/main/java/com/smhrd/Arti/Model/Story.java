@@ -24,14 +24,12 @@ public class Story {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long b_id;
 	
-	private Long uid;
+	private String email;
     private String b_writer;
-    @Column(name = "b_title", length = 255)
     private String b_title;
     private String b_background;
     private String b_thumbnail;
     private String b_genre;
-    @Column(name = "b_Theme", length = 255)
     private String b_Theme;
     private String b_mc;
     

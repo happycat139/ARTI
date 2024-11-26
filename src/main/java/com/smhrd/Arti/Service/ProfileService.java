@@ -16,9 +16,9 @@ public class ProfileService {
 
     
     @Transactional
-    public void updateProfileImage(Long uid, String imageUrl) {
-        User user = repo.findById(uid).orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다"));
-        user.setProfileImageUrl(imageUrl);
+    public void updateProfileImage(String email, String imageUrl) {
+        User user = repo.findById(email).orElseThrow(() -> new RuntimeException("사용자를 찾을 수 없습니다"));
+        user.setProfile_img(imageUrl);
         repo.save(user);
     }
 }

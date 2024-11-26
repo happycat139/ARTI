@@ -42,7 +42,7 @@ public class StoryBookService {
 		story.setB_summary(pages.length > 5 ? pages[5] : null);
 
 		story.setB_writer(b_writer);
-		story.setUid(user.getUid());
+		story.setEmail(user.getEmail());
 	
 		repo2.save(story);
 

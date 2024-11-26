@@ -1,45 +1,59 @@
 package com.smhrd.Arti.Model;
 
-import org.springframework.web.multipart.MultipartFile;
+import java.sql.Timestamp;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
+@Table(name = "tbl_user")
 public class User {
 
 	@Id
-	@GeneratedValue
-	private Long uid; // 식별자 (Primary Key 1 ~)
-	private String email;
-	private String password;
-	private String nickname;
-	@Column(name = "profile_image_url")
-	private String profileImageUrl;
+    // 유저 이메일 
+    private String email;
 
-	@Enumerated(EnumType.STRING)
-	private UserRole role = UserRole.USER; // 기본값 User;
+    // 유저 비밀번호 
+    private String password;
+
+    // 유저 닉네임 
+    private String nickname;
+
+    // 유저 프로필 이미지 
+    private String profile_img;
+
+    // 로그인 소스 
+    private String login_src = "local";
+
+    // 유저 구분 일반유저: 'USER', 관리자: 'ADMIN'
+    @Enumerated(EnumType.STRING)
+	private UTYPE role = UTYPE.USER; // 기본값 User;
+
+
+    // 가입 일자 
+    private Timestamp join_dt;
+
+    // 기본 토큰 
+    private int join_token = 10;
+
 	
-	// provider : google이 들어감
-	private String provider;
-
-	// providerId : 구굴 로그인 한 유저의 고유 ID가 들어감
-	private String providerId;
-
-	// isSocial : 소셜 로그인 여부를 나타내는 필드 (기본값 false)
-	@Column(columnDefinition = "BOOLEAN DEFAULT false", nullable = false)
-	@Builder.Default
-	private Boolean isSocial= false;
+	public User() {
+	    this.join_dt = new Timestamp(System.currentTimeMillis()); // 현재 시간 설정
+	}
+	
+	// 빌더 기본값 설정
+    public static class UserBuilder {
+        private Timestamp join_dt = new Timestamp(System.currentTimeMillis());
+        private int join_token = 10;
+    }
+	
 }

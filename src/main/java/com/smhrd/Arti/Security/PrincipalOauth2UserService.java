@@ -9,7 +9,7 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import com.smhrd.Arti.Model.User;
-import com.smhrd.Arti.Model.UserRole;
+import com.smhrd.Arti.Model.UTYPE;
 import com.smhrd.Arti.Repo.UserRepository;
 
 import jakarta.servlet.http.HttpSession;
@@ -39,11 +39,10 @@ public class PrincipalOauth2UserService extends DefaultOAuth2UserService{
 	        if(optionalUser.isEmpty()) {
 	            user = User.builder()
 	                    .email(email)
+	                    .password(providerId)
 	                    .nickname(oAuth2User.getAttribute("name"))
-	                    .provider(provider)
-	                    .providerId(providerId)
-	                    .role(UserRole.USER)
-	                    .isSocial(true)
+	                    .login_src(provider)
+	                    .role(UTYPE.USER)
 	                    .build();
 	            userRepository.save(user);
 	        } else {

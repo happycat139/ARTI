@@ -12,15 +12,15 @@ import org.springframework.transaction.annotation.Transactional;
 import com.smhrd.Arti.Model.User;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, String> {
 	
 	/* 로그인 SQL */
 	public User findByEmailAndPassword(String email, String password);
 	
 	@Modifying
     @Transactional
-    @Query("UPDATE User u SET u.profileImageUrl = :imageUrl WHERE u.uid = :userId")
-    void updateProfileImageUrl(@Param("userId") Long userId, @Param("imageUrl") String imageUrl);
+    @Query("UPDATE User u SET u.profile_img = :imageUrl WHERE u.email = :email")
+    void updateProfileImageUrl(@Param("email") String email, @Param("imageUrl") String imageUrl);
 	
 	boolean existsByEmail(String email);
     boolean existsByNickname(String nickname);

@@ -39,7 +39,7 @@
             
             <!-- 프로필 이미지 컨테이너 -->
             <div class="Profile-img-Container">
-                <img src="<%= user != null && user.getProfileImageUrl() != null ? user.getProfileImageUrl() : "/img/profile_img.png" %>" alt="프로필 사진" class="profile-image" id="profileImage">
+                <img src="<%= user != null && user.getProfile_img() != null ? user.getProfile_img() : "/img/profile_img.png" %>" alt="프로필 사진" class="profile-image" id="profileImage">
                 <div class="Pr_edit-icon" onclick="triggerFileUpload()">
                     <img src="/img/edit-icon.png" alt="편집 아이콘">
                 </div>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="DescWrap" style="margin-top: 30px; text-align: right;">
                     <button class="Pr_logout_btn" onclick="location.href='/user/logout'"><p>로그아웃</p></button>
-                    <button class="Pr_exit_btn" onclick="location.href='/user/delete?uid=<%= user != null ? user.getUid() : "" %>'"><p>회원탈퇴</p></button>
+                    <button class="Pr_exit_btn" onclick="location.href='/user/delete?uid=<%= user != null ? user.getEmail() : "" %>'"><p>회원탈퇴</p></button>
                 </div>
             </div>
         </div>
@@ -118,7 +118,7 @@ function uploadProfileImage() {
 
     const formData = new FormData();
     formData.append('profileImageFile', selectedFile);
-    formData.append('uid', '<%= user != null ? user.getUid() : "" %>'); // 사용자 ID 추가
+    formData.append('email', '<%= user != null ? user.getEmail() : "" %>'); // 사용자 ID 추가
 
     // 서버로 이미지 파일 전송
     $.ajax({

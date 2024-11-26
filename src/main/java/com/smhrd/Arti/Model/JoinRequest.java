@@ -21,13 +21,13 @@ public class JoinRequest {
 
 	// 비밀번호 암호화 X
 	public User toEntity() {
-		return User.builder().email(this.email).password(this.password).nickname(this.nickname).role(UserRole.USER)
+		return User.builder().email(this.email).password(this.password).nickname(this.nickname).role(UTYPE.USER)
 				.build();
 	}
 
 	// 비밀번호 암호화
 	public User toEntity(String encodedPassword) {
 		return User.builder().email(this.email).password(encodedPassword).nickname(this.nickname)
-				.role(UserRole.USER).build();
+				.role(UTYPE.USER).build();
 	}
 }

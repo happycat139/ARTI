@@ -23,9 +23,9 @@ public class UserService {
     }
     
     // 닉네임 수정
-    public void updateNickname (Long uid, String newNickname) {
+    public void updateNickname (String email, String newNickname) {
     	
-    	User user = repo.findById(uid).orElseThrow();
+    	User user = repo.findById(email).orElseThrow();
     	
     	user.setNickname(newNickname);
     	
@@ -38,9 +38,9 @@ public class UserService {
     }
     
     // 회원 탈퇴
-    public boolean deleteUser(Long userId) {
+    public boolean deleteUser(String email) {
         try {
-            repo.deleteById(userId);
+            repo.deleteById(email);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -49,9 +49,9 @@ public class UserService {
     }
     
     // 프로필 이미지 URL 업데이트
-    public void updateProfileImageUrl(Long uid, String newImageUrl) {
-        User user = repo.findById(uid).orElseThrow();
-        user.setProfileImageUrl(newImageUrl);
+    public void updateProfileImageUrl(String email, String newImageUrl) {
+        User user = repo.findById(email).orElseThrow();
+        user.setProfile_img(newImageUrl);
         repo.save(user);
     }
     

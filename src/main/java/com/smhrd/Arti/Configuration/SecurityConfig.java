@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-import com.smhrd.Arti.Model.UserRole;
+import com.smhrd.Arti.Model.UTYPE;
 import com.smhrd.Arti.Security.PrincipalOauth2UserService;
 
 import lombok.RequiredArgsConstructor;
@@ -24,7 +24,7 @@ public class SecurityConfig {
     	http.csrf().disable()
         .authorizeHttpRequests()
         .requestMatchers("/security-login/info").authenticated()
-        .requestMatchers("/security-login/admin/**").hasAuthority(UserRole.ADMIN.name())
+        .requestMatchers("/security-login/admin/**").hasAuthority(UTYPE.ADMIN.name())
         .anyRequest().permitAll()
         .and()
         .oauth2Login()

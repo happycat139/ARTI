@@ -17,7 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.smhrd.Arti.Model.QnaBoard;
 import com.smhrd.Arti.Model.User;
-import com.smhrd.Arti.Model.UserRole;
+import com.smhrd.Arti.Model.UTYPE;
 import com.smhrd.Arti.Service.QnaBoardService;
 
 import jakarta.servlet.http.HttpSession;
@@ -82,7 +82,7 @@ public class QnaBoardController {
 		User user = (User) session.getAttribute("user");
 
 		// 관리자라면 바로 게시글 상세 페이지로 리다이렉트
-		if (user != null && user.getRole() == UserRole.ADMIN) {
+		if (user != null && user.getRole() == UTYPE.ADMIN) {
 			return "redirect:/arti/board/detail/" + idx;
 		}
 

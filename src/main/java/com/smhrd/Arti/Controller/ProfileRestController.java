@@ -54,10 +54,10 @@ public class ProfileRestController {
         }
 
         String newNickname = payload.get("newNickname");
-        Long uid = user.getUid();
+        String email = user.getEmail();
 
         try {
-            userService.updateNickname(uid, newNickname);
+            userService.updateNickname(email, newNickname);
 
             // user 세션 객체 닉네임 업데이트
             user.setNickname(newNickname);
@@ -82,7 +82,7 @@ public class ProfileRestController {
     
     @PostMapping("/image")
     public ResponseEntity<Map<String, Object>> uploadProfileImage(@RequestParam("profileImageFile") MultipartFile file
-    															, @RequestParam("uid") Long uid
+    															, @RequestParam("email") String email
     															, HttpSession session) {
         
     	Map<String, Object> response = new HashMap<>();
@@ -94,10 +94,10 @@ public class ProfileRestController {
             String imageUrl = googleCloudStorageService.uploadFile(file);
 
             // 사용자 프로필에 새로운 이미지 URL 업데이트
-            profileService.updateProfileImage(uid, imageUrl);
+            profileService.updateProfileImage(email, imageUrl);
             
             // user 세션 객체 닉네임 업데이트
-            user.setProfileImageUrl(imageUrl);
+            user.setProfile_img(imageUrl);
 
             // user 세션 객체 업데이트
             session.setAttribute("user", user);

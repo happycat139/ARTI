@@ -73,6 +73,6 @@ public class PrincipalDetails implements UserDetails, OAuth2User {
 	    // OAuth2User의 getName 메서드 구현
 	    @Override
 	    public String getName() {
-	    	 return String.valueOf(user.getUid()); // 또는 소셜 로그인 제공자의 고유 ID 사용
+	    	 return String.valueOf(user.getEmail()); // 또는 소셜 로그인 제공자의 고유 ID 사용
 	    }
 }

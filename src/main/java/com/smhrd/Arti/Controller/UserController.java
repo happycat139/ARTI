@@ -93,9 +93,9 @@ public class UserController {
 	
 	/* 회원탈퇴 메소드 */
 	@GetMapping("/user/delete")
-	public String delete(@RequestParam("uid") Long userId, RedirectAttributes redirectAttributes, HttpSession session) {
+	public String delete(@RequestParam("email") String email, RedirectAttributes redirectAttributes, HttpSession session) {
 		
-		boolean isDeleted = service.deleteUser(userId);
+		boolean isDeleted = service.deleteUser(email);
 		
 		if (isDeleted) {
             redirectAttributes.addFlashAttribute("message", "회원 탈퇴가 완료되었습니다.");
