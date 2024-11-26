@@ -174,7 +174,7 @@ body {
 </style>
 <body>
 <%@ include file="SbCreateHeader.jsp"%>
-<div class="SbEditPage">
+<div class="SbEditPage" id="ArtiBook-Page">
     <!-- 이전 버튼 div -->
     <div class="SbEdit_pBtn">
         <img class="SbEdit_prevBtn" src="/img/prev-grey.svg" alt="Previous">
@@ -224,5 +224,11 @@ body {
         <img class="SbEdit_nextBtn" src="/img/next-grey.svg" alt="Next">
     </div>
 </div>
+
+<script>
+
+
+
+</script>
 </body>
 </html>
