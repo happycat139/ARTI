@@ -64,4 +64,12 @@ public class ViewController {
 		return "ArtisBook/ArtisBookMain";
 	}
 	
+	
+	@GetMapping("/arti/error")
+	public String errorPage() {
+		return "errorPage";
+	}
+	
+	
+	
 }
