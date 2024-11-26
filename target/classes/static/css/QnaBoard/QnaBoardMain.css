@@ -77,6 +77,10 @@ a {
 	border-bottom: 1px solid #999;
 }
 
+#qna_top {
+	border-bottom: 2px solid #000;
+}
+
 .board_list>div:last-child {
 	border-bottom: 1px solid #000;
 }

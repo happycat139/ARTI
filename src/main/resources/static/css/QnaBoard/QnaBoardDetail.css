@@ -88,8 +88,9 @@ html {
     display: flex; /* 플렉스 박스 적용 */
     justify-content: space-between; /* 작성자 이름과 버튼 사이 간격 */
     align-items: center; /* 수직 가운데 정렬 */
-    padding: 15px;
+    padding: 20px;
     font-size: 1.4rem;
+    border-bottom: 1px solid #ddd;
 }
 
 .board_view_info dl {
@@ -147,7 +148,6 @@ html {
 }
 
 .admin_reply_wrap {
-    margin-top: 30px;
     padding: 20px 15px;
     border: 1px solid #ddd;
     border-radius: 5px;
@@ -156,10 +156,10 @@ html {
     max-width: 1000px; /* 최대 너비 제한 */
     min-width: 300px; /* 최소 너비 제한 */
     box-sizing: border-box;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     margin-left: auto; /* 가운데 정렬 */
     margin-right: auto; /* 가운데 정렬 */
-    margin-bottom: 100px;
+    margin-bottom: 70px;
 }
 
 .admin_reply_wrap textarea {

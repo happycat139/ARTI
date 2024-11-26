@@ -28,7 +28,7 @@
 		</div>
 		<div class="board_list_wrap">
 			<div class="board_list">
-				<div class="top">
+				<div class="top" id="qna_top">
 					<div class="num">번호</div>
 					<div class="title">제목</div>
 					<div class="writer">글쓴이</div>
@@ -37,7 +37,7 @@
 				</div>
 				<c:forEach items="${boardPage}" var="board" varStatus="status">
 					<div class="top">
-						<div class="num">${status.index + 1}</div>
+						<div class="num">${currentPage * 10 + status.index + 1}</div>
 						<div class="title">
 							<c:choose>
 								<c:when test="${fn:length(board.title) > 20}">
