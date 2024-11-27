@@ -55,26 +55,21 @@ public class QnaBoardController {
 		return "QnaBoard/QnaBoardWrite";
 	}
 
-	// 문의하기 메인 페이지 호출
-	@GetMapping("detail")
-	public String BoardDetailPage() {
-		return "QnaBoard/QnaBoardDetail";
-	}
 
 	@PostMapping("new")
 	public String writeBoard(QnaBoard board, HttpSession session) {
-		
+
 		User user = (User) session.getAttribute("user");
-		
+
 		if (user != null) {
-	        // 세션이 있으면 이메일 설정
-	        String email = user.getEmail(); 
-	        board.setQna_email(email); 
-	        board.setQna_name(null); 
-	        board.setQna_pw(null);
-	    } else {
-	        board.setQna_email(null); 
-	    }
+			// 세션이 있으면 이메일 설정
+			String nickname = user.getNickname();
+			board.setQna_nickname(nickname);
+			board.setQna_name(null);
+			board.setQna_pw(null);
+		} else {
+			board.setQna_nickname(null);
+		}
 
 		service.writeBoard(board);
 		return "redirect:/arti/board/main";
@@ -88,25 +83,49 @@ public class QnaBoardController {
 	}
 
 	@GetMapping("validate")
-	public String validatePassword(@RequestParam("qna_idx") Long qna_idx, @RequestParam("qna_pw") String qna_pw,
-			RedirectAttributes redirectAttributes, HttpSession session) {
+	public String validatePassword(@RequestParam("qna_idx") Long qna_idx,
+			@RequestParam(value = "qna_pw", required = false) String qna_pw, RedirectAttributes redirectAttributes,
+			HttpSession session) {
 
-		// 세션에서 user 객체를 가져오기
+		// 세션에서 로그인한 사용자 정보 가져오기
 		User user = (User) session.getAttribute("user");
 
-		// 관리자라면 바로 게시글 상세 페이지로 리다이렉트
+		// 게시글 정보 가져오기
+		QnaBoard board = service.getDetail(qna_idx);
+		if (board == null) {
+			redirectAttributes.addFlashAttribute("error", "존재하지 않는 게시글입니다.");
+			return "redirect:/arti/board/main";
+		}
+
+		// 관리자 접근 허용
 		if (user != null && user.getRole() == UTYPE.ADMIN) {
 			return "redirect:/arti/board/detail/" + qna_idx;
 		}
 
-		QnaBoard board = service.getDetail(qna_idx);
-
-		if (board != null && board.getQna_pw().equals(qna_pw)) {
-			return "redirect:/arti/board/detail/" + qna_idx;
-		} else {
-			redirectAttributes.addFlashAttribute("error", "비밀번호가 틀립니다.");
+		// 회원 작성글 접근 허용
+		if (board.getQna_nickname() != null) {
+			// 회원이 작성한 글인지 확인
+			if (user != null && user.getNickname().equals(board.getQna_nickname())) {
+				return "redirect:/arti/board/detail/" + qna_idx;
+			}
+			redirectAttributes.addFlashAttribute("error", "작성자만 접근할 수 있습니다.");
 			return "redirect:/arti/board/main";
 		}
+
+		// 비회원 작성글 비밀번호 검증
+		if (board.getQna_pw() == null || board.getQna_pw().isEmpty()) {
+			redirectAttributes.addFlashAttribute("error", "비밀번호가 설정되지 않은 게시글입니다.");
+			return "redirect:/arti/board/main";
+		}
+
+		if (qna_pw != null && qna_pw.equals(board.getQna_pw())) {
+			// 비밀번호가 맞는 경우
+			return "redirect:/arti/board/detail/" + qna_idx;
+		}
+
+		// 비밀번호가 틀린 경우
+		redirectAttributes.addFlashAttribute("error", "비밀번호가 틀렸습니다.");
+		return "redirect:/arti/board/main";
 	}
 
 }

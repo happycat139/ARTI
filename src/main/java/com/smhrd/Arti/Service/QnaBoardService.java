@@ -1,5 +1,7 @@
 package com.smhrd.Arti.Service;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -33,8 +35,9 @@ public class QnaBoardService {
 
 
 	// 게시물 상세보기 기능
-	public QnaBoard getDetail(Long idx) {
-		return repo.findById(idx).orElseThrow(() -> new RuntimeException("게시글을 찾을 수 없습니다."));
+	public QnaBoard getDetail(Long qna_idx) {
+		Optional<QnaBoard> board = repo.findById(qna_idx);
+	    return board.orElse(null);
 	}
 
 	// 게시글 삭제 기능	

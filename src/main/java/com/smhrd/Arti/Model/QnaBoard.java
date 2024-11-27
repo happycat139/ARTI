@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -34,8 +36,8 @@ public class QnaBoard {
 	@Column(name = "qna_dt")
 	private Timestamp qnaDt;
 
-	// 작성자 이메일 (회원용)
-	private String qna_email;
+	// 작성자 닉네임 (회원용)	
+    private String qna_nickname;
 
 	// 작성자 이름 (비회원용)
 	private String qna_name;

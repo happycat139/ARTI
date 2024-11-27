@@ -29,8 +29,8 @@
 						<dt>글쓴이</dt>
 						<dd>
 							<c:choose>
-								<c:when test="${board.qna_email != null}">
-          						  ${board.qna_email}
+								<c:when test="${board.qna_nickname != null}">
+          						  ${board.qna_nickname}
         					 </c:when>
 								<c:otherwise>
            						  ${board.qna_name}
@@ -98,10 +98,10 @@
 	<jsp:include page="/WEB-INF/views/Footer.jsp" />
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
-    function deletePost(idx) {
+    function deletePost(qna_idx) {
         if (confirm("게시글을 삭제하시겠습니까?")) {
             $.ajax({
-                url: `/arti/board/delete/${idx}`,
+                url: `/arti/board/delete/${qna_idx}`,
                 type: 'DELETE',
                 success: function(response) {
                     alert("게시글이 삭제되었습니다.");

@@ -41,11 +41,14 @@
 						<div class="title">
 							<c:choose>
 								<c:when test="${fn:length(board.qna_title) > 20}">
-									<a href="javascript:checkPassword(${board.qna_idx})">
-										${fn:substring(board.qna_title, 0, 20)}... </a>
+									<a href="javascript:void(0)"
+										onclick="checkPassword(${board.qna_idx}, '${board.qna_nickname}', '${board.qna_name != null && board.qna_name.trim() != '' ? board.qna_name : ''}')">
+										${fn:substring(board.qna_title, 0, 20)}...
+									</a>
 								</c:when>
 								<c:otherwise>
-									<a href="javascript:checkPassword(${board.qna_idx})">
+									<a href="javascript:void(0)"
+										onclick="checkPassword(${board.qna_idx}, '${board.qna_nickname}', '${board.qna_name != null && board.qna_name.trim() != '' ? board.qna_name : ''}')">
 										${board.qna_title} </a>
 								</c:otherwise>
 							</c:choose>
@@ -53,13 +56,13 @@
 
 						<div class="writer">
 							<c:choose>
-								<c:when test="${board.qna_email != null}">
+								<c:when test="${board.qna_nickname != null}">
 									<c:choose>
-										<c:when test="${fn:length(board.qna_email) > 5}">
-                    						${fn:substring(board.qna_email, 0, 5)}...
+										<c:when test="${fn:length(board.qna_nickname) > 5}">
+                    						${fn:substring(board.qna_nickname, 0, 5)}...
               					</c:when>
 										<c:otherwise>
-                    				${board.qna_email}
+                    				${board.qna_nickname}
                 				</c:otherwise>
 									</c:choose>
 								</c:when>
@@ -129,24 +132,66 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 	<script>
-		// 관리자 여부를 설정 (JSP에서 값을 렌더링)
-		const isAdmin = "${sessionScope.user != null && sessionScope.user.role == 'ADMIN' ? 'true' : 'false'}";
+    // 관리자 여부를 설정
+    const isAdmin = "${sessionScope.user != null && sessionScope.user.role == 'ADMIN' ? 'true' : 'false'}";
+    // 현재 로그인한 사용자의 닉네임 (없으면 null)
+    const loggedInNickname = "${sessionScope.user != null ? sessionScope.user.nickname : ''}";
+    
+    console.log("isAdmin:", isAdmin);
+    console.log("loggedInNickname:", loggedInNickname);
+    
+    
+    function checkPassword(idx, writerNickname, writerName) {
+        console.log("게시글 번호:", idx);
+        console.log("작성자 닉네임:", writerNickname || "(회원 닉네임 없음)");
+        console.log("작성자 이름 (비회원):", writerName || "(비회원 이름 없음)");
 
-		function checkPassword(idx) {
-			if (isAdmin === 'true') {
-				// 관리자는 비밀번호 입력 없이 검증 경로로 이동
-				location.href = "/arti/board/validate?qna_idx=" + idx
-						+ "&qna_pw=";
-			} else {
-				// 일반 사용자는 비밀번호 입력창 표시
-				const password = prompt("비밀번호를 입력하세요:");
-				if (password) {
-					location.href = "/arti/board/validate?qna_idx=" + idx
-							+ "&qna_pw=" + password;
-				}
-			}
-		}
-	</script>
+        // 비회원 여부 확인
+        const isAnonymous = writerName && writerName.trim().length > 0;
+        console.log("비회원 여부 (isAnonymous):", isAnonymous);
+
+        if (isAdmin === 'true') {
+            console.log("관리자 접근");
+            location.href = "/arti/board/validate?qna_idx=" + idx + "&qna_pw=";
+            return;
+        }
+
+        if (writerNickname && loggedInNickname === writerNickname) {
+            // 작성자가 회원이고, 현재 로그인된 회원이 작성자일 때만
+            console.log("작성자 본인 접근");
+            location.href = "/arti/board/validate?qna_idx=" + idx + "&qna_pw=";
+            return;
+        }
+
+        if (!writerNickname && isAnonymous) {
+            // 비회원 작성글일 경우
+            console.log("비회원 작성글 - 비밀번호 입력창 표시");
+            const password = prompt("비밀번호를 입력하세요:");
+            if (password && password.trim() !== "") {
+                console.log("비밀번호 입력됨:", password);
+                location.href = "/arti/board/validate?qna_idx=" + idx + "&qna_pw=" + encodeURIComponent(password);
+            } else {
+                console.log("비밀번호 입력 취소 또는 빈 값 입력");
+                alert("비밀번호를 입력해야 합니다.");
+            }
+            return;
+        }
+
+        console.log("접근 금지 - 작성자 외 접근 시도");
+        alert("작성자만 접근할 수 있습니다.");
+    }
+
+
+
+
+
+
+
+
+    
+</script>
+
+
 
 
 
