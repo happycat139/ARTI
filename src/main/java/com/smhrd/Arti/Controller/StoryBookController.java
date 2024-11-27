@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.smhrd.Arti.Model.Story;
 import com.smhrd.Arti.Model.StoryBook;
 import com.smhrd.Arti.Service.ChatGPTService;
 import com.smhrd.Arti.Service.StoryBookService;
@@ -46,8 +45,8 @@ public class StoryBookController {
 
 	// 나의 동화책 선택 페이지 호출
 	@GetMapping("/select")
-	public String SbSelectpage(@RequestParam("b_writer") String b_writer, HttpSession session) {
-		session.setAttribute("b_writer", b_writer.trim());
+	public String SbSelectpage(@RequestParam("author") String author, HttpSession session) {
+		session.setAttribute("author", author.trim());
 		return "ArtisBook/SbSelect";
 	}
 
@@ -67,7 +66,7 @@ public class StoryBookController {
 	@GetMapping("/plot")
 	public String SbPlotpage(HttpSession session) {
 
-		Story story = (Story) session.getAttribute("story");
+		StoryBook story = (StoryBook) session.getAttribute("storybook");
 		String storyline = chatGPTService.makeStory(story);
 
 		service.saveStory(storyline, session);

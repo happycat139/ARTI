@@ -1,3 +1,5 @@
+<%@page import="com.smhrd.Arti.Model.StoryContent"%>
+<%@page import="java.util.List"%>
 <%@page import="com.smhrd.Arti.Model.StoryBook"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -12,8 +14,15 @@
 <body>
 	<%@ include file="SbCreateHeader.jsp"%>
 	<div id="#" class="SbPlot-page">
+
 		<%
-		StoryBook storyBook = (StoryBook) session.getAttribute("storyBook");
+		// 세션에서 storyContentList 가져오기
+		List<StoryContent> storyContentList = (List<StoryContent>) session.getAttribute("storyContentList");
+		if (storyContentList == null || storyContentList.isEmpty()) {
+		%>
+		<p>저장된 줄거리가 없습니다.</p>
+		<%
+		} else {
 		%>
 
 
@@ -22,52 +31,29 @@
 			<div class="SBPlot-SubTitle plot">동화책 각 페이지에 들어갈 이야기를 수정할 수
 				있어요.</div>
 		</div>
+
+
 		<div class="SbPlot-view">
-			<div id="0" class="SbPlot-box">
-				<div class="SbPlot-index">1</div>
-				<div id="SbPlot-Content" class="SbPlot-Content"><%= storyBook.getB_content1() %></div>
+			<%
+			for (StoryContent content : storyContentList) {
+			%>
+			<div id="SbPlot-box-<%=content.getPage_num() - 1%>"
+				class="SbPlot-box">
+				<div class="SbPlot-index"><%=content.getPage_num()%></div>
+				<div id="SbPlot-Content-<%=content.getPage_num() - 1%>"
+					class="SbPlot-Content">
+					<%=content.getContent()%>
+				</div>
 			</div>
-			<div id="1" class="SbPlot-box">
-				<div class="SbPlot-index">2</div>
-				<div id="SbPlot-Content" class="SbPlot-Content"><%= storyBook.getB_content2() %></div>
-			</div>
-			<div id="2" class="SbPlot-box">
-				<div class="SbPlot-index">3</div>
-				<div id="SbPlot-Content" class="SbPlot-Content"><%= storyBook.getB_content3() %></div>
-			</div>
-			<div id="3" class="SbPlot-box">
-				<div class="SbPlot-index">4</div>
-				<div id="SbPlot-Content" class="SbPlot-Content"><%= storyBook.getB_content4() %></div>
-			</div>
-			<div id="4" class="SbPlot-box">
-				<div class="SbPlot-index">5</div>
-				<div id="SbPlot-Content" class="SbPlot-Content"><%= storyBook.getB_content5() %></div>
-			</div>
-			<div id="5" class="SbPlot-box">
-				<div class="SbPlot-index">6</div>
-				<div id="SbPlot-Content" class="SbPlot-Content"><%= storyBook.getB_content6() %></div>
-			</div>
-			<div id="6" class="SbPlot-box">
-				<div class="SbPlot-index">7</div>
-				<div id="SbPlot-Content" class="SbPlot-Content"><%= storyBook.getB_content7() %></div>
-			</div>
-			<div id="7" class="SbPlot-box">
-				<div class="SbPlot-index">8</div>
-				<div id="SbPlot-Content" class="SbPlot-Content"><%= storyBook.getB_content8() %></div>
-			</div>
-			<div id="8" class="SbPlot-box">
-				<div class="SbPlot-index">9</div>
-				<div id="SbPlot-Content" class="SbPlot-Content"><%= storyBook.getB_content9() %></div>
-			</div>
-			<div id="9" class="SbPlot-box">
-				<div class="SbPlot-index">10</div>
-				<div id="SbPlot-Content" class="SbPlot-Content"><%= storyBook.getB_content10() %></div>
-			</div>
-			<div id="10" class="SbPlot-box">
-				<div class="SbPlot-index">11</div>
-				<div id="SbPlot-Content" class="SbPlot-Content"><%= storyBook.getB_content11() %></div>
-			</div>
+			<%
+			}
+			%>
 		</div>
+		<%
+		}
+		%>
+
+
 		<div class="SbPlot-BtnContainer">
 			<button class="SbModify-btn" id="SbModifyBtn">
 				<img src="/img/modify.svg" class="SbModify-btn-icon">플롯 수정

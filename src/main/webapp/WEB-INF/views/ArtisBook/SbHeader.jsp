@@ -26,7 +26,7 @@
                     %>
                         <!-- 로그인 상태일 때 프로필 표시 -->
                         <div class="profile-btn" onclick="location.href='/profile'">
-                            <img src="<%= user != null && user.getProfileImageUrl() != null ? user.getProfileImageUrl() : "/img/default-profile.png" %>" alt="프로필 사진" class="rounded-profile" >
+                            <img src="<%= user != null && user.getProfile_img() != null ? user.getProfile_img() : "/img/default-profile.png" %>" alt="프로필 사진" class="rounded-profile" >
                             <a href="#"><%=user.getNickname() %></a>
                         </div>
                     <%

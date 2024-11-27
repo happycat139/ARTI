@@ -27,6 +27,7 @@ public class QnaBoard {
 	private String qna_title;
 
 	// 질의 내용
+	@Column(name = "qna_content", columnDefinition = "TEXT")
 	private String qna_content;
 
 	// 질의 파일

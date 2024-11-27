@@ -10,12 +10,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import com.google.api.client.http.HttpHeaders;
-import com.google.api.client.util.Value;
 import com.smhrd.Arti.Model.ChatGPTRequest;
 import com.smhrd.Arti.Model.ChatGPTResponse;
 import com.smhrd.Arti.Model.ChatMessage;
-import com.smhrd.Arti.Model.Story;
+import com.smhrd.Arti.Model.StoryBook;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -134,17 +132,18 @@ public class ChatGPTService {
     
     
     // 동화 11 페이지 줄거리 생성
-    public String makeStory(Story story) {
+    public String makeStory(StoryBook story) {
         // GPT 요청 메시지 작성
-        String fullPrompt = story.getB_title() + "라는 제목을 가진 동화야. 이 동화의 장르는 " + story.getB_genre() + 
-            "이며, 배경은 " + story.getB_background() + "야. 주제는 '" + story.getB_Theme() + 
-            "'이며, 주인공은 " + story.getB_mc() + "야. 요약 줄거리는 다음과 같아: " + story.getB_summary() + 
+        String fullPrompt = story.getBook_name() + "라는 제목을 가진 동화야. 이 동화의 장르는 " + story.getBook_genre() + 
+            "이며, 배경은 " + story.getBook_background() + "야. 주제는 '" + story.getBook_subject() + 
+            "'이며, 주인공은 " + story.getBook_mc() + "야. 요약 줄거리는 다음과 같아: " + story.getBook_summary() + 
             ". 이 내용을 기반으로 동화 줄거리를 11페이지로 만들어줘. "
             + "단 다음 조건을 무조건 지켜야해. 무슨 일이 있어도 조건을 엄수해야 해.\n"
     		+ "조건 1: 모든 페이지를 ###으로 나눠서 보내줘야 해.\n"
             + "조건 2: 각 페이지당 글자 수는 200자 정도로 만들어줘\n"
     		+ "조건 3: 맨 앞과 끝에 ### 붙이지 마."
-            + "조건 4: 너가 보내주는 텍스트에 줄거리, 페이지 이런 단어를 제거해줘. 페이지를 나누는 숫자도 금지야.";
+            + "조건 4: 너가 보내주는 텍스트에 줄거리, 페이지 이런 단어를 제거해줘. 페이지를 나누는 숫자도 금지야."
+    		+ "조건 5: 꼭 11페이지로 만들어줘야 해.";
 
         // GPT 메시지 구성
         List<ChatMessage> messages = Arrays.asList(
