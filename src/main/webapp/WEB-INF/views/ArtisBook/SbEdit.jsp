@@ -64,11 +64,10 @@ body {
 
 .SbEdit_BackImg {
     width: 400px;
-    height:300px;
+    height: 300px;
     padding-left: 160px;
     padding-top: 220px;
 }
-
 
 .center-section {
     flex: 0.05; 
@@ -89,7 +88,7 @@ body {
 }
 
 .SbEdit_BookTitle {
-	flex: 3; 
+    flex: 3; 
     display: flex;
     align-items: flex-start;
     justify-content: center;
@@ -161,16 +160,14 @@ body {
 }
 
 .SbEdit_BookMainTitle {
-	margin: 50px 0 0 0 ;
-	text-align: center;
-	font-size: 32px;
-	
+    margin: 50px 0 0 0 ;
+    text-align: center;
+    font-size: 32px;
 }
 
 .SbEdit_BookMainWriter {
-	text-align: center;
+    text-align: center;
 }
-
 
 /* 두번째 페이지 */
 
@@ -217,7 +214,7 @@ body {
     transform: translateX(-50%);
     background: rgba(0, 0, 0, 0.3); /* 선 자체는 투명하게 설정 */
     box-shadow: 10px 0 20px rgba(0, 0, 0, 0.5); /* 그림자를 오른쪽 방향으로 설정 */
-    z-index: 5; /* 그림자가 다른 요소들과 어울리게 조정 */
+    z-index: 1; /* 그림자가 다른 요소들과 어울리게 조정 */
 }
 
 .text-content {
@@ -233,12 +230,12 @@ body {
 }
 
 .Sb_PutImage {
-	height: 400px;
-	width: 450px;
+    height: 400px;
+    width: 450px;
 }
 
 .SbEdit_PageLeft1 {
-	background-color: #F0E9EC;
+    background-color: #F0E9EC;
 }
 
 .SbEdit_Info2 {
@@ -258,6 +255,340 @@ body {
     margin-right: 10px;
 }
 
+/* 팝업창 관련 CSS */
+
+.SbEdit-ModifyModalBack {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    z-index: 2;
+}
+
+.SbEdit-ModifyModal {
+    width: 663px;
+    height: 700px;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.15);
+    position: fixed;
+    left: calc(50vw - 317px);
+    top: 5%;
+}
+
+.SbEdit-ModifyTitle {
+    color: #000;
+    padding: 20px 0 0 30px;
+    text-align: left;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+}
+
+.SbEdit-ModifyInput {
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 20px;
+    width: 570px;
+    height: 490px;
+    border-radius: 8px;
+    border: white;
+    resize: none;
+    background: #f4f4fc;
+    margin: 24px 0 20px 30px;
+    padding: 16px;
+}
+
+.SbEdit-ModifyInput:focus {
+    outline: none;
+    border: none;
+}
+
+.SbEdit-BtnCon {
+    display: flex; /* 플렉스 박스로 설정 */
+    justify-content: center; /* 수평으로 중앙 정렬 */
+    gap: 20px; /* 버튼들 사이에 간격 설정 */
+    margin-top: 10px; /* 모달과 버튼 사이의 간격 설정 */
+}
+
+.Modify-SEModal-Cbtn {
+    width: 234px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 2px solid #6133e2;
+    background-color: #fff;
+    color: #6133e2;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.Modify-SEModal-btn {
+    width: 234px;
+    height: 46px;
+    margin: 0 0 0 0;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 1px solid #6133e2;
+    background-color: var(--story, #6133e2);
+    color: #fff;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+/* 제목 편집 팝업창 관련 CSS */
+
+.SbEdit-ModifyModalBack_Title {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    z-index: 2;
+}
+
+.SbEdit-ModifyModal_Title {
+    width: 750px;
+    height: 250px;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.15);
+    position: fixed;
+    left: calc(50vw - 317px);
+    top: 5%;
+}
+
+.SbEdit-TitleModalCon {
+    display: flex; /* 플렉스 박스로 설정하여 한 줄에 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    padding: 0 30px; /* 양쪽 여백 설정 */
+    gap: 20px; /* 드롭다운과 텍스트 영역 사이의 간격 설정 */
+}
+
+.dropdown-container {
+    position: relative;
+    border-bottom: 1px solid #ddd; /* 하단에 선 추가 */
+    flex-shrink: 0; /* 드롭다운 크기가 줄어들지 않도록 설정 */
+    width: 150px;
+}
+
+.styled-select {
+    width: 150px;
+    padding: 10px;
+    font-size: 16px;
+    border: none; /* 기본 경계선을 제거 */
+    outline: none;
+    -webkit-appearance: none; /* 크롬 등 웹킷 브라우저에서 기본 화살표 제거 */
+    -moz-appearance: none; /* 파이어폭스에서 기본 화살표 제거 */
+    appearance: none; /* 기본 화살표 제거 */
+    background: transparent;
+    margin-top: 10px;
+}
+
+.dropdown-container::after {
+    content: '\25BC'; /* 드롭다운 화살표 추가 (▼) */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none; /* 화살표 클릭을 방지 */
+    color: #aaa;
+}
+
+.SbEdit-ModifyInput_Title {
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 20px;
+    width: 500px; /* 너비 설정 */
+    height: 30px; /* 높이 설정 */
+    border-radius: 8px;
+    border: white;
+    resize: none;
+    background: #f4f4fc;
+    padding: 10px;
+}
+
+.SbEdit-ModifyInput_Title:focus {
+    outline: none;
+    border: none;
+}
+
+.SbEdit-BtnCon_Title {
+    display: flex; /* 플렉스 박스로 설정 */
+    justify-content: center; /* 수평으로 중앙 정렬 */
+    gap: 20px; /* 버튼들 사이에 간격 설정 */
+    margin-top: 30px; /* 모달과 버튼 사이의 간격 설정 */
+}
+
+.Modify-SEModal-Cbtn_Title {
+    width: 234px;
+    height: 46px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 2px solid #6133e2;
+    background-color: #fff;
+    color: #6133e2;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.Modify-SEModal-btn_Title {
+    width: 234px;
+    height: 46px;
+    margin: 0;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 1px solid #6133e2;
+    background-color: var(--story, #6133e2);
+    color: #fff;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+/* 썸네일 팝업 CSS */
+
+.SbPlotModifyModalBack_THUMB {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    z-index: 2;
+}
+
+.SbPlot-ModifyModal_THUMB {
+    width: 663px;
+    height: 600px;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: 0px 0px 5px -1px rgba(0, 0, 0, 0.15);
+    position: fixed;
+    left: calc(50vw - 317px);
+    top: 22%;
+    
+}
+
+.SbPlotModalCloseBtn_THUMB {
+    margin: 20px 0 15px 615px;
+}
+
+.SbPlot-ModifyTHUMB {
+    color: #000;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+}
+
+.SbPlot-ModifySubTHUMB {
+    color: #000;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.SbPlot-ModifyInput_THUMB {
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 20px;
+    width: 570px;
+    height: 276px;
+    border-radius: 8px;
+    border: white;
+    resize: none;
+    background: #f4f4fc;
+    margin: 24px 0 20px 30px;
+    padding: 16px;
+}
+
+.SbPlot-ModifyInput_THUMB:focus {
+	outline:none;
+	border:none;
+}
+
+.Modify-SBPModal-btn_THUMB {
+    float: right;
+    width: 234px;
+    height: 46px;
+    margin: 0 35px 0 15px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    border: 1px solid #6133e2;
+    background-color: var(--story, #6133e2);
+    color: #fff;
+    text-align: center;
+    font-family: "Noto Sans KR", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+    cursor: pointer;
+}
+
+.Modify-SBPModal-credit_THUMB {
+    color: rgba(0, 0, 0, 0.7);
+    text-align: right;
+    font-family: Inter;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 46px;
+    float: right;
+}
+
+.Modify-SbEdit_THUMB {
+    color: var(--story, #6133e2);
+    text-align: left;
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 46px;
+    float: left;
+    margin: 0 0 20px 30px;
+    
+}
+
+.SbEdit-Option {
+    color: #6133e2;
+    margin-left: 10px;
+    cursor: pointer;
+    border: 2px solid #6133e2;
+    padding: 5px 10px;
+    border-radius: 30px;
+}
 
 </style>
 <body>
@@ -271,12 +602,13 @@ body {
     <!-- 중앙 책 콘텐츠 div -->
     <div class="SbEdit_Book" id="page1">
     
-    	<!-- 책 왼쪽 -->
+        <!-- 책 왼쪽 -->
         <div class="left-section">
-        	<div>
-        		<div class="SbEdit_BookBackImg">
-                	<img class="SbEdit_BackImg" src="/img/backImg.png">
-            	</div>
+            <div>
+                <div class="SbEdit_BookBackImg" id="SbEdit_BookBackImg">
+                    <img class="SbEdit_BackImg" src="/img/backImg.png">
+                </div>
+                <div class="SbEdit_BookPage"></div>
             </div>
         </div>
         
@@ -301,8 +633,8 @@ body {
             </div>
             
             <div class="bottom-right">
-            	<p class="SbEdit_BookMainTitle">ARTI 가이드북</p>
-            	<p class="SbEdit_BookMainWriter">안녕하세요잇 지음</p>
+                <p class="SbEdit_BookMainTitle" id="SbEdit_BookMainTitle">ARTI 가이드북</p>
+                <p class="SbEdit_BookMainWriter">안녕하세요잇 지음</p>
             </div>
         </div>
     </div>
@@ -311,12 +643,12 @@ body {
     <div class="SbEdit_MainBook hidden" id="page2">
         <div class="center-shadow"></div>
         <div class="SbEdit_PageLeft">
-            <div class="text-content">
+            <div class="text-content SbEdit_InputContent">
                 인쇄되지 않는 페이지입니다.
             </div>
         </div>
         <div class="SbEdit_PageRight">
-            <div class="text-content">
+            <div class="text-content SbEdit_InputContent">
                 내용을 입력해주세요.
             </div>
         </div>
@@ -325,30 +657,29 @@ body {
     <!-- 페이지 3부터 13까지 반복 생성 -->
     <% for (int i = 3; i <= 13; i++) { %>
     <div class="SbEdit_MainBook hidden" id="page<%=i%>">
-    	<div class="center-shadow"></div>
+        <div class="center-shadow"></div>
             
         <div class="SbEdit_PageLeft1">
-            <div class="text-content">
+            <div class="text-content SbEdit_InputContent">
                 <img class="Sb_PutImage" src="/img/images.png">
-                	<p>
-                		클릭하면 AI를 이용해 페이지에
-                	<br>
-                		어울리는 이미지가 자동으로 생성됩니다.
-                	</p>
+                    <p>
+                        클릭하면 AI를 이용해 페이지에
+                    <br>
+                        어울리는 이미지가 자동으로 생성됩니다.
+                    </p>
             </div>
         </div>
         
         <!-- 책 오른쪽 -->
         <div class="SbEdit_PageRight1">
-            <div class="text-content">
+            <div class="text-content SbEdit_InputContent">
                 내용을 입력해주세요.
             </div>
         </div>
     </div>
-	<% } %>
-	
-	<!-- 14번째 페이지 생성 -->
-	<!-- 두 번째 페이지 -->
+    <% } %>
+    
+    <!-- 14번째 페이지 생성 -->
     <div class="SbEdit_MainBook hidden" id="page14">
         <div class="center-shadow"></div>
         <div class="SbEdit_PageLeft">
@@ -375,21 +706,81 @@ body {
             </div>
         </div>
     </div>
-	
-	
+    
+    
     <!-- 다음 버튼 div -->
     <div class="SbEdit_nBtn">
         <img class="SbEdit_nextBtn" src="/img/next-grey.svg" alt="Next" onclick="showNextPage()">
     </div>
+    
+    <!-- 내용 편집 팝업창 -->
+    <div id="SbEditModifyModalBack" class="SbEdit-ModifyModalBack" style="display:none;">
+        <div class="SbEdit-ModifyModal">
+            <div class="SbEdit-ModifyTitle">내용 편집</div>
+            <textarea class="SbEdit-ModifyInput"></textarea>
+            <div class="SbEdit-BtnCon">
+                <button class="Modify-SEModal-Cbtn">취소하기</button>
+                <button class="Modify-SEModal-btn">생성하기</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 제목 편집 팝업창 -->
+    <div id="SbEdit-ModifyModalBack_Title" class="SbEdit-ModifyModalBack_Title" style="display:none;">
+        <div class="SbEdit-ModifyModal_Title">
+            <div class="SbEdit-ModifyTitle">제목 편집</div>
+            <div class="SbEdit-TitleModalCon">
+                <div class="dropdown-container">
+                    <select class="styled-select">
+                        <option value="option0"></option>
+                        <option value="option1">궁서체</option>
+                        <option value="option2">고딕체</option>
+                        <option value="option3">진미채</option>
+                        <option value="option4">무생채</option>
+                    </select>
+                </div>
+                <textarea class="SbEdit-ModifyInput_Title"></textarea>
+            </div>
+            <div class="SbEdit-BtnCon_Title">
+                <button class="Modify-SEModal-Cbtn_Title">취소하기</button>
+                <button class="Modify-SEModal-btn_Title">생성하기</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- 썸네일 편집 팝업창 -->
+    <div id="SbPlotModifyModalBack_THUMB" class="SbPlotModifyModalBack_THUMB" style="display:none;">
+			<div class="SbPlot-ModifyModal_THUMB">
+				<img src="/img/close-icon.svg" id="SbPlotModifyModalClose_THUMB" class="SbPlotModalCloseBtn_THUMB">
+				<div class="SbPlot-ModifyTHUMB">
+					<b>원하는 장면을 자세히 적으면 AI가 그림을 생성합니다.</b>
+				</div>
+				<div class="SbPlot-ModifySubTHUMB">
+					현재 그림체 : 
+					<div class="SbEdit-Option">
+						수채화 일러스트
+						<img src="/img/gear.png" style="margin-top:5px;">
+					</div>
+				</div>
+				<textarea class="SbPlot-ModifyInput_THUMB"></textarea>
+				<button class="Modify-SBPModal-btn_THUMB">생성하기</button>
+				<br>
+				<div class="Modify-SBPModal-credit_THUMB">잔여 크레딧 : 31</div>
+				<div class="Modify-SbEdit_THUMB"><b>직접 그림 업로드</b></div>
+			</div>
+		</div>
+    
+
 </div>
+
 <script>
 let currentPage = 1;
 const totalPages = 14;
 
 function showNextPage() {
-	if (currentPage < totalPages) {
-		const current = document.getElementById("page" + currentPage);
-		const next = document.getElementById("page" + (currentPage + 1));
+    if (currentPage < totalPages) {
+        const current = document.getElementById("page" + currentPage);
+        const next = document.getElementById("page" + (currentPage + 1));
 
         current.classList.add("hidden");
         next.classList.remove("hidden");
@@ -408,18 +799,54 @@ function showPreviousPage() {
     }
 }
 
-// 페이지 로딩 시 항상 첫 번째 페이지 보이도록 설정
 window.onload = function() {
     document.getElementById("page1").classList.remove("hidden");
-    
+
     for (let i = 2; i <= totalPages; i++) {
         document.getElementById("page" + i).classList.add("hidden");
     }
-    
-    currentPage = 1;
-}
 
-    
+    currentPage = 1;
+
+    /* 내용 편집 팝업창 관련 JS */
+    const inputContentDivs = document.querySelectorAll(".SbEdit_InputContent");
+    inputContentDivs.forEach((div) => {
+        div.addEventListener("click", function() {
+            document.getElementById("SbEditModifyModalBack").style.display = "block";
+        });
+    });
+
+    /* 제목 편집 팝업창 관련 JS */
+    const bookMainTitle = document.querySelectorAll("#SbEdit_BookMainTitle");
+    bookMainTitle.forEach((div) => {
+        div.addEventListener("click", function() {
+            document.getElementById("SbEdit-ModifyModalBack_Title").style.display = "block";
+        });
+    });
+};
+
+// 내용 팝업창 닫기 (취소 버튼 클릭 시)
+document.querySelector(".Modify-SEModal-Cbtn").onclick = function() {
+    document.getElementById("SbEditModifyModalBack").style.display = "none";
+};
+
+// 제목 팝업창 닫기 (취소 버튼 클릭 시)
+document.querySelector(".Modify-SEModal-Cbtn_Title").onclick = function() {
+    document.getElementById("SbEdit-ModifyModalBack_Title").style.display = "none";
+};
+
+// 팝업창 닫기 (배경 클릭 시)
+window.onclick = function(event) {
+    const modal1 = document.getElementById("SbEditModifyModalBack");
+    const modal2 = document.getElementById("SbEdit-ModifyModalBack_Title");
+    if (event.target == modal1) {
+        modal1.style.display = "none";
+    }
+    if (event.target == modal2) {
+        modal2.style.display = "none";
+    }
+};
+
 </script>
 </body>
 </html>
