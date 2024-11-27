@@ -24,9 +24,9 @@ public class QnaBoardRestController {
 	QnaBoardService service;
 	
 	
-	 @DeleteMapping("delete/{idx}")
-	    public ResponseEntity<Void> deletePost(@PathVariable Long idx) {
-	        boolean isDeleted = service.deletePost(idx);
+	 @DeleteMapping("delete/{qna_idx}")
+	    public ResponseEntity<Void> deletePost(@PathVariable Long qna_idx) {
+	        boolean isDeleted = service.deletePost(qna_idx);
 
 	        if (isDeleted) {
 	            return ResponseEntity.ok().build(); // 성공 응답
