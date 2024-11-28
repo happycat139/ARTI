@@ -16,6 +16,8 @@
 	<div id="#" class="SbPlot-page">
 
 		<%
+		
+		StoryBook story = (StoryBook) session.getAttribute("storybook");
 		// 세션에서 storyContentList 가져오기
 		List<StoryContent> storyContentList = (List<StoryContent>) session.getAttribute("storyContentList");
 		if (storyContentList == null || storyContentList.isEmpty()) {
@@ -37,10 +39,10 @@
 			<%
 			for (StoryContent content : storyContentList) {
 			%>
-			<div id="SbPlot-box-<%=content.getPage_num() - 1%>"
+			<div id="SbPlot-box-<%=content.getPageNum() - 1%>"
 				class="SbPlot-box">
-				<div class="SbPlot-index"><%=content.getPage_num()%></div>
-				<div id="SbPlot-Content-<%=content.getPage_num() - 1%>"
+				<div class="SbPlot-index"><%=content.getPageNum()%></div>
+				<div id="SbPlot-Content-<%=content.getPageNum() - 1%>"
 					class="SbPlot-Content">
 					<%=content.getContent()%>
 				</div>
@@ -83,7 +85,7 @@
 				<div class="SbPlot-ModalSubTitle">선택한 플롯이 맞는지 확인 후 만들어주세요.</div>
 				<div>
 					<button id="SbPlot-CancelBtn" class="SbPlot-CancelBtn">취소하기</button>
-					<button id="SbPlotModal-Btn" class="SbPlotModal-Btn">글 편집
+					<button id="SbPlotModal-Btn" class="SbPlotModal-Btn" onclick="location.href='/arti/book/edit?book_idx=${storybook.book_idx}'">글 편집
 						단계로</button>
 				</div>
 			</div>

@@ -6,7 +6,8 @@ import org.springframework.stereotype.Repository;
 import com.smhrd.Arti.Model.StoryBook;
 
 
+
 @Repository
 public interface StoryBookRepository extends JpaRepository<StoryBook, Long>{
-
+	
 }

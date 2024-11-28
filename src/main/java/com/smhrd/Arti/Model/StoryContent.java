@@ -28,7 +28,8 @@ public class StoryContent {
 	   private Long book_idx;
 
 	   // 페이지 번호
-	   private int page_num;
+	   @Column(name = "page_num", nullable = false, unique = true) 
+	   private int pageNum;
 
 	   // 내용
 	   @Column(name = "content", columnDefinition = "TEXT")

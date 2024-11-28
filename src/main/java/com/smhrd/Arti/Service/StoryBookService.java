@@ -2,6 +2,7 @@ package com.smhrd.Arti.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import com.smhrd.Arti.Repo.StoryBookRepository;
 import com.smhrd.Arti.Repo.StoryContentRepository;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 
 @Service
 public class StoryBookService {
@@ -23,6 +25,7 @@ public class StoryBookService {
 	@Autowired
 	StoryContentRepository repo2;
 
+	// 기본정보 생성 메소드
 	public void saveBase(String storyline, HttpSession session, Long book_idx) {
 
 		System.out.println(storyline);
@@ -37,13 +40,12 @@ public class StoryBookService {
 
 		StoryBook story;
 
-	    // storybookId가 null이 아니면 기존 동화를 검색, 없으면 새 객체 생성
-	    if (book_idx != null) {
-	        story = repo1.findById(book_idx)
-	                .orElseThrow(() -> new IllegalArgumentException("해당 동화를 찾을 수 없습니다."));
-	    } else {
-	        story = new StoryBook();
-	    }
+		// storybookId가 null이 아니면 기존 동화를 검색, 없으면 새 객체 생성
+		if (book_idx != null) {
+			story = repo1.findById(book_idx).orElseThrow(() -> new IllegalArgumentException("해당 동화를 찾을 수 없습니다."));
+		} else {
+			story = new StoryBook();
+		}
 
 		story.setBook_name(pages.length > 0 ? pages[0] : null);
 		story.setBook_genre(pages.length > 1 ? pages[1] : null);
@@ -62,6 +64,7 @@ public class StoryBookService {
 
 	}
 
+	// 줄거리 생성 메소드
 	public void saveStory(String storyline, HttpSession session) {
 
 		// 이전 페이지의 동화 정보 가져오기
@@ -80,7 +83,7 @@ public class StoryBookService {
 			storyContent.setBook_idx(story.getBook_idx());
 
 			// 페이지 번호 설정 (i + 1로 1부터 시작)
-			storyContent.setPage_num(i + 1);
+			storyContent.setPageNum(i + 1);
 
 			// 페이지 내용 설정
 			storyContent.setContent(pages[i]);
@@ -99,5 +102,41 @@ public class StoryBookService {
 		session.setAttribute("storyContentList", storyContentList);
 
 	}
+
+	// 기본정보 출력 메소드
+	public StoryBook getStoryBook(Long book_idx) {
+		Optional<StoryBook> storybook = repo1.findById(book_idx);
+		return storybook.get();
+	}
+
+	// 줄거리 출력 메소드
+	public List<StoryContent> getStoryContent(Long book_idx) {
+		return repo2.findByBookIdx(book_idx);
+	}
+
+	// 책 제목 업데이트 메서드
+	public void updateBookTitle(StoryBook storyBook) {
+		StoryBook existingStoryBook = repo1.findById(storyBook.getBook_idx())
+				.orElseThrow(() -> new IllegalArgumentException("해당 book_idx가 존재하지 않습니다: " + storyBook.getBook_idx()));
+		existingStoryBook.setBook_name(storyBook.getBook_name());
+		repo1.save(existingStoryBook);
+	}
+	
+
+	@Transactional
+    public boolean updateStoryContent(Long bookIdx, int pageNum, String content) {
+        // book_idx와 pageNum으로 데이터 찾기
+        StoryContent storyContent = repo2.findByBookIdxAndPageNum(bookIdx, pageNum)
+            .orElseThrow(() -> new IllegalArgumentException("해당 책의 페이지가 존재하지 않습니다. book_idx: " + bookIdx + ", page_num: " + pageNum));
+
+        // 내용 수정
+        storyContent.setContent(content);
+
+        // 저장
+        repo2.save(storyContent);
+        return true; // 업데이트 성공
+    }
+
+
 
 }
