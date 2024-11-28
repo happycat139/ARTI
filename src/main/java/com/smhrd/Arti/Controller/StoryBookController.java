@@ -55,13 +55,13 @@ public class StoryBookController {
 	public String SbTopicpage() {
 		return "ArtisBook/SbTopic";
 	}
-	
+
 	// 동화책 에디터 페이지 호출
 	@GetMapping("/edit")
 	public String SbEditPage() {
 		return "ArtisBook/SbEdit";
 	}
-	
+
 	// 임시 줄거리 페이지 호출
 	@GetMapping("/plot")
 	public String SbPlotpage(HttpSession session) {
@@ -73,44 +73,43 @@ public class StoryBookController {
 
 		return "ArtisBook/SbPlot";
 	}
-	
+
 	// 책 테스트 페이지 호출
 	@GetMapping("/test")
 	public String SbTestPage() {
 		return "ArtisBook/SbTest";
 	}
-		
-		
-	
+
 	/* GPT관련 컨트롤러 */
 
 	// 동화 제목, 장르, 배경, 주제, 주인공 생성
 	@PostMapping("/outline")
-	public String SbOutlinepage(@RequestParam("prompt") String prompt, Model model, HttpSession session) {
+	public String SbOutlinepage(@RequestParam("prompt") String prompt,  
+			@RequestParam(value = "book_idx", required = false) Long book_idx,
+			Model model, HttpSession session) {
 
-			String storyline = chatGPTService.makeBase(prompt, session);
-			service.saveBase(storyline, session);
-			model.addAttribute("storyline", storyline);
+		String storyline = chatGPTService.makeBase(prompt, session);
+		service.saveBase(storyline, session, book_idx);
+		model.addAttribute("storyline", storyline);
 
-			return "ArtisBook/SbOutLine";
+		return "ArtisBook/SbOutLine";
 
 	}
-	
-	
+
 	// 동화 제목, 장르, 배경, 주제, 주인공 재생성
-		@PostMapping("/outline2")
-		public String SbOutlinepage2(@RequestParam("reprompt") String reprompt, Model model, HttpSession session) {
 
-				String storyline = chatGPTService.remakeBase(reprompt, session);
+	@PostMapping("/outline2")
+	public String SbOutlinepage2(@RequestParam("reprompt") String reprompt, @RequestParam("book_idx") Long book_idx,
+			Model model, HttpSession session) {
 
-				service.saveBase(storyline, session);
-				model.addAttribute("storyline", storyline);
+		String storyline = chatGPTService.remakeBase(reprompt, session);
 
-				return "ArtisBook/SbOutLine";
 
-		}
-	
+		service.saveBase(storyline, session, book_idx);
 
-	
+		model.addAttribute("storyline", storyline);
+
+		return "ArtisBook/SbOutLine";
+	}
 
 }
