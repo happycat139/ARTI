@@ -92,6 +92,13 @@ public class StoryBookController {
 		
 		return "ArtisBook/SbTest";
 	}
+	
+	// 책 테스트 페이지 호출
+	@GetMapping("/test/new")
+	public String SbTestPage2() {
+			
+		return "ArtisBook/SbTestNew";
+	}
 
 	/* GPT관련 컨트롤러 */
 
