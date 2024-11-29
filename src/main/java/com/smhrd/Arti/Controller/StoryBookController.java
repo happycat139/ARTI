@@ -88,14 +88,7 @@ public class StoryBookController {
 
 	// 책 테스트 페이지 호출
 	@GetMapping("/test")
-	public String SbTestPage(Model model, Long book_idx) {
-		
-		StoryBook storybook = service.getStoryBook(book_idx);
-		model.addAttribute("storybook", storybook);
-		
-		List<StoryContent> storyContentList = service.getStoryContent(book_idx);
-        model.addAttribute("storyContentList", storyContentList);
-		
+	public String SbTestPage() {
 		
 		return "ArtisBook/SbTest";
 	}
