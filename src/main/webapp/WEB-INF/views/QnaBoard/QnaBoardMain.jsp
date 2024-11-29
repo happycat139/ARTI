@@ -37,7 +37,7 @@
 				</div>
 				<c:forEach items="${boardPage}" var="board" varStatus="status">
 					<div class="top">
-						<div class="num">${currentPage * 10 + status.index + 1}</div>
+						<div class="num">${totalBoards - (currentPage * 10) - status.index}</div>
 						<div class="title">
 							<c:choose>
 								<c:when test="${fn:length(board.qna_title) > 20}">

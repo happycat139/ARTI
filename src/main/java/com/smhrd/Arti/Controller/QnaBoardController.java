@@ -42,8 +42,10 @@ public class QnaBoardController {
 			throw new RuntimeException("No data found for boardPage or boardPage content");
 		}
 
+		 int totalBoards = (int) boardPage.getTotalElements(); // 전체 게시글 수
 		// 데이터 추가
 		model.addAttribute("boardPage", boardPage.getContent());
+		model.addAttribute("totalBoards", totalBoards);
 		model.addAttribute("currentPage", page);
 		model.addAttribute("totalPages", boardPage.getTotalPages());
 		return "QnaBoard/QnaBoardMain";
