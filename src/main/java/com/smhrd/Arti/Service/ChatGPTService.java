@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class ChatGPTService {
     private final String url = "https://api.openai.com/v1/chat/completions";
 
     @Autowired
-    public ChatGPTService(RestTemplate restTemplate) {
+    public ChatGPTService(@Qualifier("template") RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
