@@ -883,6 +883,13 @@ document.querySelector('.Modify-SEModal-btn_Title').addEventListener('click', fu
                 if (titleDisplay) {
                     titleDisplay.textContent = bookName;
                 }
+                
+             // 변경된 제목 반영 (책 중앙 세로 텍스트 부분)
+                const verticalText = document.querySelector('.SbEdit_BookTitle .vertical-text');
+                if (verticalText) {
+                    verticalText.textContent = bookName;
+                }
+                
             } else {
                 // 실패 시 알림 표시
                 alert(data.message || '제목 수정 중 문제가 발생했습니다.');

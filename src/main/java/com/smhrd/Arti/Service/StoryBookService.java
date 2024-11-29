@@ -36,7 +36,7 @@ public class StoryBookService {
 		// 유저 아이디 가져오기
 		User user = (User) session.getAttribute("user");
 
-		String[] pages = storyline.split("###");
+		String[] pages = storyline.split("#");
 
 		StoryBook story;
 
