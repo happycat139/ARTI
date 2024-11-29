@@ -630,7 +630,7 @@ body {
 			<!-- 책 오른쪽 -->
 			<div class="right-section">
 				<div class="SbEdit_BookThumb">
-					<img class="SbEdit_BookThumb_icon" src="/img/images.png">
+					<img class="SbEdit_BookThumb_icon" src="/img/images.png" onclick="openThumbnailModal()">
 					<p>클릭하여 이미지를 업로드 해주세요!</p>
 				</div>
 
@@ -779,7 +779,6 @@ body {
 			</div>
 		</div>
 
-
 	</div>
 
 	<script>
@@ -815,9 +814,6 @@ window.onload = function() {
         document.getElementById("page" + i).classList.add("hidden");
     }
 
-
-
-
     /* 제목 편집 팝업창 관련 JS */
     const bookMainTitle = document.querySelectorAll("#SbEdit_BookMainTitle");
     bookMainTitle.forEach((div) => {
@@ -826,6 +822,21 @@ window.onload = function() {
         });
     });
 };
+
+/* 썸네일 편집 팝업창 관련 JS */
+
+function openThumbnailModal() {
+        // 썸네일 편집 모달 창을 보이게 함
+        document.getElementById("SbPlotModifyModalBack_THUMB").style.display = "block";
+    }
+
+    // 닫기 버튼 클릭 시 모달 창을 숨김
+    document.getElementById("SbPlotModifyModalClose_THUMB").addEventListener("click", function() {
+        document.getElementById("SbPlotModifyModalBack_THUMB").style.display = "none";
+    });
+ 
+ 
+ 
 
 // 내용 팝업창 닫기 (취소 버튼 클릭 시)
 document.querySelector(".Modify-SEModal-Cbtn").onclick = function() {
@@ -841,15 +852,18 @@ document.querySelector(".Modify-SEModal-Cbtn_Title").onclick = function() {
 window.onclick = function(event) {
     const modal1 = document.getElementById("SbEditModifyModalBack");
     const modal2 = document.getElementById("SbEdit-ModifyModalBack_Title");
+    const modal3 = document.getElementById("SbPlotModifyModalBack_THUMB");
     if (event.target == modal1) {
         modal1.style.display = "none";
     }
     if (event.target == modal2) {
         modal2.style.display = "none";
     }
+    if (event.target == modal3) {
+        modal3.style.display = "none";
+    }
 };
 
-// 제목 변경
 // 제목 변경
 document.querySelector('.Modify-SEModal-btn_Title').addEventListener('click', function () {
     // 수정할 데이터 가져오기
