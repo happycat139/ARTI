@@ -45,7 +45,15 @@ public class QnaBoard {
 
 	// 작성 비밀번호
 	private String qna_pw;
+	
+	// 답변 여부
+	@Column(name = "is_answered")
+	private boolean isAnswered = false;
+	
+	// 답변 내용
+	private String qna_answer;
 
+	
 	public QnaBoard() {
 		this.qnaDt = new Timestamp(System.currentTimeMillis()); // 현재 시간 설정
 	}

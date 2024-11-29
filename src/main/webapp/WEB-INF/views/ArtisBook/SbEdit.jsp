@@ -691,7 +691,7 @@ body {
 				<div class="SbEdit_info">
 					<img class="SbEdit_BackImg2" src="/img/backImg.png"> <br>
 					<p>${storybook.book_name}</p>
-					<br> <b>발행일</b> 2024년 11월 26일 <br> <b>지은이</b>
+					<br> <b>발행일</b> ${storybook.book_name} <br> <b>지은이</b>
 					${storybook.author} <br> <b>제 작</b> ARTI <br>
 
 					<div class="SbEdit_Info2">
@@ -850,6 +850,7 @@ window.onclick = function(event) {
 };
 
 // 제목 변경
+// 제목 변경
 document.querySelector('.Modify-SEModal-btn_Title').addEventListener('click', function () {
     // 수정할 데이터 가져오기
     const bookIdx = document.querySelector('input[name="book_idx"]').value;
@@ -869,37 +870,46 @@ document.querySelector('.Modify-SEModal-btn_Title').addEventListener('click', fu
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // 성공 시 알림 표시
-                alert(data.message || '제목이 성공적으로 수정되었습니다.');
-
                 // 팝업창 닫기
                 const modal = document.getElementById('SbEdit-ModifyModalBack_Title');
                 if (modal) {
                     modal.style.display = 'none';
                 }
 
-                // 변경된 제목 반영
+                // 변경된 제목 반영 (책 오른쪽 하단 제목)
                 const titleDisplay = document.querySelector('.SbEdit_BookMainTitle');
                 if (titleDisplay) {
                     titleDisplay.textContent = bookName;
+
+                    // 미세한 시각적 피드백 추가
+                    titleDisplay.style.transition = "opacity 0.3s ease-in-out";
+                    titleDisplay.style.opacity = "0.7";
+                    setTimeout(() => {
+                        titleDisplay.style.opacity = "1";
+                    }, 300);
                 }
-                
-             // 변경된 제목 반영 (책 중앙 세로 텍스트 부분)
+
+                // 변경된 제목 반영 (책 중앙 세로 텍스트 부분)
                 const verticalText = document.querySelector('.SbEdit_BookTitle .vertical-text');
                 if (verticalText) {
                     verticalText.textContent = bookName;
+
+                    // 미세한 시각적 피드백 추가
+                    verticalText.style.transition = "opacity 0.3s ease-in-out";
+                    verticalText.style.opacity = "0.7";
+                    setTimeout(() => {
+                        verticalText.style.opacity = "1";
+                    }, 300);
                 }
-                
             } else {
-                // 실패 시 알림 표시
-                alert(data.message || '제목 수정 중 문제가 발생했습니다.');
+                console.error('서버 응답 오류:', data.message || '제목 수정 중 문제가 발생했습니다.');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('서버와 통신 중 오류가 발생했습니다.');
         });
 });
+
 
 document.querySelectorAll('.SbEdit_PageRight1').forEach((page) => {
     page.addEventListener('click', function () {
@@ -951,30 +961,31 @@ document.querySelector('.Modify-SEModal-btn').addEventListener('click', function
             console.log('Response data:', data);
 
             if (data.success) {
-                alert(data.message || '줄거리가 성공적으로 수정되었습니다.');
-
                 // 팝업창 닫기
                 modal.style.display = 'none';
 
                 // 수정된 줄거리 내용을 페이지에 반영
-                const contentElement = document.querySelector(
-                    `.SbEdit_MainBook[data-page-num="${pageNum}"] .SbEdit_InputContent`
-                );
-                
+                const contentElement = document.getElementById("SbContent-page" + (parseInt(pageNum, 10) + 2));
 
                 if (contentElement) {
                     // 기존 내용을 수정된 내용으로 업데이트
-                    contentElement.textContent = updatedContent;
+                    contentElement.textContent = data.updatedContent || updatedContent; // 서버 응답 사용
+
+                    // 미세한 시각적 피드백 추가 (투명도 살짝 변화)
+                    contentElement.style.transition = "opacity 0.3s ease-in-out";
+                    contentElement.style.opacity = "0.7";
+                    setTimeout(() => {
+                        contentElement.style.opacity = "1";
+                    }, 300); // 0.3초 후 원래 상태로 복구
                 } else {
                     console.error('DOM 업데이트 실패: 페이지 콘텐츠를 찾을 수 없습니다.', pageNum);
                 }
             } else {
-                alert(data.message || '줄거리 수정 중 문제가 발생했습니다.');
+                console.error('서버 응답 오류:', data.message || '줄거리 수정 중 문제가 발생했습니다.');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('서버와 통신 중 오류가 발생했습니다.');
         });
 });
 

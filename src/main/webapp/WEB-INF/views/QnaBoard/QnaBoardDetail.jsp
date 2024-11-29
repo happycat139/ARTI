@@ -46,9 +46,9 @@
 					<dl>
 						<dt>답변여부</dt>
 						<dd class="answer">
-							<%-- <img
-								src="/img/${board.isAnswered ? 'board_yes.png' : 'board_no.png'}"
-								alt="답변 여부"> --%>
+							 <img
+								src="/img/${board.isAnswered() ? 'board_yes.png' : 'board_no.png'}"
+								alt="답변 여부"> 
 						</dd>
 					</dl>
 					<button id="qnaDelBtn" onclick="deletePost(${board.qna_idx})">삭제</button>
@@ -56,12 +56,12 @@
 				<div class="board_view_cont">${board.qna_content}</div>
 
 				<!-- 답변 내용 표시 -->
-				<%-- <c:if test="${board.isAnswered}">
+				 <c:if test="${board.isAnswered()}">
 					<div class="admin_answer">
 						<strong>관리자 답변:</strong>
-						<p>${board.answer}</p>
+						<p>${board.qna_answer}</p>
 					</div>
-				</c:if> --%>
+				</c:if> 
 
 
 
@@ -80,7 +80,7 @@
 				<input type="hidden" name="idx" value="${board.qna_idx}">
 				<textarea name="replyContent" placeholder="답변 내용을 입력하세요." required></textarea>
 				<div class="button_wrap">
-					<button type="submit"><%-- ${board.isAnswered ? '답변변경' : '답변하기'} --%></button>
+					<button type="submit"> ${board.isAnswered() ? '답변변경' : '답변하기'} </button>
 				</div>
 			</form>
 		</div>

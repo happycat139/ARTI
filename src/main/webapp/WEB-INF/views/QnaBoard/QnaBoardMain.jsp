@@ -43,8 +43,7 @@
 								<c:when test="${fn:length(board.qna_title) > 20}">
 									<a href="javascript:void(0)"
 										onclick="checkPassword(${board.qna_idx}, '${board.qna_nickname}', '${board.qna_name != null && board.qna_name.trim() != '' ? board.qna_name : ''}')">
-										${fn:substring(board.qna_title, 0, 20)}...
-									</a>
+										${fn:substring(board.qna_title, 0, 20)}... </a>
 								</c:when>
 								<c:otherwise>
 									<a href="javascript:void(0)"
@@ -81,9 +80,10 @@
 
 						<div class="date">${board.qnaDt.toString().substring(0, 10)}</div>
 						<div class="answer">
-							<%-- <img
-								src="/img/${board.isAnswered ? 'board_yes.png' : 'board_no.png'}"
-								alt="답변 여부"> --%>
+							<img
+								src="/img/${board.isAnswered() ? 'board_yes.png' : 'board_no.png'}"
+								alt="답변 여부">
+								
 						</div>
 					</div>
 				</c:forEach>
