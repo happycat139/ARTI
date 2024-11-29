@@ -591,8 +591,7 @@ body {
 </style>
 <body>
 	<%@ include file="SbCreateHeader.jsp"%>
-
-
+	
 
 	<div class="SbEditPage" id="ArtiBook-Page">
 		<!-- 이전 버튼 div -->
@@ -691,7 +690,7 @@ body {
 				<div class="SbEdit_info">
 					<img class="SbEdit_BackImg2" src="/img/backImg.png"> <br>
 					<p>${storybook.book_name}</p>
-					<br> <b>발행일</b> 2024년 11월 26일 <br> <b>지은이</b>
+					<br> <b>발행일</b> ${storybook.book_name} <br> <b>지은이</b>
 					${storybook.author} <br> <b>제 작</b> ARTI <br>
 
 					<div class="SbEdit_Info2">
@@ -778,9 +777,26 @@ body {
 				</div>
 			</div>
 		</div>
-
-
 	</div>
+	
+	
+	
+	 <div>
+        브러쉬 크기<input id="input" type="number" min="0" max="100" value="1"></input>
+        <button onclick="colorChange('black')" style="background-color: black; width: 20px; height: 20px; border: solid 1px;"></button>
+        <button onclick="colorChange('blue')" style="background-color: blue; width: 20px; height: 20px; border: solid 1px;"></button>
+        <button onclick="colorChange('red')" style="background-color: red; width: 20px; height: 20px; border: solid 1px;"></button>
+        <button onclick="colorChange('green')" style="background-color: green; width: 20px; height: 20px; border: solid 1px;"></button>
+        <button onclick="colorChange('pink')" style="background-color: pink; width: 20px; height: 20px; border: solid 1px;"></button>
+        <button onclick="colorChange('yellow')" style="background-color: yellow; width: 20px; height: 20px; border: solid 1px;"></button>
+        <button onclick="colorChange('skyblue')" style="background-color: skyblue; width: 20px; height: 20px; border: solid 1px;"></button>
+        <button onclick="colorChange('violet')" style="background-color: violet; width: 20px; height: 20px; border: solid 1px;"></button>
+        <button onclick="colorChange('lime')" style="background-color: lime; width: 20px; height: 20px; border: solid 1px;"></button>
+        <button onclick="colorChange('white')">지우개</button>
+        <button onclick="clearAll()">전체지우기</button>
+    </div>
+
+<canvas id='canvas' width='500' height='500' style="border:1px solid black"></canvas>
 
 	<script>
 let currentPage = 1;
@@ -850,6 +866,7 @@ window.onclick = function(event) {
 };
 
 // 제목 변경
+// 제목 변경
 document.querySelector('.Modify-SEModal-btn_Title').addEventListener('click', function () {
     // 수정할 데이터 가져오기
     const bookIdx = document.querySelector('input[name="book_idx"]').value;
@@ -869,30 +886,46 @@ document.querySelector('.Modify-SEModal-btn_Title').addEventListener('click', fu
         .then(response => response.json())
         .then(data => {
             if (data.success) {
-                // 성공 시 알림 표시
-                alert(data.message || '제목이 성공적으로 수정되었습니다.');
-
                 // 팝업창 닫기
                 const modal = document.getElementById('SbEdit-ModifyModalBack_Title');
                 if (modal) {
                     modal.style.display = 'none';
                 }
 
-                // 변경된 제목 반영
+                // 변경된 제목 반영 (책 오른쪽 하단 제목)
                 const titleDisplay = document.querySelector('.SbEdit_BookMainTitle');
                 if (titleDisplay) {
                     titleDisplay.textContent = bookName;
+
+                    // 미세한 시각적 피드백 추가
+                    titleDisplay.style.transition = "opacity 0.3s ease-in-out";
+                    titleDisplay.style.opacity = "0.7";
+                    setTimeout(() => {
+                        titleDisplay.style.opacity = "1";
+                    }, 300);
+                }
+
+                // 변경된 제목 반영 (책 중앙 세로 텍스트 부분)
+                const verticalText = document.querySelector('.SbEdit_BookTitle .vertical-text');
+                if (verticalText) {
+                    verticalText.textContent = bookName;
+
+                    // 미세한 시각적 피드백 추가
+                    verticalText.style.transition = "opacity 0.3s ease-in-out";
+                    verticalText.style.opacity = "0.7";
+                    setTimeout(() => {
+                        verticalText.style.opacity = "1";
+                    }, 300);
                 }
             } else {
-                // 실패 시 알림 표시
-                alert(data.message || '제목 수정 중 문제가 발생했습니다.');
+                console.error('서버 응답 오류:', data.message || '제목 수정 중 문제가 발생했습니다.');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('서버와 통신 중 오류가 발생했습니다.');
         });
 });
+
 
 document.querySelectorAll('.SbEdit_PageRight1').forEach((page) => {
     page.addEventListener('click', function () {
@@ -944,34 +977,129 @@ document.querySelector('.Modify-SEModal-btn').addEventListener('click', function
             console.log('Response data:', data);
 
             if (data.success) {
-                alert(data.message || '줄거리가 성공적으로 수정되었습니다.');
-
                 // 팝업창 닫기
                 modal.style.display = 'none';
 
                 // 수정된 줄거리 내용을 페이지에 반영
-                const contentElement = document.querySelector(
-                    `.SbEdit_MainBook[data-page-num="${pageNum}"] .SbEdit_InputContent`
-                );
-                
+                const contentElement = document.getElementById("SbContent-page" + (parseInt(pageNum, 10) + 2));
 
                 if (contentElement) {
                     // 기존 내용을 수정된 내용으로 업데이트
-                    contentElement.textContent = updatedContent;
+                    contentElement.textContent = data.updatedContent || updatedContent; // 서버 응답 사용
+
+                    // 미세한 시각적 피드백 추가 (투명도 살짝 변화)
+                    contentElement.style.transition = "opacity 0.3s ease-in-out";
+                    contentElement.style.opacity = "0.7";
+                    setTimeout(() => {
+                        contentElement.style.opacity = "1";
+                    }, 300); // 0.3초 후 원래 상태로 복구
                 } else {
                     console.error('DOM 업데이트 실패: 페이지 콘텐츠를 찾을 수 없습니다.', pageNum);
                 }
             } else {
-                alert(data.message || '줄거리 수정 중 문제가 발생했습니다.');
+                console.error('서버 응답 오류:', data.message || '줄거리 수정 중 문제가 발생했습니다.');
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            alert('서버와 통신 중 오류가 발생했습니다.');
         });
 });
 
 
+var pos = {
+    drawable : false,
+    x : -1,
+    y : -1,
+};
+var canvas = document.getElementById('canvas');
+var ctx = canvas.getContext('2d');
+var rect = canvas.getBoundingClientRect();  // 터치 스크린
+
+//전체 지우기
+function clearAll(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+//스타일 추가
+input.oninput = function(){
+    ctx.lineWidth = input.value;
+}
+ctx.lineCap = 'round';
+ctx.lineJoin = 'round';
+
+function colorChange(color){
+    ctx.strokeStyle = color;
+} 
+
+canvas.addEventListener("mousedown", listener);
+canvas.addEventListener("mousemove", listener);
+canvas.addEventListener("mouseup", listener);
+canvas.addEventListener("mouseout", listener);
+
+/// 터치 스크린
+canvas.addEventListener("touchstart", listener);
+canvas.addEventListener("touchmove", listener);
+canvas.addEventListener("touchend", listener);
+
+function listener(e){
+    switch(e.type){
+        case "mousedown":
+            drawStart(e);
+            break;
+        case "mousemove":
+            if(pos.drawable){
+                draw(e);
+            }
+            break;
+        case "mouseout":
+        case "mouseup":
+            drawEnd();
+            break;
+        case "touchstart":
+            touchStart(e);
+            break;
+        case "touchmove":
+            if(pos.drawable)
+                touch(e);
+            break;
+        case "touchend":
+            drawEnd();
+            break;
+        default:
+    }
+}
+
+function drawStart(e){
+    pos.drawable = true;
+    ctx.beginPath();
+    pos.x = e.offsetX;
+    pos.y = e.offsetY;
+    ctx.moveTo(pos.x, pos.y);
+}
+function touchStart(e){
+    pos.drawable = true;
+    ctx.beginPath();
+    pos.x = e.touches[0].pageX - rect.left
+    pos.y = e.touches[0].pageY - rect.top
+    ctx.moveTo(pos.x, pos.y);
+}
+function draw(e){
+    ctx.lineTo(e.offsetX, e.offsetY);
+    pos.x = e.offsetX;
+    pos.y = e.offsetY;
+    ctx.stroke();
+}
+function touch(e){
+    ctx.lineTo(e.touches[0].pageX - rect.left, e.touches[0].pageY - rect.top);
+    pos.x = e.touches[0].pageX - rect.left;
+    pos.y = e.touches[0].pageY - rect.top;
+    ctx.stroke();
+}
+function drawEnd(){
+    pos.drawable = false;
+    pos.x = -1;
+    pos.y = -1;
+}
 
 
 
