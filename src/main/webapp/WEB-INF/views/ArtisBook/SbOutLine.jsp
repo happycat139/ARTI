@@ -1,5 +1,6 @@
 <%@page import="com.smhrd.Arti.Model.StoryBook"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" isELIgnored="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,17 @@
 </head>
 <body>
     <%@ include file="SbCreateHeader.jsp"%>
+    
+    <!-- 로딩 화면 -->
+	<div id="loading-screen" style="display: none;">
+		<!-- 처음엔 숨김 -->
+		<div class="loading-content">
+			<img src="/img/ARTI_Loading.gif" alt="로딩 중" />
+			<p>동화책 생성 중입니다</p>
+		</div>
+	</div>
+    
+    
     
     <%
     StoryBook story = (StoryBook) session.getAttribute("storybook");
@@ -107,6 +119,44 @@ window.onclick = function(event) {
         modal.style.display = 'none';
     }
 };
+
+
+//로딩 화면 표시 함수
+function showLoadingScreen() {
+	document.getElementById("loading-screen").style.display = "flex";
+}
+
+// 로딩 화면 숨김 함수 (필요 시 사용)
+function hideLoadingScreen() {
+	document.getElementById("loading-screen").style.display = "none";
+}
+
+// 폼 제출 이벤트와 로딩 화면 연결
+// 모든 폼에 이벤트 연결
+document.querySelectorAll("form").forEach(form => {
+    form.addEventListener("submit", function(event) {
+        showLoadingScreen();
+    });
+});
+		
+		
+// 서버에서 전달된 재생성 횟수 가져오기
+let regenerateCount = parseInt("${regenerateCount}");
+
+// null 또는 NaN 확인 후 기본값 설정
+if (isNaN(regenerateCount)) {
+    regenerateCount = 0; // 기본값 0 설정
+}
+
+// 버튼 상태 업데이트
+const createButton = document.querySelector(".SO_modifyBtn");
+if (regenerateCount >= 3) {
+    createButton.disabled = true; // 버튼 비활성화
+    createButton.innerText = "재생성 제한 초과"; // 텍스트 변경
+    createButton.classList.add("disabled"); // 비활성화 스타일 추가 (옵션)
+}
+
+
 </script>
 </body>
 </html>

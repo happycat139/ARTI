@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.smhrd.Arti.Model.StoryBook;
 import com.smhrd.Arti.Model.StoryContent;
 import com.smhrd.Arti.Service.ChatGPTService;
@@ -23,7 +24,6 @@ public class StoryBookController {
 
 	@Autowired
 	StoryBookService service;
-	
 
 	// GPT api를 이용한 생성 기능
 	private final ChatGPTService chatGPTService;
@@ -63,13 +63,13 @@ public class StoryBookController {
 	// 동화책 에디터 페이지 호출
 	@GetMapping("/edit")
 	public String SbEditPage(Model model, Long book_idx) {
-		
+
 		StoryBook storybook = service.getStoryBook(book_idx);
 		model.addAttribute("storybook", storybook);
-		
+
 		List<StoryContent> storyContentList = service.getStoryContent(book_idx);
-        model.addAttribute("storyContentList", storyContentList);
-		
+		model.addAttribute("storyContentList", storyContentList);
+
 		return "ArtisBook/SbEdit";
 	}
 
@@ -78,10 +78,11 @@ public class StoryBookController {
 	public String SbPlotpage(HttpSession session) {
 
 		StoryBook story = (StoryBook) session.getAttribute("storybook");
-		String storyline = chatGPTService.makeStory(story);
+		// GPT에서 줄거리 JSON 문자열 생성
+		String storylineJson = chatGPTService.makeStory(story);
 
-		service.saveStory(storyline, session);
-		
+		// JSON 파싱 및 저장
+		service.saveStory(storylineJson, story, session);
 
 		return "ArtisBook/SbPlot";
 	}
@@ -89,14 +90,14 @@ public class StoryBookController {
 	// 책 테스트 페이지 호출
 	@GetMapping("/test")
 	public String SbTestPage() {
-		
+
 		return "ArtisBook/SbTest";
 	}
-	
+
 	// 책 테스트 페이지 호출
 	@GetMapping("/test/new")
 	public String SbTestPage2() {
-			
+
 		return "ArtisBook/SbTestNew";
 	}
 
@@ -104,13 +105,16 @@ public class StoryBookController {
 
 	// 동화 제목, 장르, 배경, 주제, 주인공 생성
 	@PostMapping("/outline")
-	public String SbOutlinepage(@RequestParam("prompt") String prompt,  
-			@RequestParam(value = "book_idx", required = false) Long book_idx,
-			Model model, HttpSession session) {
+	public String SbOutlinepage(@RequestParam("prompt") String prompt,
+			@RequestParam(value = "book_idx", required = false) Long book_idx, Model model, HttpSession session)
+			throws JsonProcessingException {
 
-		String storyline = chatGPTService.makeBase(prompt, session);
-		service.saveBase(storyline, session, book_idx);
-		model.addAttribute("storyline", storyline);
+		// GPTService를 사용해 StoryBook 객체 생성
+		StoryBook storybook = chatGPTService.makeBase(prompt, session);
+
+		service.saveBase(storybook, session, book_idx);
+		// 모델에 StoryBook 객체 추가 (디버깅 및 화면 출력용)
+		model.addAttribute("storybook", storybook);
 
 		return "ArtisBook/SbOutLine";
 
@@ -120,33 +124,28 @@ public class StoryBookController {
 
 	@PostMapping("/outline2")
 	public String SbOutlinepage2(@RequestParam("reprompt") String reprompt, @RequestParam("book_idx") Long book_idx,
-			Model model, HttpSession session) {
+			Model model, HttpSession session) throws JsonProcessingException {
 
-		String storyline = chatGPTService.remakeBase(reprompt, session);
+		StoryBook storybook = chatGPTService.remakeBase(reprompt, session);
 
-
-		service.saveBase(storyline, session, book_idx);
-
-		model.addAttribute("storyline", storyline);
+		service.saveBase(storybook, session, book_idx);
+		// 모델에 StoryBook 객체 추가 (디버깅 및 화면 출력용)
+		model.addAttribute("storybook", storybook);
 
 		return "ArtisBook/SbOutLine";
 	}
-	
-	
+
 	// 테스트용 - 동화책 에디터 페이지 호출
-		@GetMapping("/test/edit")
-		public String SbTestEditPage(Model model, Long book_idx) {
-			
-			StoryBook storybook = service.getStoryBook(book_idx);
-			model.addAttribute("storybook", storybook);
-			
-			List<StoryContent> storyContentList = service.getStoryContent(book_idx);
-	        model.addAttribute("storyContentList", storyContentList);
-			
-			return "ArtisBook/TestEdit";
-		}
-	
-	
-	
+	@GetMapping("/test/edit")
+	public String SbTestEditPage(Model model, Long book_idx) {
+
+		StoryBook storybook = service.getStoryBook(book_idx);
+		model.addAttribute("storybook", storybook);
+
+		List<StoryContent> storyContentList = service.getStoryContent(book_idx);
+		model.addAttribute("storyContentList", storyContentList);
+
+		return "ArtisBook/TestEdit";
+	}
 
 }
