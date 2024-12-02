@@ -9,18 +9,33 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.smhrd.Arti.Model.StoryBook;
 import com.smhrd.Arti.Model.StoryContent;
+import com.smhrd.Arti.Service.DallEApiService;
+import com.smhrd.Arti.Service.GoogleCloudStorageService;
 import com.smhrd.Arti.Service.StoryBookService;
 
 @RestController
 @RequestMapping("/arti/book")
 public class StoryBookRestController {
 
-	@Autowired
-	StoryBookService service;
+	
+	private final StoryBookService service;
+	private final DallEApiService dallEApiService;
+    private final GoogleCloudStorageService googleCloudStorageService;
+    
+    @Autowired
+    public StoryBookRestController(
+            DallEApiService dallEApiService,
+            GoogleCloudStorageService googleCloudStorageService,
+            StoryBookService service) {
+        this.dallEApiService = dallEApiService;
+        this.googleCloudStorageService = googleCloudStorageService;
+        this.service = service;
+    }
 
 	@PostMapping("/updateTitle")
 	public Map<String, String> updateTitle(@RequestBody StoryBook storyBook) {
@@ -59,6 +74,35 @@ public class StoryBookRestController {
 	    }
 	    return ResponseEntity.ok(response);
 	}
+	
+	
+	
+	
+	@PostMapping("/generate-thumbnail")
+    public ResponseEntity<String> generateThumbnail(
+            @RequestParam("Iprompt") String Iprompt,
+            @RequestParam("book_idx") Long bookIdx) {
+		
+		System.out.println(Iprompt);
+		System.out.println(bookIdx);
+		
+		
+        try {
+            // 1. AI API를 통해 이미지 생성
+            String ImageUrl = dallEApiService.generateImage(Iprompt);
+
+            // 2. Google Cloud Storage에 이미지 업로드
+            String uploadedImageUrl = googleCloudStorageService.uploadImageFromUrl(ImageUrl);
+
+            // 3. StoryBook의 thumbnail 필드 업데이트
+            service.updateThumbnail(bookIdx, uploadedImageUrl);
+
+            return ResponseEntity.ok("이미지 생성 및 업데이트가 성공적으로 완료되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                 .body("이미지 생성 또는 저장 중 오류 발생: " + e.getMessage());
+        }
+    }
 
 
 }

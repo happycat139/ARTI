@@ -1,5 +1,6 @@
 package com.smhrd.Arti.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,10 +12,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.smhrd.Arti.Model.ChatGPTRequest;
 import com.smhrd.Arti.Model.ChatGPTResponse;
 import com.smhrd.Arti.Model.ChatMessage;
 import com.smhrd.Arti.Model.StoryBook;
+import com.smhrd.Arti.Model.StoryContent;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -23,156 +29,238 @@ public class ChatGPTService {
 
 	private final RestTemplate restTemplate;
 
-    // 줄거리 생성용 모델 설정
-    private final String storylineModel = "gpt-4o";
-    private final String url = "https://api.openai.com/v1/chat/completions";
+	// 줄거리 생성용 모델 설정
+	private final String storylineModel = "gpt-4o";
+	private final String url = "https://api.openai.com/v1/chat/completions";
 
-    @Autowired
-    public ChatGPTService(@Qualifier("template") RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
+	@Autowired
+	public ChatGPTService(@Qualifier("template") RestTemplate restTemplate) {
+		this.restTemplate = restTemplate;
+	}
 
-    
-    
-    // 동화의 틀 설정
-    public String makeBase(String prompt, HttpSession session) {
-    	
-    	// 동화 형식으로 요청하는 메시지를 작성
-        String storyPrompt = "너는 초등학교 저학년 아이들을 위한 동화를 만들거야. 동화는 흥미롭고, 상상력을 자극하면서도 개연성 있는 이야기일 거야.\n"
-        		+ "아이들은 너의 동화를 읽고 재미와 교훈을 얻을 수 있을거야.\n"
-        		+ "\n"
-        		+ "동화를 쓸 때 아래의 가이드라인을 지켜줘.\n"
-        		+ "- 쉬운 단어를 사용한다.\n"
-        		+ "- 이야기에는 기승전결이 있다.\n"
-        		+ "- 친절하고 따뜻한 말투를 사용한다."
-        		+ "\n"
-        		+ "다음은 내가 받고자 하는 정보야.\n"
-        		+ "책 제목, 장르, 배경, 주제, 주인공 이름, 요약 줄거리\n"
-        		+ "\n"
-        		+ "받고자하는 정보에서 몇 개는 가이드 라인을 정해줄게.\n"
-        		+ "- 책 제목 : 동화의 핵심을 표현할 수 있는 재미있어야해.\n"
-        		+ "- 장르 : 동화 중 어떤 장르에 해당하는 지 적어줘.\n"
-        		+ "- 배경 : 이야기가 전개되는 장소와 시대를 적어줘.\n"
-        		+ "- 요약 줄거리 : 결말은 제외하고 관심을 유도할 수 있는 550자 정도의 분량이여야 해.\n"
-        		+ "\n"
-        		+ "가장 중요한 것은 책 제목, 장르, 배경, 주제, 주인공 이름, 요약 줄거리를 구분기호(#)로 나눠서 보내줘야해. 다음 예시와 똑같은 형식으로 보내줘야해"
-        		+ "책 제목, 장르, 배경, 주제, 주인공 이름, 요약 줄거리라는 단어는 절대로 포함하지마.\n"
-        		+ "예시: 책 제목#배경#주제#주인공 이름#요약줄거리\n"
-        		+ "\n"
-        		+ "다음 주제로 만들어줘\n"
-        		+ "주제 : " + prompt;
-    	
-        // messages 파라미터 구성 (ChatMessage 객체로)
-        List<ChatMessage> messages = Arrays.asList(
-                new ChatMessage("system", "You are a helpful assistant."),
-                new ChatMessage("user", storyPrompt)
-        );
+	private final ObjectMapper objectMapper = new ObjectMapper(); // 동화의 틀 설정
 
-        // 요청 데이터 구성
-        ChatGPTRequest request = new ChatGPTRequest(storylineModel, messages);
+	
+	
+	public StoryBook makeBase(String prompt, HttpSession session) {
+		
+		
+		// 세션 초기화
+	    session.setAttribute("regenerateCount", 0); // 재생성 횟수 초기화
+	    session.setAttribute("allRequests", new ArrayList<String>()); // 요청 리스트 초기화
+	    session.setAttribute("allResponses", new ArrayList<String>()); // 응답 리스트 초기화
+	    
+		// 메시지 구성
+		List<ChatMessage> messages = Arrays.asList(new ChatMessage("system", """
+				     너는 동화를 전문으로 작성하는 AI야.
+				   동화는 다음 조건을 따르며 작성해야 해:
+				   - 초등학교 저학년 아이들을 위한 이야기
+				   - 쉬운 단어 사용, 기승전결 구조 유지
+				   - 응답 형식은 반드시 JSON 형식이어야 해. 절대로 다른 형식을 사용하지 마.
+				   - JSON 키는 다음과 같아야 해:
+				     {
+				       "book_name": "책 제목",
+				       "book_genre": "책 장르",
+				       "book_background": "배경",
+				       "book_subject": "주제",
+				       "book_mc": "주인공 이름",
+				       "book_summary": "요약 줄거리"
+				     }
+				   - JSON 구조를 엄수하고, 부가적인 설명은 하지 마.
+				   - 책 제목 : 동화의 핵심을 표현할 수 있는 재미있어야해.
+				   - 책 장르: 어떤 동화인지 동화 장르를 적어줘.
+				- 배경 : 이야기가 전개되는 장소 또는 시대를 적어줘.
+				- 요약 줄거리 : 결말은 제외하고 관심을 유도할 수 있는 500자 분량이여야 해.
+				- 주제를 보낼테니 신중하게 모든 요소를 채워서 보내줘.
+				     """), new ChatMessage("user", String.format("주제: %s", prompt)));
 
-        // HttpEntity 생성 (헤더 설정 불필요)
-        HttpEntity<ChatGPTRequest> entity = new HttpEntity<>(request);
+		// 요청 데이터 구성
+		ChatGPTRequest request = new ChatGPTRequest(storylineModel, messages);
+		HttpEntity<ChatGPTRequest> entity = new HttpEntity<>(request);
 
-        // API 호출
-        ResponseEntity<ChatGPTResponse> response = restTemplate.exchange(url, HttpMethod.POST, entity, ChatGPTResponse.class);
+		try {
+			// API 호출
+			ResponseEntity<ChatGPTResponse> response = restTemplate.exchange(url, HttpMethod.POST, entity,
+					ChatGPTResponse.class);
 
-        // 응답에서 첫 번째 메시지의 내용 반환
-        String storyline = response.getBody().getChoices().get(0).getMessage().getContent();
-        
-     // 세션에 초기 요청/응답 저장
-        session.setAttribute("prompt", prompt);
-        session.setAttribute("storyline", storyline);
+			// GPT 응답 데이터 추출
+			String content = response.getBody().getChoices().get(0).getMessage().getContent();
 
-        return storyline;
-    }
-    
-    // 동화 기본정보 재생성
-    public String remakeBase(String reprompt, HttpSession session) {
-        // 세션에서 이전 요청과 응답 가져오기
-        String prompt = (String) session.getAttribute("prompt");
-        String storyline = (String) session.getAttribute("storyline");
-               
-        if (prompt == null || storyline == null) {
-            throw new IllegalArgumentException("이전에 생성된 데이터가 없어 재생성을 진행할 수 없습니다.");
-        }
+			// 포맷팅 문자 제거
+			String cleanedContent = content.replaceAll("^```\\w+|```$", "").trim();
 
-        // 재생성 요청 메시지 작성
-        String storyPrompt = """
-            이전 요청: %s
-            이전 응답: %s
-            추가 조건: %s
-            이전 요청과 응답을 보고 추가 조건 반영해 수정해서 이전 요청을 재작성해줘.
-            단 다음 조건을 무조건 지켜야해. 무슨 일이 있어도 조건을 엄수해야 해.
-        	조건 1: 모든 요소들(제목,장르,배경,주제,주인공,요약줄거리)을 ###으로 나눠서 보내줘야 해.
-        	예를 들어 고양이의 모험###고전동화###조선시대###고양이가 긴 모험을 떠나며 도전정신을 갖게 되는 이야기###나비
-        	###한 마을에 호기심 많은 작은 고양이, 이름은 나비가 살고 있었습니다. 나비는 항상 창문 밖 세상에 호기심이 많았지만, 위험하고 두려운 외부 세계를 넘어서기에는 용기가 부족했습니다.
-        	그러나 어느 날, 나비는 우연히 숲 속에서 반짝이는 보석처럼 빛나는 낯선 물건을 발견하게 됩니다
-        	그것은 마치 나비를 부르는 것 같았습니다. 그 순간, 나비의 가슴 속에 도전정신이 불타오르기 시작했습니다
-        	나비는 마음을 단단히 먹고 그 빛나는 물건을 찾기 위해 모험을 떠나기로 결심했습니다... 이런식으로 써줘
-        	조건 2: 너가 보내주는 텍스트에 제목,장르,배경,주인공,요약,줄거리 이런 단어를 모두 제거해
-        	조건 3: 맨 앞과 끝에 ### 붙이지 마.
-            """.formatted(prompt, storyline, reprompt);
+			// JSON 데이터를 Java 객체로 변환
+			StoryBook storyBook = objectMapper.readValue(cleanedContent, StoryBook.class);
 
-        // messages 구성
-        List<ChatMessage> messages = Arrays.asList(
-            new ChatMessage("system", "You are a helpful assistant."),
-            new ChatMessage("user", storyPrompt)
-        );
+			// 세션 저장
+			session.setAttribute("prompt", prompt);
+			session.setAttribute("storybook", storyBook);
 
-        // 요청 데이터 구성
-        ChatGPTRequest request = new ChatGPTRequest(storylineModel, messages);
-        HttpEntity<ChatGPTRequest> entity = new HttpEntity<>(request);
+			return storyBook;
+		} catch (JsonProcessingException e) {
+			throw new RuntimeException("JSON 파싱 중 오류 발생: 응답 내용이 올바르지 않습니다.", e);
+		} catch (Exception e) {
+			throw new RuntimeException("서버에서 요청을 처리하는 중 문제가 발생했습니다.", e);
+		}
+	}
 
-        // API 호출
-        ResponseEntity<ChatGPTResponse> response = restTemplate.exchange(url, HttpMethod.POST, entity, ChatGPTResponse.class);
-        storyline = response.getBody().getChoices().get(0).getMessage().getContent();
+	
+	public StoryBook remakeBase(String additionalPrompt, HttpSession session) {
+	    // 세션에서 필요한 데이터 가져오기
+	    String prompt = (String) session.getAttribute("prompt"); // 최초 요청
+	    Integer regenerateCount = (Integer) session.getAttribute("regenerateCount"); // 현재 재생성 횟수
+	    @SuppressWarnings("unchecked")
+	    List<String> allRequests = (List<String>) session.getAttribute("allRequests");
+	    @SuppressWarnings("unchecked")
+	    List<String> allResponses = (List<String>) session.getAttribute("allResponses");
 
-     // 세션에 요청/응답 저장
-        session.setAttribute("prompt", prompt);
-        session.setAttribute("storyline", storyline);
+	    // 세션 초기화
+	    if (regenerateCount == null) {
+	        regenerateCount = 0;
+	    }
 
-        return storyline;
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    // 동화 11 페이지 줄거리 생성
-    public String makeStory(StoryBook story) {
-        // GPT 요청 메시지 작성
-        String fullPrompt = story.getBook_name() + "라는 제목을 가진 동화야. 이 동화의 장르는 " + story.getBook_genre() + 
-            "이며, 배경은 " + story.getBook_background() + "야. 주제는 '" + story.getBook_subject() + 
-            "'이며, 주인공은 " + story.getBook_mc() + "야. 요약 줄거리는 다음과 같아: " + story.getBook_summary() + 
-            ". 이 내용을 기반으로 동화 줄거리를 11페이지로 만들어줘. "
-            + "단 다음 조건을 무조건 지켜야해. 무슨 일이 있어도 조건을 엄수해야 해.\n"
-    		+ "조건 1: 모든 페이지를 ###으로 나눠서 보내줘야 해.\n"
-            + "조건 2: 각 페이지당 글자 수는 200자 정도로 만들어줘\n"
-    		+ "조건 3: 맨 앞과 끝에 ### 붙이지 마."
-            + "조건 4: 너가 보내주는 텍스트에 줄거리, 페이지 이런 단어를 제거해줘. 페이지를 나누는 숫자도 금지야."
-    		+ "조건 5: 꼭 11페이지로 만들어줘야 해."
-        	+ "조건 6: 다음 예시를 따라서 보내줘. 예시 : 줄거리1###줄거리2###줄거리3###...###줄거리10###줄거리11";
+	    // 첫 재생성 로직: `prompt`는 있지만 이전 응답이 없는 경우 처리
+	    if (allResponses.isEmpty()) {
+	        allRequests.add(prompt); // 최초 요청 추가
+	        allResponses.add((String) session.getAttribute("storybookJson")); // 최초 응답 추가 (JSON 저장)
+	    }
 
-        // GPT 메시지 구성
-        List<ChatMessage> messages = Arrays.asList(
-            new ChatMessage("system", "You are a helpful assistant."),
-            new ChatMessage("user", fullPrompt)
-        );
+	    // 최대 재생성 횟수 초과 시 예외 발생
+	    if (regenerateCount >= 3) {
+	        throw new IllegalStateException("재생성은 최대 3번까지만 가능합니다.");
+	    }
 
-        ChatGPTRequest request = new ChatGPTRequest(storylineModel, messages);
-        HttpEntity<ChatGPTRequest> entity = new HttpEntity<>(request);
+	    // 메시지 구성
+	    List<ChatMessage> messages = new ArrayList<>();
+	    messages.add(new ChatMessage("system", """
+	        너는 동화를 전문으로 작성하는 AI야.
+				   동화는 다음 조건을 따르며 작성해야 해:
+				   - 초등학교 저학년 아이들을 위한 이야기
+				   - 쉬운 단어 사용, 기승전결 구조 유지
+				   - 응답 형식은 반드시 JSON 형식이어야 해. 절대로 다른 형식을 사용하지 마.
+				   - JSON 키는 다음과 같아야 해:
+				     {
+				       "book_name": "책 제목",
+				       "book_genre": "책 장르",
+				       "book_background": "배경",
+				       "book_subject": "주제",
+				       "book_mc": "주인공 이름",
+				       "book_summary": "요약 줄거리"
+				     }
+				   - JSON 구조를 엄수하고, 부가적인 설명은 하지 마.
+				   - 책 제목 : 동화의 핵심을 표현할 수 있는 재미있어야해.
+				   - 책 장르: 어떤 동화인지 동화 장르를 적어줘.
+				- 배경 : 이야기가 전개되는 장소 또는 시대를 적어줘.
+				- 요약 줄거리 : 결말은 제외하고 관심을 유도할 수 있는 500자 분량이여야 해.
+				- 주제를 보낼테니 신중하게 모든 요소를 채워서 보내줘.
+	        """));
 
-        ResponseEntity<ChatGPTResponse> response = restTemplate.exchange(url, HttpMethod.POST, entity, ChatGPTResponse.class);
+	    // 이전 요청/응답 추가
+	    for (int i = 0; i < allRequests.size(); i++) {
+	        messages.add(new ChatMessage("user", "이전 요청: " + allRequests.get(i)));
+	        messages.add(new ChatMessage("assistant", "이전 응답: " + allResponses.get(i)));
+	    }
 
-        return response.getBody().getChoices().get(0).getMessage().getContent();
-    }
-    
-    
-    
-    
+	    // 현재 추가 요청 추가
+	    messages.add(new ChatMessage("user", String.format("추가 요구 사항: %s", additionalPrompt)));
+
+	    // 요청 데이터 구성
+	    ChatGPTRequest request = new ChatGPTRequest(storylineModel, messages);
+	    HttpEntity<ChatGPTRequest> entity = new HttpEntity<>(request);
+
+	    // API 호출
+	    ResponseEntity<ChatGPTResponse> response = restTemplate.exchange(url, HttpMethod.POST, entity, ChatGPTResponse.class);
+
+	    // GPT 응답 데이터 추출
+	    String content = response.getBody().getChoices().get(0).getMessage().getContent();
+
+	    // 포맷팅 문자 제거
+	    String cleanedContent = content.replaceAll("^```\\w+|```$", "").trim();
+
+	    // JSON 데이터를 Java 객체로 변환
+	    StoryBook storybook;
+	    try {
+	        storybook = objectMapper.readValue(cleanedContent, StoryBook.class);
+	    } catch (JsonProcessingException e) {
+	        throw new RuntimeException("JSON 파싱 중 오류 발생: 응답 내용이 올바르지 않습니다.", e);
+	    }
+
+	    // 세션에 데이터 저장
+	    regenerateCount++;
+	    allRequests.add(additionalPrompt);
+	    allResponses.add(cleanedContent);
+
+	    session.setAttribute("regenerateCount", regenerateCount);
+	    session.setAttribute("allRequests", allRequests);
+	    session.setAttribute("allResponses", allResponses);
+	    session.setAttribute("storybook", storybook); // 최신 응답 저장
+
+	    return storybook;
+	}
+
+
+
+
+
+	
+	
+	// 동화 11페이지 줄거리 생성 (StoryContent로 변환)
+	public String makeStory(StoryBook story) {
+	    // GPT 요청 메시지 작성
+	    List<ChatMessage> messages = new ArrayList<>();
+	    messages.add(new ChatMessage("system", """
+	        너는 동화를 전문으로 작성하는 AI야.
+	        동화는 다음 조건을 따르며 작성해야 해:
+	        - 초등학교 저학년 아이들을 위한 이야기
+	        - 쉬운 단어 사용, 기승전결 구조 유지
+	        - 응답 형식은 반드시 JSON 형식이어야 해. 절대로 다른 형식을 사용하지 마.
+	        - JSON 키는 다음과 같아야 해:
+	          [
+	            {"pageNum": 1, "content": "첫 번째 페이지 내용"},
+	            {"pageNum": 2, "content": "두 번째 페이지 내용"},
+	            ...
+	            {"pageNum": 11, "content": "열한 번째 페이지 내용"}
+	          ]
+	        - 각 페이지당 글자 수는 약 200자로 작성해야 해.
+	        - 반드시 11페이지를 작성해야 하며, 각 페이지는 독립된 내용을 가져야 해.
+	        """));
+
+	    String fullPrompt = String.format("""
+	        동화의 제목은 '%s'이고, 장르는 '%s'입니다. 이야기는 '%s'라는 배경에서 전개되며, 주제는 '%s'입니다. 
+	        주인공 이름은 '%s'입니다. 동화의 요약 줄거리는 다음과 같습니다: '%s'. 
+	        이 내용을 기반으로 11페이지 분량의 줄거리를 JSON 형식으로 작성해줘.
+	        """,
+	        story.getBook_name(),
+	        story.getBook_genre(),
+	        story.getBook_background(),
+	        story.getBook_subject(),
+	        story.getBook_mc(),
+	        story.getBook_summary());
+
+	    messages.add(new ChatMessage("user", fullPrompt));
+
+	    // GPT 요청 구성
+	    ChatGPTRequest request = new ChatGPTRequest(storylineModel, messages);
+	    HttpEntity<ChatGPTRequest> entity = new HttpEntity<>(request);
+
+	    // GPT API 호출
+	    ResponseEntity<ChatGPTResponse> response = restTemplate.exchange(url, HttpMethod.POST, entity,
+	            ChatGPTResponse.class);
+
+	    // GPT 응답 데이터 추출
+	    String storylineJson =  response.getBody().getChoices().get(0).getMessage().getContent();
+	    
+	    // 불필요한 백틱(```json`) 제거 및 클린업
+	    String cleanedJson = storylineJson
+	        .replaceAll("^```json|```$", "") // 백틱 제거
+	        .trim(); // 공백 제거
+
+	    // JSON 유효성 검증 로그 출력
+	    System.out.println("클린업된 JSON 데이터: " + cleanedJson);
+
+	    // 반환
+	    return cleanedJson;
+
+	}
 
 }

@@ -4,6 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -630,7 +631,8 @@ body {
 			<!-- 책 오른쪽 -->
 			<div class="right-section">
 				<div class="SbEdit_BookThumb">
-					<img class="SbEdit_BookThumb_icon" src="/img/images.png" onclick="openThumbnailModal()">
+					<img class="SbEdit_BookThumb_icon" src="/img/images.png"
+						onclick="openThumbnailModal()">
 					<p>클릭하여 이미지를 업로드 해주세요!</p>
 				</div>
 
@@ -691,8 +693,11 @@ body {
 				<div class="SbEdit_info">
 					<img class="SbEdit_BackImg2" src="/img/backImg.png"> <br>
 					<p>${storybook.book_name}</p>
-					<br> <b>발행일</b> ${storybook.book_name} <br> <b>지은이</b>
-					${storybook.author} <br> <b>제 작</b> ARTI <br>
+					<br> <b>발행일</b>
+					<fmt:formatDate value="${storybook.createDt}"
+						pattern="yyyy년 MM월 dd일" />
+					<br> <b>지은이</b> ${storybook.author} <br> <b>제 작</b> ARTI
+					<br>
 
 					<div class="SbEdit_Info2">
 						<img class="SbEdit_PImg" src="/img/ArtiLogo.png">
@@ -769,8 +774,11 @@ body {
 						수채화 일러스트 <img src="/img/gear.png" style="margin-top: 5px;">
 					</div>
 				</div>
-				<textarea class="SbPlot-ModifyInput_THUMB"></textarea>
-				<button class="Modify-SBPModal-btn_THUMB">생성하기</button>
+				<form action="/arti/book/generate-thumbnail" method="POST">
+				<input type="hidden" name="book_idx" value="${storybook.book_idx}">
+					<textarea class="SbPlot-ModifyInput_THUMB" name="Iprompt" required></textarea>
+					<button class="Modify-SBPModal-btn_THUMB" type="submit">생성하기</button>
+				</form>
 				<br>
 				<div class="Modify-SBPModal-credit_THUMB">잔여 크레딧 : 31</div>
 				<div class="Modify-SbEdit_THUMB">
@@ -778,6 +786,8 @@ body {
 				</div>
 			</div>
 		</div>
+		
+		<img alt="" src="${storybook.book_thumbnail}"> 
 
 	</div>
 

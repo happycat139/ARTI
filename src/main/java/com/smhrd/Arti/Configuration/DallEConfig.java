@@ -21,7 +21,8 @@ public class DallEConfig {
 		RestTemplate restTemplate = new RestTemplate();
 		
 		restTemplate.getInterceptors().add((request, body, execution) -> { 
-			request.getHeaders().add("Authorization", "Bearer" + gptProperties.getApiKey());
+			request.getHeaders().add("Authorization", "Bearer " + gptProperties.getApiKey());
+			request.getHeaders().add("Content-Type", "application/json");
 			return execution.execute(request, body);
 		});
 		return restTemplate;
