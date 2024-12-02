@@ -787,7 +787,8 @@ body {
 			</div>
 		</div>
 		
-		<img alt="" src="${storybook.book_thumbnail}"> 
+		<img alt="" src="${storybook.book_thumbnail}" style="width: 200px; height: auto;">
+		 
 
 	</div>
 

@@ -17,5 +17,7 @@ public class DallEController {
 	public String generateImage(@RequestParam String Iprompt) {
 		return dallEApiService.generateImage(Iprompt);
 	}
+	
+	
 
 }
