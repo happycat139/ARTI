@@ -11,8 +11,9 @@
 <title>ARTI</title>
 <link rel="icon" href="/img/favicon.ico">
 </head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/turn.min.js"></script>
 <style>
-<script src="https://cdn.jsdelivr.net/npm/turn.js@4.1.0"></script>
 
 body {
 	margin: 0px;
@@ -22,12 +23,42 @@ body {
 	box-sizing: border-box; /* 모든 요소에 border-box 적용 */
 }
 
+#book {
+    margin: 0 auto;
+}
+
+#book.single-page {
+    width: 800px; /* 단일 페이지 너비 */
+    height: 800px; /* 단일 페이지 높이 */
+    margin: 0 auto; /* 중앙 정렬 */
+}
+
+#book.double-page {
+    width: 1600px; /* 이중 페이지 너비 */
+    height: 800px; /* 이중 페이지 높이 */
+}
+
+
+#book .turn-page {
+    -webkit-background-size: 100% 100%;
+    background-size: 100% 100%;
+}
+
+#book div {
+    -webkit-background-size: cover;
+    background-size: cover;
+    background-position: center center;
+}
+
 .SbEditPage {
 	display: flex;
 	align-items: center; /* 수직 가운데 정렬 */
 	justify-content: space-between; /* 양쪽 버튼을 좌우에 배치하고 가운데 공간을 차지하게 함 */
 	width: 100%;
+	height: 100%;
 	padding-bottom: 76px;
+	padding-top: 50px;
+	
 }
 
 .SbEdit_pBtn, .SbEdit_nBtn {
@@ -44,20 +75,22 @@ body {
 }
 
 .SbEdit_Book {
-	flex-grow: 1; /* 중앙 콘텐츠가 가능한 모든 공간을 차지하도록 설정 */
-	max-width: 750px;
-	height: 750px;
-	border: 1px solid black;
-	border-color: #bdbbbb;
-	margin-top: 20px;
-	margin-left: 20px;
-	margin-right: 20px;
-	background-color: #fff;
-	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
-	transition: box-shadow 0.3s ease-in-out;
-	display: flex; /* Flexbox를 사용하여 내부 요소를 수평으로 배치 */
-	flex-direction: row; /* 가로로 나열 */
-	margin: 0 auto;
+    position: relative;
+    flex-grow: 1;
+    max-width: 750px;
+    height: 750px;
+    border: 1px solid black;
+    border-color: #bdbbbb;
+    margin: 20px auto;
+    background-color: #fff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
+    transform-origin: bottom left; /* 오른쪽 하단을 기준으로 회전 */
+    perspective: 1000px; /* 3D 효과를 위한 원근감 추가 */
+}
+
+.SbEdit_Book:hover {
+    transform: rotateX(-2deg) rotateY(-15deg); /* 오른쪽 위가 더 들리는 회전 효과 */
 }
 
 .left-section {
@@ -152,7 +185,7 @@ body {
 }
 
 .SbEdit_BookThumb_icon {
-	width: 400px;
+	width: 482px;
 	margin-top: 20px;
 	margin-left: 150px;
 }
@@ -179,6 +212,8 @@ body {
 	display: none !important;
 }
 
+
+
 .SbEdit_MainBook {
 	flex-grow: 1; /* 중앙 콘텐츠가 가능한 모든 공간을 차지하도록 설정 */
 	max-width: 1500px;
@@ -190,11 +225,36 @@ body {
 	margin-right: 20px;
 	background-color: #fff;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-	transition: box-shadow 0.3s ease-in-out;
+	transition: box-shadow 0.5s ease-in-out;
 	display: flex; /* Flexbox를 사용하여 내부 요소를 수평으로 배치 */
 	flex-direction: row; /* 가로로 나열 */
 	position: relative; /* 자식 요소의 절대 위치를 기준으로 함 */
+	overflow: hidden;
+	perspective: 1000px; /* 3D 효과를 위해 설정 */
 }
+
+.SbEdit_MainBook::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 50px; /* 모서리 크기 */
+    height: 50px;
+    background: linear-gradient(to top left, rgba(255, 255, 255, 0.8), transparent);
+    transform: rotateX(0deg) rotateY(0deg);
+    transform-origin: bottom left;
+    transition: transform 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+.SbEdit_MainBook:hover::after {
+    transform: rotateX(-20deg) rotateY(10deg); /* 모서리가 들리는 효과 */
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3); /* 들리는 모서리에 그림자 추가 */
+}
+
+
+
+
 
 .SbEdit_PageLeft, .SbEdit_PageRight, .SbEdit_PageLeft1,
 	.SbEdit_PageRight1 {
@@ -262,6 +322,12 @@ body {
 	margin-right: 10px;
 }
 
+#book.single-page {
+    margin: 0 auto; /* 단일 페이지 중앙 정렬 */
+    width: 800px; /* 단일 페이지 너비 */
+    height: 800px; /* 단일 페이지 높이 */
+}
+
 
 
 /* 기존 flip 애니메이션 제거 */
@@ -314,14 +380,18 @@ body {
 <body>
 <%@ include file="SbHeader.jsp"%>
 
+
+
 <div class="SbEditPage" id="ArtiBook-Page">
     <!-- 이전 버튼 div -->
     <div class="SbEdit_pBtn">
-        <img class="SbEdit_prevBtn" src="/img/prev-grey.svg" alt="Previous" onclick="showPreviousPage()">
+        <img class="SbEdit_prevBtn" src="/img/prev-grey.svg" alt="Previous">
     </div>
     
+    <div id="book">
+    
     <!-- 표지 div -->
-    <div class="SbEdit_Book" id="page1">
+    <div class="SbEdit_Book" class="page">
     
         <div class="right-section">
             <div class="SbEdit_BookThumb">
@@ -337,7 +407,7 @@ body {
     </div>
     
     <!-- 두 번째 페이지 -->
-    <div class="SbEdit_MainBook hidden" id="page2">
+    <div class="SbEdit_MainBook" class="page">
         <div class="center-shadow"></div>
         <div class="SbEdit_PageLeft">
             <div class="text-content SbEdit_InputContent">
@@ -352,7 +422,7 @@ body {
     
     <!-- 페이지 3부터 13까지 반복 생성 -->
     <% for (int i = 3; i <= 13; i++) { %>
-    <div class="SbEdit_MainBook hidden" id="page<%=i%>">
+    <div class="SbEdit_MainBook" class="page">
         <div class="center-shadow"></div>
             
         <div class="SbEdit_PageLeft1">
@@ -374,7 +444,7 @@ body {
     <% } %>
     
     <!-- 14번째 페이지 생성 -->
-    <div class="SbEdit_MainBook hidden" id="page14">
+    <div class="SbEdit_MainBook" class="page">
         <div class="center-shadow"></div>
         <div class="SbEdit_PageLeft">
             <div class="SbEdit_info">
@@ -400,68 +470,86 @@ body {
     </div>
     
     <!-- 책 마지막 div -->
-    <div class="SbEdit_Book" id="page15">
+    <div class="SbEdit_Book" class="page">
     
-        <div class="right-section">
-            <div class="SbEdit_BookThumb">
-                <img class="SbEdit_BookThumb_icon" src="/img/images.png">
-            </div>
-            
-            <div class="bottom-right">
-                <p class="SbEdit_BookMainTitle" id="SbEdit_BookMainTitle">여기에는 중앙에 작게 이미지 넣을것</p>
-            </div>
-        </div>
+        <div class="SbEdit_MainBook">
+			<div class="SbEdit_PageLeft">
+				<div class="SbEdit_info">
+					<img class="SbEdit_BackImg2" src="/img/backImg.png"> <br>
+					<p>책 제목</p>
+					<br> <b>발행일</b> 2024년 12월 2일 <br> 
+					<b>지은이</b> OOO <br> 
+					<b>제 작</b> ARTI <br>
+
+					<div class="SbEdit_Info2">
+						<img class="SbEdit_PImg" src="/img/ArtiLogo.png">
+						<div>
+							서울특별시 서초구 동작대로 132 9층 스마트인재개발원 <br> www.arti.com | ARTI
+						</div>
+					</div>
+				</div>
+			</div>
     </div>
+</div>
     
     <!-- 다음 버튼 div -->
     <div class="SbEdit_nBtn">
-        <img class="SbEdit_nextBtn" src="/img/next-grey.svg" alt="Next" onclick="showNextPage()">
+        <img class="SbEdit_nextBtn" src="/img/next-grey.svg" alt="Next">
     </div>
+
 
 </div>
 <script>
-let currentPage = 1;
-const totalPages = 15;
+$(document).ready(function () {
+    // Turn.js 초기화
+    $("#book").turn({
+        width: 1600, // 책의 전체 너비
+        height: 800, // 책의 전체 높이
+        autoCenter: true,
+        display: "single", // 초기에는 단일 페이지 모드
+        when: {
+            turning: function (event, page) {
+                const totalPages = $("#book").turn("pages");
 
-function showNextPage() {
-    if (currentPage < totalPages) {
-        const current = document.getElementById("page" + currentPage);
-        const next = document.getElementById("page" + (currentPage + 1));
+                // 첫 페이지 또는 마지막 페이지일 경우 single 모드로 전환
+                if (page === 1 || page === totalPages) {
+                    $("#book").turn("display", "single"); // 단일 페이지 모드
+                } else {
+                    $("#book").turn("display", "double"); // 이중 페이지 모드
+                }
+            },
+            turned: function (event, page) {
+                const totalPages = $("#book").turn("pages");
 
-        current.classList.add("page-flip");
-        setTimeout(() => {
-            current.classList.add("hidden"); // 페이지 숨기기
-            next.classList.remove("hidden"); // 다음 페이지 보이기
-            next.classList.add("page-flip-reverse"); // 다음 페이지가 오른쪽에서 왼쪽으로 넘겨지는 효과 추가
-        }, 500); // 효과가 끝난 후, 페이지 숨기기 및 나타내기
+                // 첫 페이지와 마지막 페이지 확인 및 보정
+                if (page === 1 || page === totalPages) {
+                    $("#book").turn("display", "single");
+                } else {
+                    $("#book").turn("display", "double");
+                }
+            }
+        }
+    });
 
-        currentPage++;
+    // 이전 버튼 동작
+    $(".SbEdit_pBtn").click(function () {
+        $("#book").turn("previous");
+    });
+
+    // 다음 버튼 동작
+    $(".SbEdit_nBtn").click(function () {
+        $("#book").turn("next");
+    });
+
+    // 초기 상태 설정: 첫 번째 페이지 single 모드
+    if ($("#book").turn("page") === 1) {
+        $("#book").turn("display", "single");
     }
-}
-
-function showPreviousPage() {
-    if (currentPage > 1) {
-        const current = document.getElementById("page" + currentPage);
-        const previous = document.getElementById("page" + (currentPage - 1));
-
-        current.classList.add("page-flip-reverse");
-        setTimeout(() => {
-            current.classList.add("hidden");
-            previous.classList.remove("hidden");
-            previous.classList.add("page-flip");
-        }, 500);
-
-        currentPage--;
-    }
-}
-
-window.onload = function() {
-    document.getElementById("page1").classList.remove("hidden");
-
-    for (let i = 2; i <= totalPages; i++) {
-        document.getElementById("page" + i).classList.add("hidden");
-    }
-};
+});
 </script>
+
+
+
+
 </body>
 </html>
