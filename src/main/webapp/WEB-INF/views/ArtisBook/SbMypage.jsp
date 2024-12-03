@@ -277,7 +277,7 @@
                     <img src="/img/tag-sample.png" style="width:64px;">
                 </div>
                 <div class="coverimg-top-empty"></div>
-                <div class="book_item-coverimg"><img src="/img/night.png"></div>
+                <div class="book_item-coverimg"><img src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_2-1.webp"></div>
                 <div class="booktitle-top-empty"></div>
                 <p>소피아와 마법의 바다</p>
                 <div class="overlay"></div>

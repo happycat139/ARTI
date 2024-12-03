@@ -26,6 +26,12 @@ body {
     box-sizing: border-box;
 }
 
+.ex1 {
+	display: flex;
+	vertical-align: middle;
+	align-items: center;
+}
+
 #book {
     width: 700px;
     height: 700px;
@@ -42,25 +48,44 @@ body {
     cursor: pointer;
     display: inline-block;
     padding: 10px 20px;
-    background-color: #1151ab;
-    color: white;
+    background-color: white;
+    color: black;
     border: none;
-    border-radius: 5px;
+    border-radius: 50%;
     font-size: 16px;
     text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    max-width: 100%; /* 이미지가 버튼 크기를 넘지 않도록 설정 */
+    max-height: 100%;
+    object-fit: contain; /* 이미지 크기를 버튼 안에 맞게 조정 */ 
 }
 
 .SbEdit_pBtn {
     float: left;
     margin-left: 10%;
+    width: 60px;
+    height: 60px;
 }
 
 .SbEdit_nBtn {
     float: right;
     margin-right: 10%;
+    width: 60px;
+    height: 60px;
 }
 
-.SbEdit_PageLeft, .SbEdit_PageRight, .SbEdit_PageLeft1,
+.SbEdit_PageLeft {
+	flex: 1;
+	background-color: #fff;
+	position: relative;
+	display: flex; 
+	align-items: center; 
+	justify-content: left; 
+	height: 100%;
+	border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.SbEdit_PageRight, .SbEdit_PageLeft1,
 	.SbEdit_PageRight1 {
 	flex: 1;
 	background-color: #fff;
@@ -103,7 +128,7 @@ body {
 
 
 .SbEdit_BookMainTitle {
-	margin: 50px 0 0 0;
+	margin: 20px 0 0 0;
 	text-align: center;
 	font-size: 32px;
 	font-family: 'BookkMyungjo-Bd';
@@ -114,9 +139,14 @@ body {
 	font-family: "Nanum Myeongjo";
 }
 
+.SbEdit_info {
+	text-align: left;
+	margin-left: 30px;
+}
+
 .SbEdit_Info2 {
 	display: flex;
-	margin-top: 150px;
+	margin-top: 70px;
 }
 
 .SbEdit_BackImg2 {
@@ -135,7 +165,6 @@ body {
 	background-color: #fff;
 	padding-top: 80px;
 	padding-left: 250px;
-	
 }
 
 #book #p1 {
@@ -148,6 +177,10 @@ body {
     background: #FFEDED;
     border: 1px solid #ccc;
     text-align: center;
+}
+
+#book #cover, #last {
+    align-items: center;
 }
 
 /* 페이지 세부 CSS */
@@ -186,7 +219,9 @@ body {
 <div class="ex1">
 
     <!-- 이전 버튼 div -->
-    <button class="SbEdit_pBtn">이전</button>
+    <button class="SbEdit_pBtn">
+    	<img src="/img/prev-grey.svg">
+    </button>
     
     <!-- 책 구조 -->
     <div id="book">
@@ -195,7 +230,7 @@ body {
                 <img class="SbEdit_BookThumb_icon" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_1-1.webp">
             </div>
             
-            <div class="bottom-right" id="0">
+            <div class="bottom-right" id="cover">
                 <p class="SbEdit_BookMainTitle" id="SbEdit_BookMainTitle">말하는 나무와 친구가 된 날</p>
                 <p class="SbEdit_BookMainWriter">김예원 지음</p>
             </div>
@@ -329,7 +364,9 @@ body {
     </div>
 
     <!-- 다음 버튼 div -->
-    <button class="SbEdit_nBtn">다음</button>
+    <button class="SbEdit_nBtn">
+    	<img src="/img/next-grey.svg">
+    </button>
 </div>
 
     <script>
