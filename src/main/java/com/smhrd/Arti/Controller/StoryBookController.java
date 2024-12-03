@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.smhrd.Arti.Configuration.GptProperties;
 import com.smhrd.Arti.Model.StoryBook;
 import com.smhrd.Arti.Model.StoryContent;
 import com.smhrd.Arti.Service.ChatGPTService;
+import com.smhrd.Arti.Service.DallEApiService;
 import com.smhrd.Arti.Service.StoryBookService;
 
 import jakarta.servlet.http.HttpSession;
@@ -27,6 +29,7 @@ public class StoryBookController {
 
 	// GPT api를 이용한 생성 기능
 	private final ChatGPTService chatGPTService;
+	
 
 	@Autowired
 	public StoryBookController(ChatGPTService chatGPTService) {
@@ -147,5 +150,6 @@ public class StoryBookController {
 
 		return "ArtisBook/TestEdit";
 	}
+	
 
 }
