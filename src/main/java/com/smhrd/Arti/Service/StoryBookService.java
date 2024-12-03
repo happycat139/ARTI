@@ -141,6 +141,25 @@ public class StoryBookService {
 	    // 변경 내용 저장
 	    repo1.save(storyBook);
 	}
+	
+	 public String getThumbnail(Long bookIdx) {
+	        // DB에서 책 정보를 가져와 썸네일 URL 반환
+	        return repo1.findBookThumbnailByBookIdx(bookIdx);
+	    }
+	 
+	 
+	 // 모든 페이지 내용 가져오기
+	    public List<StoryContent> getAllContentByBookIdx(Long bookIdx) {
+	        return repo2.findByBookIdx(bookIdx);
+	    }
+
+	    // 이미지 URL 업데이트
+	    public void updateImage(Long bookIdx, int pageNum, String imageUrl) {
+	        StoryContent content = repo2.findByBookIdxAndPageNum(bookIdx, pageNum)
+	            .orElseThrow(() -> new RuntimeException("페이지를 찾을 수 없습니다."));
+	        content.setImage(imageUrl);
+	        repo2.save(content);
+	    }
 
 
 

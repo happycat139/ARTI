@@ -262,5 +262,36 @@ public class ChatGPTService {
 	    return cleanedJson;
 
 	}
+	
+	
+	
+	// 프롬프트 번역 
+	public String translatePrompt(String koreanPrompt) {
+	    // 번역 요청 메시지 구성
+	    List<ChatMessage> messages = Arrays.asList(
+	        new ChatMessage("system", "Translate the following Korean text into English.\n"),
+	        new ChatMessage("user", koreanPrompt)
+	    );
+
+	    // 요청 데이터 구성
+	    ChatGPTRequest request = new ChatGPTRequest(storylineModel, messages);
+	    HttpEntity<ChatGPTRequest> entity = new HttpEntity<>(request);
+
+	    try {
+	        // GPT API 호출
+	        ResponseEntity<ChatGPTResponse> response = restTemplate.exchange(url, HttpMethod.POST, entity, ChatGPTResponse.class);
+
+	        // 응답 메시지 추출
+	        String translatedText = response.getBody().getChoices().get(0).getMessage().getContent();
+	        System.out.println("번역된 텍스트: " + translatedText);
+
+	        return translatedText.trim();
+	    } catch (Exception e) {
+	        throw new RuntimeException("번역 중 오류 발생: " + e.getMessage(), e);
+	    }
+	}
+
+	
+	
 
 }

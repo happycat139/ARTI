@@ -3,6 +3,8 @@ package com.smhrd.Arti.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +18,7 @@ import com.smhrd.Arti.Model.StoryBook;
 import com.smhrd.Arti.Model.StoryContent;
 import com.smhrd.Arti.Service.ChatGPTService;
 import com.smhrd.Arti.Service.DallEApiService;
+import com.smhrd.Arti.Service.GoogleCloudStorageService;
 import com.smhrd.Arti.Service.StoryBookService;
 
 import jakarta.servlet.http.HttpSession;
@@ -26,14 +29,16 @@ public class StoryBookController {
 
 	@Autowired
 	StoryBookService service;
+
+	@Autowired
+	DallEApiService dallEApiService;
 	
 	@Autowired
-	public StoryBookController(ChatGPTService chatGPTService) {
-		this.chatGPTService = chatGPTService;
-	}
+	ChatGPTService chatGptService;
 
-	// GPT api를 이용한 생성 기능
-	private final ChatGPTService chatGPTService;
+	@Autowired
+	GoogleCloudStorageService googleCloudStorageService;
+
 	
 
 	/* 페이지 관련 뷰 컨트롤러 */
@@ -82,7 +87,7 @@ public class StoryBookController {
 
 		StoryBook story = (StoryBook) session.getAttribute("storybook");
 		// GPT에서 줄거리 JSON 문자열 생성
-		String storylineJson = chatGPTService.makeStory(story);
+		String storylineJson = chatGptService.makeStory(story);
 
 		// JSON 파싱 및 저장
 		service.saveStory(storylineJson, story, session);
@@ -123,7 +128,7 @@ public class StoryBookController {
 			throws JsonProcessingException {
 
 		// GPTService를 사용해 StoryBook 객체 생성
-		StoryBook storybook = chatGPTService.makeBase(prompt, session);
+		StoryBook storybook = chatGptService.makeBase(prompt, session);
 
 		service.saveBase(storybook, session, book_idx);
 		// 모델에 StoryBook 객체 추가 (디버깅 및 화면 출력용)
@@ -139,7 +144,7 @@ public class StoryBookController {
 	public String SbOutlinepage2(@RequestParam("reprompt") String reprompt, @RequestParam("book_idx") Long book_idx,
 			Model model, HttpSession session) throws JsonProcessingException {
 
-		StoryBook storybook = chatGPTService.remakeBase(reprompt, session);
+		StoryBook storybook = chatGptService.remakeBase(reprompt, session);
 
 		service.saveBase(storybook, session, book_idx);
 		// 모델에 StoryBook 객체 추가 (디버깅 및 화면 출력용)
@@ -161,5 +166,42 @@ public class StoryBookController {
 		return "ArtisBook/TestEdit";
 	}
 	
+	
+	
+	@PostMapping("/generate-all-images")
+	public ResponseEntity<String> generateAllImages(@RequestParam("book_idx") Long bookIdx) {
+	    try {
+	        // 1. DB에서 모든 페이지의 줄거리 가져오기
+	        List<StoryContent> contents = service.getAllContentByBookIdx(bookIdx);
+
+	        for (StoryContent content : contents) {
+	            // 2. 프롬프트 생성
+	        	String prompt = content.getContent() + 
+	        		    " 위의 줄거리에 맞는 그림을 생성해줘. " +
+	        		    "그림은 동화책에 사용될 그림으로, 따뜻한 색감과 부드러운 수채화 스타일로 만들어줘. " +
+	        		    "주요 인물과 배경 요소를 강조하고, 각각의 세부사항이 잘 드러나도록 해줘. " +
+	        		    "아이들이 좋아할 수 있는 밝고 매력적인 분위기를 연출해줘. 그리고 고퀄리티 그림이여야 해." +
+	        		    "텍스트는 무조건 빼 줘." ;
+
+	            // 3. DALL-E API로 이미지 생성
+	            String imageUrl = dallEApiService.generateImage(prompt);
+
+	            // 4. 생성된 이미지 경로를 Google Cloud Storage에 업로드
+	            String uploadedImageUrl = googleCloudStorageService.uploadImageFromUrl(imageUrl);
+
+	            // 5. DB에 이미지 URL 저장
+	            service.updateImage(content.getBook_idx(), content.getPageNum(), uploadedImageUrl);
+	        }
+
+	        return ResponseEntity.ok("모든 이미지 생성 및 저장이 완료되었습니다.");
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+	                             .body("이미지 생성 중 문제가 발생했습니다: " + e.getMessage());
+	    }
+	}
+
+
+	
+
 
 }
