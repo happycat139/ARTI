@@ -3,6 +3,7 @@ package com.smhrd.Arti.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,8 +29,9 @@ public class StoryBookController {
 	StoryBookService service;
 	
 	@Autowired
-	public StoryBookController(ChatGPTService chatGPTService) {
+	public StoryBookController(ChatGPTService chatGPTService, DallEApiService dallEApiService) {
 		this.chatGPTService = chatGPTService;
+		this.dallEApiService = dallEApiService;
 	}
 
 	// GPT api를 이용한 생성 기능
@@ -161,5 +163,9 @@ public class StoryBookController {
 		return "ArtisBook/TestEdit";
 	}
 	
+	private final DallEApiService dallEApiService;
+
+	
+
 
 }

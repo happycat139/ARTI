@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.smhrd.Arti.Model.StoryBook;
 import com.smhrd.Arti.Model.StoryContent;
+import com.smhrd.Arti.Service.ChatGPTService;
 import com.smhrd.Arti.Service.DallEApiService;
 import com.smhrd.Arti.Service.GoogleCloudStorageService;
 import com.smhrd.Arti.Service.StoryBookService;
@@ -24,15 +25,18 @@ public class StoryBookRestController {
 
 	
 	private final StoryBookService service;
+	private final ChatGPTService chatGptService;
 	private final DallEApiService dallEApiService;
     private final GoogleCloudStorageService googleCloudStorageService;
     
     @Autowired
     public StoryBookRestController(
             DallEApiService dallEApiService,
+            ChatGPTService chatGptService,
             GoogleCloudStorageService googleCloudStorageService,
             StoryBookService service) {
         this.dallEApiService = dallEApiService;
+        this.chatGptService = chatGptService;
         this.googleCloudStorageService = googleCloudStorageService;
         this.service = service;
     }
@@ -88,6 +92,8 @@ public class StoryBookRestController {
 		
 		
         try {
+        	
+        	// Iprompt = chatGptService.translatePrompt(Iprompt);
             // 1. AI API를 통해 이미지 생성
             String ImageUrl = dallEApiService.generateImage(Iprompt);
 

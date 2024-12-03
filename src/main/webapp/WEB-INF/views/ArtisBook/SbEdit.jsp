@@ -139,6 +139,24 @@ body {
 	background-color: #faf7f7;
 }
 
+.SbEdit_BookThumbnail {
+	flex: 3; /* 세 개의 섹션이 동일한 높이를 가짐 */
+	padding: 10px; /* 내부 여백 설정 */
+	border-bottom: 1px solid #ccc; /* 섹션 구분을 위한 경계선 추가 */
+	background-color: #faf7f7;
+	overflow: hidden; /* 이미지가 영역을 벗어나지 못하도록 설정 */
+	position: relative; /* 내부 요소 위치 제어 */
+}
+
+.SbEdit_BookThumbnail img {
+	width: 100%; /* 가로 크기를 영역에 맞춤 */
+	height: 100%; /* 세로 크기를 영역에 맞춤 */
+	object-fit: cover; /* 비율을 유지하면서 영역을 꽉 채움 */
+	position: absolute; /* 부모 요소에 맞게 위치 고정 */
+	top: 0; /* 상단 고정 */
+	left: 0; /* 왼쪽 고정 */
+}
+
 .bottom-right {
 	flex: 1; /* 세 개의 섹션이 동일한 높이를 가짐 */
 	padding: 10px; /* 내부 여백 설정 */
@@ -630,11 +648,21 @@ body {
 
 			<!-- 책 오른쪽 -->
 			<div class="right-section">
-				<div class="SbEdit_BookThumb">
-					<img class="SbEdit_BookThumb_icon" src="/img/images.png"
-						onclick="openThumbnailModal()">
-					<p>클릭하여 이미지를 업로드 해주세요!</p>
-				</div>
+				<c:choose>
+					<c:when test="${storybook.book_thumbnail != null}">
+						<div class="SbEdit_BookThumbnail">
+							<img src="${storybook.book_thumbnail}" alt="책 썸네일" onclick="openThumbnailModal()">
+						</div>
+					</c:when>
+					<c:otherwise>
+						<div class="SbEdit_BookThumb">
+							<img class="SbEdit_BookThumb_icon" src="/img/images.png"
+								alt="썸네일 이미지" onclick="openThumbnailModal()">
+							<p>클릭하여 이미지를 업로드 해주세요!</p>
+
+						</div>
+					</c:otherwise>
+				</c:choose>
 
 				<div class="bottom-right">
 					<p class="SbEdit_BookMainTitle" id="SbEdit_BookMainTitle">${storybook.book_name}</p>
@@ -774,8 +802,9 @@ body {
 						수채화 일러스트 <img src="/img/gear.png" style="margin-top: 5px;">
 					</div>
 				</div>
-				<form action="/arti/book/generate-thumbnail" method="POST">
-				<input type="hidden" name="book_idx" value="${storybook.book_idx}">
+				<form id="thumbnailForm" action="/arti/book/generate-thumbnail"
+					method="POST">
+					<input type="hidden" name="book_idx" value="${storybook.book_idx}">
 					<textarea class="SbPlot-ModifyInput_THUMB" name="Iprompt" required></textarea>
 					<button class="Modify-SBPModal-btn_THUMB" type="submit">생성하기</button>
 				</form>
@@ -787,8 +816,7 @@ body {
 			</div>
 		</div>
 		
-		<img alt="" src="${storybook.book_thumbnail}" style="width: 200px; height: auto;">
-		 
+		
 
 	</div>
 
@@ -1014,7 +1042,29 @@ document.querySelector('.Modify-SEModal-btn').addEventListener('click', function
         });
 });
 
+/* // 썸네일 수정
+document.getElementById("thumbnailForm").addEventListener("submit", function (event) {
+    event.preventDefault(); // 기본 폼 제출 동작 막기
 
+    const formData = new FormData(this); // 폼 데이터 가져오기
+
+    fetch(this.action, {
+        method: this.method,
+        body: formData,
+    })
+        .then(response => response.text()) // 서버에서 반환된 텍스트 응답
+        .then(result => {
+            // 서버가 생성한 이미지 URL을 응답으로 보냈다고 가정
+            console.log("응답받은 URL:", result);
+
+            // 썸네일 이미지 업데이트
+            const thumbnailImg = document.querySelector(".SbEdit_BookThumbnail img");
+            thumbnailImg.src = result; // 새 URL로 이미지 src 업데이트
+        })
+        .catch(error => {
+            console.error("Error:", error);
+        });
+}); */
 
 
 
