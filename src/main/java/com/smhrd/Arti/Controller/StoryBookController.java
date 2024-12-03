@@ -26,15 +26,15 @@ public class StoryBookController {
 
 	@Autowired
 	StoryBookService service;
-
-	// GPT api를 이용한 생성 기능
-	private final ChatGPTService chatGPTService;
 	
-
 	@Autowired
 	public StoryBookController(ChatGPTService chatGPTService) {
 		this.chatGPTService = chatGPTService;
 	}
+
+	// GPT api를 이용한 생성 기능
+	private final ChatGPTService chatGPTService;
+	
 
 	/* 페이지 관련 뷰 컨트롤러 */
 
@@ -93,15 +93,25 @@ public class StoryBookController {
 	// 책 테스트 페이지 호출
 	@GetMapping("/test")
 	public String SbTestPage() {
-
 		return "ArtisBook/SbTest";
 	}
 
 	// 책 테스트 페이지 호출
 	@GetMapping("/test/new")
 	public String SbTestPage2() {
-
 		return "ArtisBook/SbTestNew";
+	}
+	
+	// 샘플 미리보기 1 페이지 호출
+	@GetMapping("/sample1")
+	public String SbSamplePage1() {
+		return "ArtisBook/SbSample1";
+	}
+	
+	// 샘플 미리보기 1 페이지 호출
+	@GetMapping("/sample2")
+	public String SbSamplePage2() {
+		return "ArtisBook/SbSample2";
 	}
 
 	/* GPT관련 컨트롤러 */

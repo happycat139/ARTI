@@ -208,6 +208,8 @@
     .book_item-coverimg img {
         margin-left: 17px;
         margin-top: 15px;
+        width: 250px;
+        height: 240px;
     }
 </style>
 <body>
@@ -258,11 +260,11 @@
             <img src="/img/tag-sample.png" style="width:64px;">
         </div>
         <div class="coverimg-top-empty"></div>
-        <div class="book_item-coverimg"><img src="/img/file.png"></div>
+        <div class="book_item-coverimg"><img src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_1-1.webp"></div>
         <div class="booktitle-top-empty"></div>
-        <p>오빈의 행복 라이프</p>
+        <p>말하는 나무와 친구가 된 날</p>
         <div class="overlay"></div> <!-- 하얀색 오버레이 추가 -->
-        <button class="SbmPreview-button">미리보기</button>
+        <button class="SbmPreview-button" onclick="location.href='/arti/book/sample1'">미리보기</button>
     </div>
     <div class="book_date"></div>
     <div class="book_info-hover"></div>
@@ -277,9 +279,9 @@
                 <div class="coverimg-top-empty"></div>
                 <div class="book_item-coverimg"><img src="/img/night.png"></div>
                 <div class="booktitle-top-empty"></div>
-                <p>오빈의 흑심</p>
+                <p>소피아와 마법의 바다</p>
                 <div class="overlay"></div>
-                <button class="SbmPreview-button">미리보기</button>
+                <button class="SbmPreview-button" onclick="location.href='/arti/book/sample2'">미리보기</button>
             </div>
             <div class="book_date"></div>
             <div class="book_info-hover"></div>

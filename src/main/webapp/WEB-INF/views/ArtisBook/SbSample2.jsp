@@ -183,8 +183,6 @@ body {
 <body>
 <%@ include file="SbHeader.jsp" %>
 
-<div class="ex1">
-
     <!-- 이전 버튼 div -->
     <button class="SbEdit_pBtn">이전</button>
     
@@ -330,7 +328,6 @@ body {
 
     <!-- 다음 버튼 div -->
     <button class="SbEdit_nBtn">다음</button>
-</div>
 
     <script>
     $(document).ready(function () {
@@ -356,3 +353,4 @@ body {
     </script>
 </body>
 </html>
+s
