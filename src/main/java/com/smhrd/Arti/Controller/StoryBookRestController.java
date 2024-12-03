@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -103,10 +104,27 @@ public class StoryBookRestController {
             // 3. StoryBook의 thumbnail 필드 업데이트
             service.updateThumbnail(bookIdx, uploadedImageUrl);
 
-            return ResponseEntity.ok("이미지 생성 및 업데이트가 성공적으로 완료되었습니다.");
+            return ResponseEntity.ok(uploadedImageUrl);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                                  .body("이미지 생성 또는 저장 중 오류 발생: " + e.getMessage());
+        }
+    }
+	
+	
+	 // 썸네일 데이터 반환
+    @GetMapping("/get-thumbnail")
+    public ResponseEntity<String> getThumbnail(@RequestParam("book_idx") Long bookIdx) {
+        try {
+            // 책 정보에서 썸네일 URL 가져오기
+            String thumbnailUrl = service.getThumbnail(bookIdx);
+            if (thumbnailUrl != null) {
+                return ResponseEntity.ok(thumbnailUrl); // URL 반환
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("썸네일이 존재하지 않습니다.");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("오류 발생: " + e.getMessage());
         }
     }
 

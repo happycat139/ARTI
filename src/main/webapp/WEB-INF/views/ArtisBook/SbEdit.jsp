@@ -139,24 +139,6 @@ body {
 	background-color: #faf7f7;
 }
 
-.SbEdit_BookThumbnail {
-	flex: 3; /* 세 개의 섹션이 동일한 높이를 가짐 */
-	padding: 10px; /* 내부 여백 설정 */
-	border-bottom: 1px solid #ccc; /* 섹션 구분을 위한 경계선 추가 */
-	background-color: #faf7f7;
-	overflow: hidden; /* 이미지가 영역을 벗어나지 못하도록 설정 */
-	position: relative; /* 내부 요소 위치 제어 */
-}
-
-.SbEdit_BookThumbnail img {
-	width: 100%; /* 가로 크기를 영역에 맞춤 */
-	height: 100%; /* 세로 크기를 영역에 맞춤 */
-	object-fit: cover; /* 비율을 유지하면서 영역을 꽉 채움 */
-	position: absolute; /* 부모 요소에 맞게 위치 고정 */
-	top: 0; /* 상단 고정 */
-	left: 0; /* 왼쪽 고정 */
-}
-
 .bottom-right {
 	flex: 1; /* 세 개의 섹션이 동일한 높이를 가짐 */
 	padding: 10px; /* 내부 여백 설정 */
@@ -607,6 +589,37 @@ body {
 	padding: 5px 10px;
 	border-radius: 30px;
 }
+
+/* 로딩 화면 스타일 */
+#loading-screen {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.7); /* 반투명 검정색 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+}
+
+.loading-content {
+	text-align: center;
+	color: white;
+}
+
+.loading-content img {
+	width: 70%; /* 기본: 화면 너비의 50% */
+	max-width: 800px; /* 최대 크기 제한 */
+	height: auto;
+}
+
+.loading-content p {
+	margin-top: 20px;
+	font-size: 2rem; /* 기본 크기 */
+	font-weight: bold;
+}
 </style>
 <body>
 	<%@ include file="SbCreateHeader.jsp"%>
@@ -648,21 +661,20 @@ body {
 
 			<!-- 책 오른쪽 -->
 			<div class="right-section">
-				<c:choose>
-					<c:when test="${storybook.book_thumbnail != null}">
-						<div class="SbEdit_BookThumbnail">
-							<img src="${storybook.book_thumbnail}" alt="책 썸네일" onclick="openThumbnailModal()">
-						</div>
-					</c:when>
-					<c:otherwise>
-						<div class="SbEdit_BookThumb">
+				<div class="SbEdit_BookThumb">
+					<c:choose>
+						<c:when test="${storybook.book_thumbnail != null}">
+							<img class="SbEdit_BookThumb_icon"
+								src="${storybook.book_thumbnail}" alt="책 썸네일"
+								onclick="openThumbnailModal()">
+						</c:when>
+						<c:otherwise>
 							<img class="SbEdit_BookThumb_icon" src="/img/images.png"
 								alt="썸네일 이미지" onclick="openThumbnailModal()">
 							<p>클릭하여 이미지를 업로드 해주세요!</p>
-
-						</div>
-					</c:otherwise>
-				</c:choose>
+						</c:otherwise>
+					</c:choose>
+				</div>
 
 				<div class="bottom-right">
 					<p class="SbEdit_BookMainTitle" id="SbEdit_BookMainTitle">${storybook.book_name}</p>
@@ -696,8 +708,17 @@ body {
 				<!-- 책 왼쪽 -->
 				<div class="SbEdit_PageLeft1">
 					<div class="text-content SbEdit_InputContent">
-						<img class="Sb_PutImage" src="/img/images.png">
-						<p>클릭하면 AI를 이용해 페이지에 어울리는 이미지가 자동으로 생성됩니다.</p>
+						<c:choose>
+							<c:when test="${content.image != null}">
+								<!-- 이미지가 있을 경우 표시 -->
+								<img class="Sb_PutImage" src="${content.image}" alt="페이지 이미지">
+							</c:when>
+							<c:otherwise>
+								<!-- 이미지가 없을 경우 기본 메시지 표시 -->
+								<img class="Sb_PutImage" src="/img/images.png" alt="기본 이미지">
+								<p>클릭하면 AI를 이용해 페이지에 어울리는 이미지가 자동으로 생성됩니다.</p>
+							</c:otherwise>
+						</c:choose>
 					</div>
 				</div>
 
@@ -815,10 +836,23 @@ body {
 				</div>
 			</div>
 		</div>
-		
-		
+
+		<button id="generateAllImagesButton">그림 전체 생성</button>
 
 	</div>
+
+
+
+	<!-- 로딩 화면 -->
+	<div id="loading-screen" style="display: none;">
+		<!-- 처음엔 숨김 -->
+		<div class="loading-content">
+			<img src="/img/ARTI_Loading.gif" alt="로딩 중" />
+			<p>동화책 생성 중입니다</p>
+		</div>
+	</div>
+
+
 
 	<script>
 let currentPage = 1;
@@ -1042,29 +1076,103 @@ document.querySelector('.Modify-SEModal-btn').addEventListener('click', function
         });
 });
 
-/* // 썸네일 수정
+
+// 썸네일 수정
+// 썸네일 수정
 document.getElementById("thumbnailForm").addEventListener("submit", function (event) {
     event.preventDefault(); // 기본 폼 제출 동작 막기
 
     const formData = new FormData(this); // 폼 데이터 가져오기
+    const bookIdx = document.querySelector('input[name="book_idx"]').value;
 
+    // 로딩 화면 표시
+    const loadingScreen = document.getElementById("loading-screen");
+    loadingScreen.style.display = "flex";
+
+    // 썸네일 생성 요청
     fetch(this.action, {
         method: this.method,
         body: formData,
     })
-        .then(response => response.text()) // 서버에서 반환된 텍스트 응답
+        .then(response => response.text()) // 서버에서 URL 응답받기
         .then(result => {
-            // 서버가 생성한 이미지 URL을 응답으로 보냈다고 가정
-            console.log("응답받은 URL:", result);
+            console.log("썸네일 생성 결과:", result);
 
-            // 썸네일 이미지 업데이트
-            const thumbnailImg = document.querySelector(".SbEdit_BookThumbnail img");
-            thumbnailImg.src = result; // 새 URL로 이미지 src 업데이트
+            // 서버에서 최신 데이터 가져오기
+            return fetch("/arti/book/get-thumbnail?book_idx=" + bookIdx);
+
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("썸네일 데이터 가져오기 실패");
+            }
+            return response.text(); // 썸네일 URL 반환
+        })
+        .then(thumbnailUrl => {
+            console.log("최신 썸네일 URL:", thumbnailUrl);
+
+            // 썸네일 컨테이너 확인
+            const thumbnailContainer = document.querySelector(".SbEdit_BookThumb");
+
+            if (thumbnailContainer) {
+                // 새로운 썸네일로 교체
+                thumbnailContainer.innerHTML =
+                    '<div class="SbEdit_BookThumb">' +
+                    '<img class="SbEdit_BookThumb_icon" src="' + thumbnailUrl + '" alt="책 썸네일" onclick="openThumbnailModal()">' +
+                    '</div>';
+            } else {
+                console.error("썸네일 컨테이너를 찾을 수 없습니다.");
+            }
         })
         .catch(error => {
             console.error("Error:", error);
+            alert("이미지 생성 중 문제가 발생했습니다. 다시 시도해주세요.");
+        })
+        .finally(() => {
+            // 로딩 화면 숨김
+            loadingScreen.style.display = "none";
+
+            // 모달 창 닫기
+            const modal = document.getElementById("SbPlotModifyModalBack_THUMB");
+            if (modal) {
+                modal.style.display = "none";
+            }
         });
-}); */
+});
+
+
+
+document.getElementById("generateAllImagesButton").addEventListener("click", function () {
+    const bookIdx = document.querySelector('input[name="book_idx"]').value;
+
+    // 로딩 화면 표시
+    const loadingScreen = document.getElementById("loading-screen");
+    loadingScreen.style.display = "flex";
+
+    fetch("/arti/book/generate-all-images?book_idx=" + bookIdx, {
+        method: "POST",
+    })
+        .then(function (response) {
+            if (!response.ok) {
+                throw new Error("이미지 생성 요청 실패");
+            }
+            return response.text();
+        })
+        .then(function () {
+            // 페이지 새로고침
+            window.location.reload();
+        })
+        .catch(function (error) {
+            console.error("Error:", error);
+            alert("이미지 생성 중 문제가 발생했습니다. 다시 시도해주세요.");
+        });
+});
+
+
+
+
+
+
 
 
 
