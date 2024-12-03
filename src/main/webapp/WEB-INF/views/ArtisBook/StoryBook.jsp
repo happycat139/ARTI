@@ -217,6 +217,7 @@ body {
 </style>
 </head>
 <body>
+<%@ include file="SbHeader.jsp" %>
     <!-- 이전 버튼 div -->
     <button class="SbEdit_pBtn">이전</button>
     
