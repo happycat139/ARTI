@@ -191,7 +191,7 @@ body {
 	font-family: 'BookkMyungjo-Bd';
 }
 
-#book #p4, #p6, #p8, #p10, #p12, #p14, #p16, #p18, #p20, #p22, #p24 {
+#book #Cp{
 	padding-top: 230px;
 }
 
@@ -237,21 +237,15 @@ body {
 		<c:forEach var="content" items="${storyContentList}"
 			varStatus="status">
 
-			<!-- 홀수 인덱스에서 image 출력 -->
-			<c:if
-				test="${status.index >= 3 && status.index <= 24 && status.index % 2 != 0}">
-				<div class="page" id="p${status.index + 3}">
+		
+				<div class="page" id="Ip">
 					<img src="${content.image}" class="SbSample_Image">
 				</div>
-			</c:if>
 
-			<!-- 짝수 인덱스에서 content 출력 -->
-			<c:if
-				test="${status.index >= 3 && status.index <= 24 && status.index % 2 == 0}">
-				<div class="page" id="p${status.index + 3}">
+				<div class="page" id="Cp">
 					<p class="SbSample_Content">${content.content}</p>
 				</div>
-			</c:if>
+			
 		</c:forEach>
 
 		<div class="page" id="p25">
@@ -276,7 +270,7 @@ body {
 		<div class="page" id="p26"></div>
 
 		<div class="Story_LastPage" id="last">
-			<div class="SbEdit_BackImg2">${storybook.book_thumbnail}</div>
+			<img src="${storybook.book_thumbnail}" class="SbEdit_BackImg2">
 		</div>
 	</div>
 

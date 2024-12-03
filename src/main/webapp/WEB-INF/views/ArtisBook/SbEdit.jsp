@@ -620,6 +620,88 @@ body {
 	font-size: 2rem; /* 기본 크기 */
 	font-weight: bold;
 }
+
+/* 모달 배경 */
+#SbPlotModifyModalBack_Image {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 1000;
+}
+
+/* 모달 창 */
+.SbPlotModifyModalBack_Image {
+	background-color: #fff;
+	border-radius: 15px;
+	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+	width: 600px;
+	height: 400px;
+	padding: 20px;
+	text-align: center;
+	font-family: "Noto Sans KR", sans-serif;
+}
+
+/* 제목 스타일 */
+.modal-title {
+	font-size: 30px;
+	margin-top: 100px;
+	color: #333;
+}
+
+/* 설명 텍스트 */
+.modal-description {
+	font-size: 20px;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	color: #555;
+}
+
+/* 버튼 스타일 */
+.modal-button {
+	display: inline-block;
+	padding: 15px 30px;
+	margin: 10px;
+	font-size: 14px;
+	color: #fff;
+	background-color: #6c63ff;
+	border: none;
+	border-radius: 25px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	font-family: "Noto Sans KR", sans-serif;
+}
+
+.modal-button:hover {
+	background-color: #574bfa;
+}
+
+.upload-button {
+	background-color: #00b894;
+}
+
+.upload-button:hover {
+	background-color: #019871;
+}
+
+/* 닫기 버튼 */
+.modal-close {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+	font-size: 18px;
+	color: #999;
+	cursor: pointer;
+}
+
+.modal-close:hover {
+	color: #555;
+}
 </style>
 <body>
 	<%@ include file="SbCreateHeader.jsp"%>
@@ -706,7 +788,7 @@ body {
 				<div class="center-shadow"></div>
 
 				<!-- 책 왼쪽 -->
-				<div class="SbEdit_PageLeft1">
+				<div class="SbEdit_PageLeft1" onclick="openModal()">
 					<div class="text-content SbEdit_InputContent">
 						<c:choose>
 							<c:when test="${content.image != null}">
@@ -729,6 +811,24 @@ body {
 					</div>
 				</div>
 			</div>
+			
+			<div id="SbPlotModifyModalBack_Image" style="display: none;">
+			<!-- 모달 창 -->
+			<div class="SbPlotModifyModalBack_Image">
+				<!-- 닫기 버튼 -->
+				<span class="modal-close" onclick="closeModal()">&times;</span>
+				<!-- 제목 -->
+				<div class="modal-title">AI 이미지 생성</div>
+				<!-- 설명 -->
+				<div class="modal-description">이미지를 업로드하거나 AI로 그림을 생성할 수 있습니다.</div>
+				<!-- 버튼 -->
+				<button class="modal-button upload-button" onclick="uploadImage()">사진
+					업로드하기</button>
+				<button class="modal-button" onclick="generateBookImage(${content.book_idx}, ${content.pageNum})">AI
+					이미지 생성</button>
+			</div>
+		</div>
+			
 		</c:forEach>
 
 
@@ -837,6 +937,11 @@ body {
 			</div>
 		</div>
 
+
+		
+
+
+
 		<button id="generateAllImagesButton">그림 전체 생성</button>
 
 	</div>
@@ -908,9 +1013,12 @@ function openThumbnailModal() {
         document.getElementById("SbPlotModifyModalBack_THUMB").style.display = "none";
     });
  
+  // 동화 이미지 모달 열기 함수
+    function openModal() {
+        document.getElementById('SbPlotModifyModalBack_Image').style.display = 'flex';
+    }
  
  
-
 // 내용 팝업창 닫기 (취소 버튼 클릭 시)
 document.querySelector(".Modify-SEModal-Cbtn").onclick = function() {
     document.getElementById("SbEditModifyModalBack").style.display = "none";
@@ -926,6 +1034,7 @@ window.onclick = function(event) {
     const modal1 = document.getElementById("SbEditModifyModalBack");
     const modal2 = document.getElementById("SbEdit-ModifyModalBack_Title");
     const modal3 = document.getElementById("SbPlotModifyModalBack_THUMB");
+    const modal4 = document.getElementById("SbPlotModifyModalBack_Image");
     if (event.target == modal1) {
         modal1.style.display = "none";
     }
@@ -934,6 +1043,9 @@ window.onclick = function(event) {
     }
     if (event.target == modal3) {
         modal3.style.display = "none";
+    } 
+    if (event.target == modal4) {
+        modal4.style.display = "none";
     }
 };
 
