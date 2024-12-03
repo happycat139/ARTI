@@ -26,6 +26,12 @@ body {
     box-sizing: border-box;
 }
 
+.ex1 {
+	display: flex;
+	vertical-align: middle;
+	align-items: center;
+}
+
 #book {
     width: 700px;
     height: 700px;
@@ -42,25 +48,44 @@ body {
     cursor: pointer;
     display: inline-block;
     padding: 10px 20px;
-    background-color: #1151ab;
-    color: white;
+    background-color: white;
+    color: black;
     border: none;
-    border-radius: 5px;
+    border-radius: 50%;
     font-size: 16px;
     text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    max-width: 100%; /* 이미지가 버튼 크기를 넘지 않도록 설정 */
+    max-height: 100%;
+    object-fit: contain; /* 이미지 크기를 버튼 안에 맞게 조정 */ 
 }
 
 .SbEdit_pBtn {
     float: left;
     margin-left: 10%;
+    width: 60px;
+    height: 60px;
 }
 
 .SbEdit_nBtn {
     float: right;
     margin-right: 10%;
+    width: 60px;
+    height: 60px;
 }
 
-.SbEdit_PageLeft, .SbEdit_PageRight, .SbEdit_PageLeft1,
+.SbEdit_PageLeft {
+	flex: 1;
+	background-color: #fff;
+	position: relative;
+	display: flex; 
+	align-items: center; 
+	justify-content: left; 
+	height: 100%;
+	border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.SbEdit_PageRight, .SbEdit_PageLeft1,
 	.SbEdit_PageRight1 {
 	flex: 1;
 	background-color: #fff;
@@ -103,7 +128,7 @@ body {
 
 
 .SbEdit_BookMainTitle {
-	margin: 50px 0 0 0;
+	margin: 20px 0 0 0;
 	text-align: center;
 	font-size: 32px;
 	font-family: 'BookkMyungjo-Bd';
@@ -114,9 +139,14 @@ body {
 	font-family: "Nanum Myeongjo";
 }
 
+.SbEdit_info {
+	text-align: left;
+	margin-left: 30px;
+}
+
 .SbEdit_Info2 {
 	display: flex;
-	margin-top: 150px;
+	margin-top: 70px;
 }
 
 .SbEdit_BackImg2 {
@@ -135,7 +165,6 @@ body {
 	background-color: #fff;
 	padding-top: 80px;
 	padding-left: 250px;
-	
 }
 
 #book #p1 {
@@ -148,6 +177,10 @@ body {
     background: #FFEDED;
     border: 1px solid #ccc;
     text-align: center;
+}
+
+#book #cover, #last {
+    align-items: center;
 }
 
 /* 페이지 세부 CSS */
@@ -183,131 +216,126 @@ body {
 <body>
 <%@ include file="SbHeader.jsp" %>
 
+<div class="ex1">
+
     <!-- 이전 버튼 div -->
-    <button class="SbEdit_pBtn">이전</button>
+    <button class="SbEdit_pBtn">
+    	<img src="/img/prev-grey.svg">
+    </button>
     
     <!-- 책 구조 -->
     <div id="book">
 		<div class="right-section">
             <div class="SbEdit_BookThumb">
-                <img class="SbEdit_BookThumb_icon" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_1-1.webp">
+                <img class="SbEdit_BookThumb_icon" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_2-1.webp">
             </div>
             
-            <div class="bottom-right" id="0">
-                <p class="SbEdit_BookMainTitle" id="SbEdit_BookMainTitle">말하는 나무와 친구가 된 날</p>
-                <p class="SbEdit_BookMainWriter">김예원 지음</p>
+            <div class="bottom-right" id="cover">
+                <p class="SbEdit_BookMainTitle" id="SbEdit_BookMainTitle">소피아와 마법의 바다</p>
+                <p class="SbEdit_BookMainWriter">이혜성 지음</p>
             </div>
 		</div>
         <div class="page testPage" id="p1"></div>
-        <div class="page" class="SbEdit_BookMainWriter" id="p2">말하는 나무와 친구가 된 날</div>
+        <div class="page" class="SbEdit_BookMainWriter" id="p2">소피아와 마법의 바다</div>
         <div class="page" id="p3">
-        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_1-2.webp">
+        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_2-2.webp">
         </div>
         <div class="page" id="p4">
 			<p class="SbSample_Content">
-				조용하고 한적한 마을, 그곳에 다니엘이라는 호기심 많은 소년이 살고 있었어요. 
-				다니엘은 매일같이 마을 뒷산의 작은 숲을 탐험하는 것을 좋아했답니다. 
-				숲은 다니엘에게 마치 끝없는 놀이터 같았어요. 
-				어느 날, 다니엘은 숲의 더 깊은 곳으로 들어가보기로 했어요.
+				우리는 현대의 작은 마을에 사는 소피아라는 호기심 많은 소녀와 만나게 됩니다. 
+				어느 날 소피아는 할머니에게서 마법의 숲에 관한 이야기를 듣게 됩니다. 
+				그 숲은 아름답고 신비로운 생물로 가득하다는데, 전설처럼 들렸어요.
 			</p>
 		</div>
         <div class="page" id="p5">
-        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_1-3.webp">
+        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_2-3.webp">
         </div>
         <div class="page" id="p6">
         	<p class="SbSample_Content">
-				다니엘은 숲속을 걷다가 거대한 나무를 발견했어요. 그 나무는 다른 나무들과 달리 매우 굵고 높았죠. 
-				나무의 모습을 보고 놀라 멈춘 다니엘은 조심스럽게 다가갔어요. 그때 나무에서 낯선 목소리가 들렸어요. “안녕, 다니엘.”
+				이야기에 매료된 소피아는 숲을 직접 탐험하고 싶어졌습니다. 그래서 작은 배낭에 간식과 필요한 것들을 챙기고 집을 나섭니다. 설레는 마음으로 길을 나선 소피아는 마침내 숲에 도착합니다. 그녀의 모험이 시작된 것입니다.
+
 			</p>
         </div>
         <div class="page" id="p7">
-        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_1-4.webp">
+        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_2-4.webp">
         </div>
         <div class="page" id="p8">
         	<p class="SbSample_Content">
-				다니엘은 깜짝 놀라며 주위를 둘러봤지만, 아무도 없었어요. 나무가 말하는 것 같다고 생각한 다니엘은 순간적으로 두려웠지만, 
-				곧 용기를 내어 물었어요. “정말 네가 말하는 거야?” 나무는 부드럽게 웃으며 “그래, 난 말하는 나무야.”라고 대답했어요.
+				숲에 들어서자 소피아는 반짝이는 나비들과 말을 하는 다람쥐를 만나게 됩니다. 처음에는 놀랐지만, 이내 흥미진진한 대화에 빠지게 됩니다. 그곳의 모든 것이 너무나도 신비롭고 매력적이었습니다.
 			</p>
         </div>
         <div class="page" id="p9">
-        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_1-5.webp">
+        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_2-5.webp">
         </div>
         <div class="page" id="p10">
         	<p class="SbSample_Content">
-				나무는 자신이 오랫동안 숲의 비밀을 지켜온 존재라고 다니엘에게 설명했어요. 그리고 외로움을 달래줄 친구가 필요하다고 했답니다. 
-				다니엘은 나무의 이야기에 깊은 관심을 가졌어요. 나무가 들려주는 이야기는 마치 마법과도 같았죠.
+				그러던 중 소피아는 숲 깊은 곳에 사악한 마법사가 마법의 나무를 위협하고 있다는 사실을 알게 됩니다. 이 소식을 들은 소피아는 두려움보다는 나무를 지켜야겠다는 용기가 생겼습니다.
 			</p>
         </div>
         <div class="page" id="p11">
-        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_1-6.webp">
+        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_2-6.webp">
         </div>
         <div class="page" id="p12">
         	<p class="SbSample_Content">
-				다니엘은 나무와 친구가 되기로 마음먹고 매일 숲을 찾아갔어요. 하루는 나무에게 자신이 학교에서 있었던 재미있는 일을 이야기했어요. 
-				나무는 다니엘에게 숲속에서 일어나는 신비한 일들도 들려주었답니다. 둘은 점차 가까워졌어요.
+				소피아는 자신의 새로운 친구인 다람쥐와 토끼에게 도움을 청하게 됩니다. 함께라면 사악한 마법사에 맞설 수 있다는 믿음이 있었기 때문입니다. 그들은 곧바로 계획을 세우기 시작합니다.
 			</p>
         </div>
         <div class="page" id="p13">
-        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_1-7.webp">
+        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_2-7.webp">
         </div>
         <div class="page" id="p14">
         	<p class="SbSample_Content">
-				어느 날, 다니엘은 나무에게 친구가 많아지면 더 행복할 거라고 말했어요. 나무는 웃으며 대답했죠. 
-				“진정한 친구는 많지 않아도 돼. 중요한 건 서로의 마음을 이해해주는 거야.” 다니엘은 이 말을 듣고 깊이 생각하게 되었어요.
+				소피아와 친구들은 마법사를 상대하기 위해 필요한 물건들을 찾기로 합니다. 숲을 탐험하며 그들은 협동의 중요성을 배우고, 서로의 특별한 능력을 발견하게 됩니다.
 			</p>
         </div>
         <div class="page" id="p15">
-        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_1-8.webp">
+        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_2-8.webp">
         </div>
         <div class="page" id="p16">
         	<p class="SbSample_Content">
-				이제 다니엘은 나무에게서 배운 것을 마을 친구들과 나누기 시작했어요. 친구들은 다니엘이 들려주는 숲의 이야기들에 귀를 기울였어요. 
-				다니엘은 나무와의 대화 덕분에 자연과 더 가깝게 느껴졌고, 친구들에게도 더 다정해졌어요.
+				탐험 도중, 그들은 친절한 마녀를 만나 도움을 받게 됩니다. 마녀는 필요한 마법 아이템을 마련해주며, 그들이 직면한 위협에 맞설 수 있도록 도와줍니다. 소피아와 친구들은 희망을 품고 떠납니다.
+
 			</p>
         </div>
         <div class="page" id="p17">
-        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_1-9.webp">
+        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_2-9.webp">
         </div>
         <div class="page" id="p18">
         	<p class="SbSample_Content">
-				날이 갈수록 다니엘은 나무에게 더 많은 것을 배웠어요. 나무는 계절에 따라 숲이 어떻게 변하는지 이야기해주고, 
-				동물들의 비밀스러운 생활도 알려주었죠. 다니엘은 이런 이야기를 통해 자연의 아름다움을 발견하게 되었어요.
+				여정 중 소피아와 동료들은 여러 가지 난관에 부딪히지만, 서로 의지하며 문제를 해결합니다. 그 과정에서 소피아는 점점 더 용기를 얻게 되고, 친구들과의 유대감을 깊이 느낍니다.
 			</p>
         </div>
         <div class="page" id="p19">
-        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_1-10.webp">
+        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_2-10.webp">
         </div>
         <div class="page" id="p20">
         	<p class="SbSample_Content">
-				하지만 시간이 지나면서 다니엘은 더 이상 나무를 찾아가지 않았어요. 다른 일들로 바빠졌기 때문이었죠. 
-				어느 날, 다니엘은 문득 나무가 보고 싶어졌어요. 다시 나무를 찾아가면서 다니엘은 나무와의 추억을 떠올렸어요.
+				마침내 마법사가 있는 곳에 도착한 소피아와 친구들은 지혜와 용기로 힘을 합쳐 마법사를 물리칩니다. 사악한 마법사의 계략을 막았으니 마법의 나무는 무사할 것입니다.
 			</p>
         </div>
         <div class="page" id="p21">
-        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_1-11.webp">
+        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_2-11.webp">
         </div>
         <div class="page" id="p22">
         	<p class="SbSample_Content">
-				다니엘이 오랜만에 나무를 찾아가자, 나무는 반갑게 맞이했어요. 다니엘은 오랜만에 말을 걸며 미안한 마음을 표현했어요. 
-				나무는 웃으며 “친구라면 언제든지 다시 돌아올 수 있는 거야.”라고 말하며 다니엘을 안심시켰어요.
+				숲은 다시 평화로워졌고, 소피아와 친구들의 모험은 성공적으로 끝이 납니다. 소피아는 큰 성과와 함께 집으로 돌아갑니다. 이번 여정을 통해 그녀는 진정한 용기와 협동의 가치를 깨달았습니다.
 			</p>
         </div>
         <div class="page" id="p23">
-        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_1-12.webp">
+        	<img class="SbSample_Image" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_2-12.webp">
         </div>
         <div class="page" id="p24">
         	<p class="SbSample_Content">
-				다니엘은 나무와의 우정을 다시 한 번 소중하게 느꼈어요. 나무는 다니엘에게 끝없는 사랑과 우정의 중요성을 가르쳐주었어요. 
-				다니엘은 나무와의 추억을 언제나 간직할 것이며, 언제까지나 나무와의 우정을 이어나가기로 결심했답니다.
+				집으로 돌아온 소피아는 자신의 모험을 가족과 친구들에게 이야기합니다. 그 이야기를 들은 사람들은 모두 기뻐하며, 소피아의 용기와 지혜를 칭찬합니다. 이렇게 그녀의 이야기는 오랜 기억으로 남게 됩니다.
 			</p>
         </div>
         <div class="page" id="p25">
         	<div class="SbEdit_PageLeft">
 				<div class="SbEdit_info">
-					<img class="SbEdit_BackImg2" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_1-1.webp"> <br>
-					<p>말하는 나무와 친구가 된 날</p><br> 
-					<b>발행일</b> 2024년 12월 2일<br> 
-					<b>지은이</b> 김예원<br> 
+					<img class="SbEdit_BackImg2" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_2-1.webp"> <br>
+					<p>소피아와 마법의 바다</p><br> 
+					<b>발행일</b> 2024년 12월 3일<br> 
+					<b>지은이</b> 이혜성<br> 
 					<b>제 작</b> ARTI <br>
 
 					<div class="SbEdit_Info2">
@@ -322,12 +350,15 @@ body {
         <div class="page" id="p26"></div>
         
         <div class="Story_LastPage" id="last">
-            <img class="SbEdit_BackImg2" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_1-1.webp">
+            <img class="SbEdit_BackImg2" src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_2-1.webp">
 		</div>
     </div>
 
     <!-- 다음 버튼 div -->
-    <button class="SbEdit_nBtn">다음</button>
+    <button class="SbEdit_nBtn">
+    	<img src="/img/next-grey.svg">
+    </button>
+</div>
 
     <script>
     $(document).ready(function () {
@@ -353,4 +384,3 @@ body {
     </script>
 </body>
 </html>
-s

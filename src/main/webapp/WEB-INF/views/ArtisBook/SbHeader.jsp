@@ -16,7 +16,7 @@
                     <div class="menu-container">
                         <a href="/arti/book/mypage">나의 동화책</a>
                         <a href="#">공개 갤러리</a>
-                        <a href="#">문의하기</a>
+                        <a href="/arti/board/main">문의하기</a>
                     </div>
                     <div class="AccountContainer">
                     <%
