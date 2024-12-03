@@ -201,6 +201,18 @@ public class StoryBookController {
 	}
 
 
+	@GetMapping("/storybook")
+	public String StoryBookPage(Model model, Long book_idx) {
+		
+		StoryBook storybook = service.getStoryBook(book_idx);
+		model.addAttribute("storybook", storybook);
+
+		List<StoryContent> storyContentList = service.getStoryContent(book_idx);
+		model.addAttribute("storyContentList", storyContentList);
+
+		
+		return "ArtisBook/StoryBook";
+	}
 	
 
 
