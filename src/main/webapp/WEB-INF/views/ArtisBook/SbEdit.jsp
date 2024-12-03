@@ -622,7 +622,7 @@ body {
 }
 </style>
 <body>
-	<%@ include file="SbCreateHeader.jsp"%>
+	<%@ include file="SbEditHeader.jsp"%>
 
 
 
