@@ -213,9 +213,12 @@
     }
 </style>
 <body>
+<!-- Header -->
 <%@ include file="SbHeader.jsp" %>
+
 <div class="content-wrapper">
     <p class="p_pagetitle">나의 동화책</p>
+    
     <%
         // 세션에서 로그인 상태 확인
         User user2 = (User) session.getAttribute("user");
@@ -232,6 +235,7 @@
 
     <div class="book-wrapper">
 
+		<!-- 새로운 스토리 만들기 -->
         <div class="book_info">
             <div class="create_book">
                 <div class="create_book-inner">
@@ -253,24 +257,24 @@
             </div>
         </div>
 
-        <!-- sample 동화책 -->
+        <!-- sample1 동화책 -->
         <div class="book_info">
-    <div class="book_item sample">
-        <div class="tag_icon">
-            <img src="/img/tag-sample.png" style="width:64px;">
-        </div>
-        <div class="coverimg-top-empty"></div>
-        <div class="book_item-coverimg"><img src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_1-1.webp"></div>
-        <div class="booktitle-top-empty"></div>
-        <p>말하는 나무와 친구가 된 날</p>
-        <div class="overlay"></div> <!-- 하얀색 오버레이 추가 -->
-        <button class="SbmPreview-button" onclick="location.href='/arti/book/sample1'">미리보기</button>
-    </div>
-    <div class="book_date"></div>
-    <div class="book_info-hover"></div>
-</div>
+    		<div class="book_item sample">
+        		<div class="tag_icon">
+            		<img src="/img/tag-sample.png" style="width:64px;">
+        		</div>
+        		<div class="coverimg-top-empty"></div>
+        		<div class="book_item-coverimg"><img src="https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_1-1.webp"></div>
+        		<div class="booktitle-top-empty"></div>
+        		<p>말하는 나무와 친구가 된 날</p>
+       			<div class="overlay"></div> <!-- 하얀색 오버레이 추가 -->
+        		<button class="SbmPreview-button" onclick="location.href='/arti/book/sample1'">미리보기</button>
+    		</div>
+    		<div class="book_date"></div>
+    		<div class="book_info-hover"></div>
+		</div>
 
-        <!-- sample 동화책 -->
+        <!-- sample2 동화책 -->
         <div class="book_info">
             <div class="book_item sample">
                 <div class="tag_icon">
@@ -286,10 +290,28 @@
             <div class="book_date"></div>
             <div class="book_info-hover"></div>
         </div>
-
     </div>
-
+    
+    <!-- 사용자 보유 동화책 -->
+        <div class="book_info" >
+            <div class="book_item sample">
+                <div class="tag_icon">
+                    <img src="/img/tag-sample.png" style="width:64px;">
+                </div>
+                <div class="coverimg-top-empty"></div>
+                <div class="book_item-coverimg"><img src="${storybook.book_thumbnail}"></div>
+                <div class="booktitle-top-empty"></div>
+                <p>${storybook.book_name}</p>
+                <div class="overlay"></div>
+                <button class="SbmPreview-button" onclick="location.href='/arti/book/sample2'">미리보기</button>
+            </div>
+            <div class="book_date"></div>
+            <div class="book_info-hover"></div>
+        </div>
+    </div>
 </div>
+
+<!-- Footer -->
 <%@ include file="SbFooter.jsp" %>
 </body>
 </html>
