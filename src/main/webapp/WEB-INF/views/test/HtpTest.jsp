@@ -1,3 +1,4 @@
+<%@page import="com.smhrd.Arti.Model.User"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -56,21 +57,22 @@
 
 </style>
 <body>
+
+<% User user = (User) session.getAttribute("user"); %>
+
 <section class="TestInfo-Container">
-            <div class="TI-View-Box">
-            
-                <header class="TI_Header">
-                    <h1>HTP검사</h1>
-                    <p class="TI_SubContent">내 아이의 마음을 확인해요</p>
-                </header>
+	<div class="TI-View-Box">
+         <header class="TI_Header">
+              <h1>HTP검사</h1>
+              <p class="TI_SubContent">내 아이의 마음을 확인해요</p>
+         </header>
                 
-               <div class="TI-Container">
-               
-                    <div class="TI-Content-Container">
-                        
-                    </div>
-                </div>
-            </div>
-        </section>
+         <div class="TI-Container">
+              <div class="TI-Content-Container">
+                   <input type="file" id="testImageInput" accept="image/*" onchange="uploadTestImage()">
+              </div>
+         </div>
+	</div>
+</section>
 </body>
 </html>

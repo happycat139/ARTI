@@ -44,6 +44,11 @@
                <div class="TMD-Container">
                
                     <div class="TMD-Content-Container">
+                    	<form action="/callhello" method="get">
+                    		<button type="submit"> hello </button>
+                    	</form>
+                    	<p>fastAPI 결과</p>
+                    	<p>${message}</p>
                     </div>
                 </div>
             </div>
