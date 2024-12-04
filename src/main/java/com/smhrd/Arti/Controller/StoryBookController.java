@@ -114,10 +114,16 @@ public class StoryBookController {
 		return "ArtisBook/SbSample1";
 	}
 	
-	// 샘플 미리보기 1 페이지 호출
+	// 샘플 미리보기 2 페이지 호출
 	@GetMapping("/sample2")
 	public String SbSamplePage2() {
 		return "ArtisBook/SbSample2";
+	}
+	
+	// 공개 갤러리 페이지 호출
+	@GetMapping("/gallery")
+	public String OpenGalleryPage() {
+		return "ArtisBook/ArtisOpenGallery";
 	}
 	
 	/* 동화생성 관련 기능 메소드 */
