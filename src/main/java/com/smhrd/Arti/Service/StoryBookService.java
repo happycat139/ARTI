@@ -1,6 +1,5 @@
 package com.smhrd.Arti.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,11 +26,9 @@ public class StoryBookService {
 
 	@Autowired
 	StoryContentRepository repo2;
-
+	
 	// 기본정보 생성 메소드
 	public void saveBase(StoryBook storybook, HttpSession session, Long book_idx) {
-
-		
 
 		// 입력받았던 작가 이름 가져오기
 		String author = (String) session.getAttribute("author");
@@ -67,6 +64,7 @@ public class StoryBookService {
 
 	}
 
+	
 	// 줄거리 생성 메소드
 	public void saveStory(String storylineJson, StoryBook story, HttpSession session) {
 	    ObjectMapper objectMapper = new ObjectMapper();
@@ -88,7 +86,6 @@ public class StoryBookService {
 	        throw new RuntimeException("줄거리 데이터 파싱 중 오류가 발생했습니다.", e);
 	    }
 	}
-
 
 
 	// 기본정보 출력 메소드
@@ -125,6 +122,7 @@ public class StoryBookService {
         return true; // 업데이트 성공
     }
 	
+	
 	@Transactional
 	public void updateThumbnail(Long book_idx, String imageUrl) {
 	    // Optional 객체로 StoryBook 조회
@@ -142,24 +140,25 @@ public class StoryBookService {
 	    repo1.save(storyBook);
 	}
 	
+	
 	 public String getThumbnail(Long bookIdx) {
 	        // DB에서 책 정보를 가져와 썸네일 URL 반환
 	        return repo1.findBookThumbnailByBookIdx(bookIdx);
-	    }
+	 }
 	 
 	 
 	 // 모든 페이지 내용 가져오기
-	    public List<StoryContent> getAllContentByBookIdx(Long bookIdx) {
+     public List<StoryContent> getAllContentByBookIdx(Long bookIdx) {
 	        return repo2.findByBookIdx(bookIdx);
-	    }
+	 }
 
 	    // 이미지 URL 업데이트
-	    public void updateImage(Long bookIdx, int pageNum, String imageUrl) {
+	 public void updateImage(Long bookIdx, int pageNum, String imageUrl) {
 	        StoryContent content = repo2.findByBookIdxAndPageNum(bookIdx, pageNum)
 	            .orElseThrow(() -> new RuntimeException("페이지를 찾을 수 없습니다."));
 	        content.setImage(imageUrl);
 	        repo2.save(content);
-	    }
+	 }
 
 		public StoryContent getContentById(Long contentIdx) {
 			Optional<StoryContent> content =  repo2.findById(contentIdx);
@@ -172,6 +171,12 @@ public class StoryBookService {
 	        content.setImage(imageUrl);
 	        repo2.save(content);
 	    }
+		
+		
+		/* 동화책 목록 가져오는 메소드 (내동화책 관련) */
+		public List<StoryBook> getStoryBooksByEmail(String email) {
+			return repo1.findByEmail(email);
+		}
 
 
 
