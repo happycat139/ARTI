@@ -67,9 +67,9 @@ body {
 
 .SbEdit_BackImg {
 	width: 400px;
-	height: 300px;
+	height: 400px;
 	padding-left: 160px;
-	padding-top: 220px;
+	padding-top: 170px;
 }
 
 .center-section {
@@ -206,6 +206,30 @@ body {
 	border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
+.SbEdit_PageLeft1 {
+	background-color: #F0E9EC;
+	position: relative; /* 자식 요소 위치 지정 가능 */
+	overflow: hidden; /* 넘치는 이미지는 숨김 처리 */
+	display: flex; /* 내부 콘텐츠 정렬 */
+	align-items: center; /* 수직 중앙 정렬 */
+	justify-content: center; /* 수평 중앙 정렬 */
+}
+
+.image-container {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+
+.Sb_UImage {
+	width: 100%;
+	height: 100%;
+	object-fit: cover; /* 이미지가 왜곡되지 않고 부모를 꽉 채우도록 설정 */
+	display: block; /* 이미지 주변 공백 제거 */
+}
+
 /* 중앙 그림자 효과 */
 .center-shadow {
 	position: absolute;
@@ -237,6 +261,11 @@ body {
 .Sb_PutImage {
 	height: 400px;
 	width: 450px;
+}
+
+#Sb_UImage {
+	height: 750px;
+	width: 750px;
 }
 
 .SbEdit_PageLeft1 {
@@ -722,7 +751,7 @@ body {
 			<div class="left-section">
 				<div>
 					<div class="SbEdit_BookBackImg" id="SbEdit_BookBackImg">
-						<img class="SbEdit_BackImg" src="/img/backImg.png">
+						<img class="SbEdit_BackImg" src="${storybook.book_thumbnail != null ? storybook.book_thumbnail : '/img/backImg.png'}">
 					</div>
 					<div class="SbEdit_BookPage"></div>
 				</div>
@@ -784,25 +813,31 @@ body {
 			varStatus="status">
 			<div class="SbEdit_MainBook hidden" id="page${status.index + 3}"
 				data-page-num="${content.pageNum}"
-				data-book-idx="${content.book_idx}">
+				data-book-idx="${content.book_idx}"
+				data-content-idx="${content.content_idx}">
 				<div class="center-shadow"></div>
 
 				<!-- 책 왼쪽 -->
-				<div class="SbEdit_PageLeft1" onclick="openModal()">
-					<div class="text-content SbEdit_InputContent">
-						<c:choose>
-							<c:when test="${content.image != null}">
-								<!-- 이미지가 있을 경우 표시 -->
-								<img class="Sb_PutImage" src="${content.image}" alt="페이지 이미지">
-							</c:when>
-							<c:otherwise>
+				<div class="SbEdit_PageLeft1"
+					data-content-idx="${content.content_idx}"
+					onclick="openModal(${content.content_idx})">
+					<c:choose>
+						<c:when test="${content.image != null}">
+							<!-- 이미지가 있을 경우 표시 -->
+							<div class="image-container">
+								<img class="Sb_UImage" src="${content.image}" alt="페이지 이미지">
+							</div>
+						</c:when>
+						<c:otherwise>
+							<div class="text-content SbEdit_InputContent">
 								<!-- 이미지가 없을 경우 기본 메시지 표시 -->
 								<img class="Sb_PutImage" src="/img/images.png" alt="기본 이미지">
 								<p>클릭하면 AI를 이용해 페이지에 어울리는 이미지가 자동으로 생성됩니다.</p>
-							</c:otherwise>
-						</c:choose>
-					</div>
+							</div>
+						</c:otherwise>
+					</c:choose>
 				</div>
+
 
 				<!-- 책 오른쪽 -->
 				<div class="SbEdit_PageRight1">
@@ -811,24 +846,33 @@ body {
 					</div>
 				</div>
 			</div>
-			
-			<div id="SbPlotModifyModalBack_Image" style="display: none;">
-			<!-- 모달 창 -->
-			<div class="SbPlotModifyModalBack_Image">
-				<!-- 닫기 버튼 -->
-				<span class="modal-close" onclick="closeModal()">&times;</span>
-				<!-- 제목 -->
-				<div class="modal-title">AI 이미지 생성</div>
-				<!-- 설명 -->
-				<div class="modal-description">이미지를 업로드하거나 AI로 그림을 생성할 수 있습니다.</div>
-				<!-- 버튼 -->
-				<button class="modal-button upload-button" onclick="uploadImage()">사진
-					업로드하기</button>
-				<button class="modal-button" onclick="generateBookImage(${content.book_idx}, ${content.pageNum})">AI
-					이미지 생성</button>
+
+			<div id="SbPlotModifyModalBack_Image" style="display: none;"
+				data-content-idx="${content.content_idx}">
+				<!-- 모달 창 -->
+				<div class="SbPlotModifyModalBack_Image">
+					<!-- 닫기 버튼 -->
+					<span class="modal-close" onclick="closeModal()">&times;</span>
+					<!-- 제목 -->
+					<div class="modal-title">AI 이미지 생성</div>
+					<!-- 설명 -->
+					<div class="modal-description">이미지를 업로드하거나 AI로 그림을 생성할 수
+						있습니다.</div>
+					<!-- 버튼 -->
+
+					<input type="file" id="uploadFileInput" style="display: none;"
+						onchange="uploadImage(event)">
+					<button class="modal-button upload-button"
+						onclick="document.getElementById('uploadFileInput').click()">사진
+						업로드하기</button>
+
+
+
+					<button class="modal-button" onclick="generateBookImage()">AI
+						이미지 생성</button>
+				</div>
 			</div>
-		</div>
-			
+
 		</c:forEach>
 
 
@@ -840,7 +884,7 @@ body {
 			<div class="center-shadow"></div>
 			<div class="SbEdit_PageLeft">
 				<div class="SbEdit_info">
-					<img class="SbEdit_BackImg2" src="/img/backImg.png"> <br>
+					<img class="SbEdit_BackImg2" src="${storybook.book_thumbnail != null ? storybook.book_thumbnail : '/img/backImg.png'}"> <br>
 					<p>${storybook.book_name}</p>
 					<br> <b>발행일</b>
 					<fmt:formatDate value="${storybook.createDt}"
@@ -938,7 +982,7 @@ body {
 		</div>
 
 
-		
+
 
 
 
@@ -1013,9 +1057,15 @@ function openThumbnailModal() {
         document.getElementById("SbPlotModifyModalBack_THUMB").style.display = "none";
     });
  
-  // 동화 이미지 모달 열기 함수
-    function openModal() {
-        document.getElementById('SbPlotModifyModalBack_Image').style.display = 'flex';
+  // 동화 이미지 모달 열기 함수  
+    function openModal(contentIdx) {
+        const modal = document.getElementById("SbPlotModifyModalBack_Image");
+        modal.style.display = "flex";
+
+        // content_idx를 모달에 저장
+        modal.setAttribute("data-content-idx", contentIdx);
+
+        console.log("모달에 저장된 contentIdx:", modal.getAttribute("data-content-idx"));
     }
  
  
@@ -1189,6 +1239,7 @@ document.querySelector('.Modify-SEModal-btn').addEventListener('click', function
 });
 
 
+
 // 썸네일 수정
 // 썸네일 수정
 document.getElementById("thumbnailForm").addEventListener("submit", function (event) {
@@ -1212,7 +1263,6 @@ document.getElementById("thumbnailForm").addEventListener("submit", function (ev
 
             // 서버에서 최신 데이터 가져오기
             return fetch("/arti/book/get-thumbnail?book_idx=" + bookIdx);
-
         })
         .then(response => {
             if (!response.ok) {
@@ -1225,6 +1275,8 @@ document.getElementById("thumbnailForm").addEventListener("submit", function (ev
 
             // 썸네일 컨테이너 확인
             const thumbnailContainer = document.querySelector(".SbEdit_BookThumb");
+            const bookBackImage = document.querySelector("#SbEdit_BookBackImg .SbEdit_BackImg"); // 수정된 부분
+            const bookBackImage2 = document.querySelector("#SbEdit_BookBackImg2 .SbEdit_BackImg2");
 
             if (thumbnailContainer) {
                 // 새로운 썸네일로 교체
@@ -1234,6 +1286,18 @@ document.getElementById("thumbnailForm").addEventListener("submit", function (ev
                     '</div>';
             } else {
                 console.error("썸네일 컨테이너를 찾을 수 없습니다.");
+            }
+
+            if (bookBackImage) {
+                bookBackImage.src = thumbnailUrl;
+            } else {
+                console.error("책 배경 이미지를 찾을 수 없습니다.");
+            }
+
+            if (bookBackImage2) {
+                bookBackImage2.src = thumbnailUrl;
+            } else {
+                console.error("책 배경 이미지를 찾을 수 없습니다.");
             }
         })
         .catch(error => {
@@ -1254,6 +1318,7 @@ document.getElementById("thumbnailForm").addEventListener("submit", function (ev
 
 
 
+// Ai 이미지 생성 (전체)
 document.getElementById("generateAllImagesButton").addEventListener("click", function () {
     const bookIdx = document.querySelector('input[name="book_idx"]').value;
 
@@ -1280,9 +1345,124 @@ document.getElementById("generateAllImagesButton").addEventListener("click", fun
         });
 });
 
+// AI 이미지 생성 (개별)
+function generateBookImage() {
+    // 모달 창의 content_idx 읽기
+    const modal = document.getElementById("SbPlotModifyModalBack_Image");
+    const contentIdx = modal.getAttribute("data-content-idx");
+    console.log("generateBookImage 호출, contentIdx:", contentIdx);
+    
+    console.log(contentIdx);
+
+    if (!contentIdx) {
+        console.error("content_idx가 설정되지 않았습니다.");
+        return;
+    }
+
+    // 로딩 화면 표시
+    const loadingScreen = document.getElementById("loading-screen");
+    if (loadingScreen) {
+        loadingScreen.style.display = "flex";
+    }
+ // API 요청
+    fetch("/arti/book/generate-image", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ content_idx: contentIdx }),
+    })
+        .then(function (response) {
+            console.log("API 응답 상태:", response.status); // 응답 상태 코드 확인
+            if (!response.ok) {
+                throw new Error("이미지 생성 요청 실패");
+            }
+            return response.text(); // 서버에서 반환한 이미지 URL
+        })
+        .then(function (imageUrl) {
+            console.log("생성된 이미지 URL:", imageUrl);
+
+            // 이미지를 페이지에 반영 (예: 특정 요소에 추가)
+            const imageElement = document.querySelector('[data-content-idx="' + contentIdx + '"] .SbEdit_InputContent');
+
+
+            if (imageElement) {
+            	imageElement.innerHTML = 
+                    '<img class="Sb_PutImage" id="Sb_UImage" src="' + imageUrl + '" alt="페이지 이미지">';
+            } else {
+                console.error("이미지를 반영할 요소를 찾을 수 없습니다.");
+            }
+        })
+        .catch(function (error) {
+            console.error("이미지 생성 오류:", error);
+            alert("이미지 생성 중 문제가 발생했습니다. 다시 시도해주세요.");
+        })
+        .finally(function () {
+            if (loadingScreen) {
+                loadingScreen.style.display = "none";
+            }
+            modal.style.display = "none"; // 모달 닫기
+        });
+}
 
 
 
+function uploadImage(event) {
+    const file = event.target.files[0]; // 선택한 파일
+    if (!file) {
+        alert("파일을 선택해주세요!");
+        return;
+    }
+
+    const modal = document.getElementById("SbPlotModifyModalBack_Image");
+    const contentIdx = modal.getAttribute("data-content-idx"); // 현재 contentIdx 가져오기
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("contentIdx", contentIdx); // contentIdx도 함께 전송
+
+    // 서버로 파일 업로드 요청
+    fetch("/arti/book/upload-image", {
+        method: "POST",
+        body: formData, // FormData를 body로 전달
+    })
+        .then(function (response) {
+            if (!response.ok) {
+                throw new Error("이미지 업로드 실패");
+            }
+            return response.text(); // 클라우드에 저장된 이미지 URL 반환
+        })
+        .then(function (imageUrl) {
+            console.log("업로드된 이미지 URL:", imageUrl);
+
+            // 업데이트할 div 요소를 동적으로 변경
+            const pageElement = document.querySelector('.SbEdit_PageLeft1[data-content-idx="' + contentIdx + '"]');
+
+            if (pageElement) {
+                // 기존 구조를 교체
+                pageElement.innerHTML =
+                    '<div class="image-container">' +
+                        '<img class="Sb_UImage" src="' + imageUrl + '" alt="페이지 이미지">' +
+                    '</div>';
+            } else {
+                console.error("업데이트할 페이지 요소를 찾을 수 없습니다.");
+            }
+        })
+        .catch(function (error) {
+            console.error("Error:", error);
+            alert("이미지 업로드 중 문제가 발생했습니다. 다시 시도해주세요.");
+        })
+        .finally(function () {
+            // 로딩 화면 숨김
+            const loadingScreen = document.getElementById("loading-screen");
+            if (loadingScreen) {
+                loadingScreen.style.display = "none";
+            }
+
+            // 모달 닫기
+            modal.style.display = "none";
+        });
+}
 
 
 
