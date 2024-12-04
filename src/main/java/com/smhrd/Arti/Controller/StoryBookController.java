@@ -16,6 +16,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.smhrd.Arti.Configuration.GptProperties;
 import com.smhrd.Arti.Model.StoryBook;
 import com.smhrd.Arti.Model.StoryContent;
+import com.smhrd.Arti.Model.User;
 import com.smhrd.Arti.Service.ChatGPTService;
 import com.smhrd.Arti.Service.DallEApiService;
 import com.smhrd.Arti.Service.GoogleCloudStorageService;
@@ -44,10 +45,10 @@ public class StoryBookController {
 	/* 페이지 관련 뷰 컨트롤러 */
 
 	// 나의 동화책 페이지 호출
-	@GetMapping("/mypage")
-	public String SbMypage() {
-		return "ArtisBook/SbMypage";
-	}
+//	@GetMapping("/mypage")
+//	public String SbMypage() {
+//		return "ArtisBook/SbMypage";
+//	}
 
 	// 나의 동화책 작가 등록 페이지 호출
 	@GetMapping("/start")
@@ -118,6 +119,31 @@ public class StoryBookController {
 	public String SbSamplePage2() {
 		return "ArtisBook/SbSample2";
 	}
+	
+	/* 동화생성 관련 기능 메소드 */
+
+	/* 사용자 이메일로 책정보 가져오기 */
+	@GetMapping("/mypage")
+	public String getMyBooks(Model model, HttpSession session) {
+		
+		User user = (User) session.getAttribute("user"); 
+		
+		 if (user != null) {
+	            String email = user.getEmail();  // User 객체에서 이메일 가져오기
+	            
+	            System.out.println(email);
+	            
+	            List<StoryBook> storyBooks = service.getStoryBooksByEmail(email);
+
+	            model.addAttribute("storyBooks", storyBooks);
+	            return "ArtisBook/SbMypage"; // storybook.jsp로 이동
+	        } else {
+	            model.addAttribute("errorMessage", "로그인 후 이용해주세요.");
+	            return "login"; // 로그인 페이지로 이동
+	        }
+	    }
+	
+	
 
 	/* GPT관련 컨트롤러 */
 
@@ -214,6 +240,8 @@ public class StoryBookController {
 		return "ArtisBook/StoryBook";
 	}
 	
-
-
+	
+	
+	
+	
 }
