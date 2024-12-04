@@ -161,6 +161,20 @@ public class StoryBookService {
 	        repo2.save(content);
 	    }
 
+		public StoryContent getContentById(Long contentIdx) {
+			Optional<StoryContent> content =  repo2.findById(contentIdx);
+			return content.get();
+		}
+		
+		public void updateImage(Long contentIdx, String imageUrl) {
+	        StoryContent content = repo2.findById(contentIdx)
+	        		.orElseThrow(() -> new RuntimeException("페이지를 찾을 수 없습니다."));
+	        content.setImage(imageUrl);
+	        repo2.save(content);
+	    }
 
+
+
+	
 
 }

@@ -2,6 +2,7 @@ package com.smhrd.Arti.Controller;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.smhrd.Arti.Model.StoryBook;
 import com.smhrd.Arti.Model.StoryContent;
@@ -94,6 +96,7 @@ public class StoryBookRestController {
 		
         try {
         	
+        	// 번역
         	// Iprompt = chatGptService.translatePrompt(Iprompt);
             // 1. AI API를 통해 이미지 생성
             String ImageUrl = dallEApiService.generateImage(Iprompt);
@@ -127,6 +130,70 @@ public class StoryBookRestController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("오류 발생: " + e.getMessage());
         }
     }
+    
+    
+    @PostMapping("/generate-image")
+    public ResponseEntity<String> generateImage(@RequestBody Map<String, Object> request) {
+    	
+    	// JSON 데이터에서 contentIdx 추출
+        Long contentIdx = Long.valueOf(request.get("content_idx").toString());
+        System.out.println("contentIdx: " + contentIdx);
 
 
+        try {
+            // 1. 해당 동화 내용 가져오기
+        	StoryContent content = service.getContentById(contentIdx);
+
+            // 2. 프롬프트 생성
+        	String prompt = content.getContent() + 
+        		    " \n 위의 줄거리에 맞는 글자를 뺸 그림을 생성해줘. " +
+        		    "\n 동화 느낌으로 그리고, 따뜻한 색감과 부드러운 수채화 스타일로 만들어줘. " +
+        		    "\n 주요 인물과 배경 요소를 강조해." +
+        		    "\n 아이들이 좋아할 수 있는 밝고 매력적인 분위기를 연출해줘. 그리고 고퀄리티 그림이여야 해." +
+        		    "\n 중요: 이미지에는 텍스트 빼."
+        		    + "어떠한 텍스트 요소도 완전히 배제해야 해." ;
+
+            // 3. AI API를 통해 이미지 생성
+            String imageUrl = dallEApiService.generateImage(prompt);
+            
+            System.out.println(imageUrl);
+
+            // 4. Google Cloud Storage에 이미지 업로드
+            String uploadedImageUrl = googleCloudStorageService.uploadImageFromUrl(imageUrl);
+
+            // 5. StoryBook의 thumbnail 필드 업데이트
+            service.updateImage(content.getContent_idx(), uploadedImageUrl);
+
+            return ResponseEntity.ok(uploadedImageUrl);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                                 .body("이미지 생성 또는 저장 중 오류 발생: " + e.getMessage());
+        }
+  
+    }
+    
+    
+    @PostMapping("/upload-image")
+    public ResponseEntity<String> uploadImage(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("contentIdx") Long contentIdx) {
+
+        try {
+            // 1. 파일을 클라우드에 업로드
+            String uploadedImageUrl = googleCloudStorageService.uploadFile(file);
+
+            // 2. DB에 이미지 경로 저장
+            service.updateImage(contentIdx, uploadedImageUrl);
+
+            return ResponseEntity.ok(uploadedImageUrl); // 클라이언트에 이미지 URL 반환
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("이미지 업로드 또는 저장 중 오류 발생: " + e.getMessage());
+        }
+    }
+    
+    
+    
+    
+    
 }
