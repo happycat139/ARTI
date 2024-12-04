@@ -64,15 +64,19 @@ body {
 }
 
 .SbEdit_pBtn {
-	float: left;
-	margin-left: 10%;
+	position: fixed; /* 화면에 고정 */
+    top: 100px; 
+    left: 20px; 
+	margin-left: 5%;
 	width: 60px;
 	height: 60px;
 }
 
 .SbEdit_nBtn {
-	float: right;
-	margin-right: 10%;
+	position: fixed; /* 화면에 고정 */
+    bottom: 20px; /* 화면 하단에서 20px 간격 */
+    right: 20px; /* 화면 오른쪽에서 20px 간격 */
+	margin-right: 5%;
 	width: 60px;
 	height: 60px;
 }
