@@ -134,9 +134,15 @@ body {
 
 .SbEdit_BookThumb {
 	flex: 3; /* 세 개의 섹션이 동일한 높이를 가짐 */
-	padding: 10px; /* 내부 여백 설정 */
 	border-bottom: 1px solid #ccc; /* 섹션 구분을 위한 경계선 추가 */
 	background-color: #faf7f7;
+}
+
+.SbEdit_BookThumb_icon2 {
+	width: 100%;
+	height: 572px;
+	object-fit: cover; /* 이미지가 왜곡되지 않고 부모를 꽉 채우도록 설정 */
+	display: block; /* 이미지 주변 공백 제거 */
 }
 
 .bottom-right {
@@ -163,7 +169,7 @@ body {
 }
 
 .SbEdit_BookMainTitle {
-	margin: 50px 0 0 0;
+	margin: 35px 0 0 0;
 	text-align: center;
 	font-size: 32px;
 }
@@ -669,8 +675,8 @@ body {
 	background-color: #fff;
 	border-radius: 15px;
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-	width: 600px;
-	height: 400px;
+	width: 650px;
+	height: 350px;
 	padding: 20px;
 	text-align: center;
 	font-family: "Noto Sans KR", sans-serif;
@@ -679,16 +685,19 @@ body {
 /* 제목 스타일 */
 .modal-title {
 	font-size: 30px;
-	margin-top: 100px;
+	margin-top: 50px;
 	color: #333;
+	font-weight: bold;
+	font-family: "Noto Sans KR", sans-serif;
 }
 
 /* 설명 텍스트 */
 .modal-description {
-	font-size: 20px;
+	font-size: 25px;
 	margin-top: 50px;
 	margin-bottom: 50px;
 	color: #555;
+	font-family: "Noto Sans KR", sans-serif;
 }
 
 /* 버튼 스타일 */
@@ -696,11 +705,11 @@ body {
 	display: inline-block;
 	padding: 15px 30px;
 	margin: 10px;
-	font-size: 14px;
+	font-size: 20px;
 	color: #fff;
-	background-color: #6c63ff;
+	background-color: #6133e2;
 	border: none;
-	border-radius: 25px;
+	border-radius: 20px;
 	cursor: pointer;
 	transition: background-color 0.3s ease;
 	font-family: "Noto Sans KR", sans-serif;
@@ -711,7 +720,7 @@ body {
 }
 
 .upload-button {
-	background-color: #00b894;
+	background-color: #1150ab;
 }
 
 .upload-button:hover {
@@ -730,6 +739,24 @@ body {
 
 .modal-close:hover {
 	color: #555;
+}
+
+#generateAllImagesButton {
+	position: fixed; /* 화면에 고정 */
+	bottom: 20px; /* 하단에서 20px 간격 */
+	right: 20px; /* 오른쪽에서 20px 간격 */
+	display: inline-block;
+	padding: 15px 30px;
+	margin: 10px;
+	font-size: 20px;
+	color: #fff;
+	background-color: #6133e2;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	font-family: "Noto Sans KR", sans-serif;
+	font-weight: bold;
 }
 </style>
 <body>
@@ -751,7 +778,8 @@ body {
 			<div class="left-section">
 				<div>
 					<div class="SbEdit_BookBackImg" id="SbEdit_BookBackImg">
-						<img class="SbEdit_BackImg" src="${storybook.book_thumbnail != null ? storybook.book_thumbnail : '/img/backImg.png'}">
+						<img class="SbEdit_BackImg"
+							src="${storybook.book_thumbnail != null ? storybook.book_thumbnail : '/img/backImg.png'}">
 					</div>
 					<div class="SbEdit_BookPage"></div>
 				</div>
@@ -775,7 +803,7 @@ body {
 				<div class="SbEdit_BookThumb">
 					<c:choose>
 						<c:when test="${storybook.book_thumbnail != null}">
-							<img class="SbEdit_BookThumb_icon"
+							<img class="SbEdit_BookThumb_icon2"
 								src="${storybook.book_thumbnail}" alt="책 썸네일"
 								onclick="openThumbnailModal()">
 						</c:when>
@@ -884,7 +912,9 @@ body {
 			<div class="center-shadow"></div>
 			<div class="SbEdit_PageLeft">
 				<div class="SbEdit_info">
-					<img class="SbEdit_BackImg2" src="${storybook.book_thumbnail != null ? storybook.book_thumbnail : '/img/backImg.png'}"> <br>
+					<img class="SbEdit_BackImg2"
+						src="${storybook.book_thumbnail != null ? storybook.book_thumbnail : '/img/backImg.png'}">
+					<br>
 					<p>${storybook.book_name}</p>
 					<br> <b>발행일</b>
 					<fmt:formatDate value="${storybook.createDt}"
@@ -986,7 +1016,7 @@ body {
 
 
 
-		<button id="generateAllImagesButton">그림 전체 생성</button>
+		<button id="generateAllImagesButton">AI 그림 전체 생성</button>
 
 	</div>
 
@@ -1239,8 +1269,6 @@ document.querySelector('.Modify-SEModal-btn').addEventListener('click', function
 });
 
 
-
-// 썸네일 수정
 // 썸네일 수정
 document.getElementById("thumbnailForm").addEventListener("submit", function (event) {
     event.preventDefault(); // 기본 폼 제출 동작 막기
@@ -1276,13 +1304,13 @@ document.getElementById("thumbnailForm").addEventListener("submit", function (ev
             // 썸네일 컨테이너 확인
             const thumbnailContainer = document.querySelector(".SbEdit_BookThumb");
             const bookBackImage = document.querySelector("#SbEdit_BookBackImg .SbEdit_BackImg"); // 수정된 부분
-            const bookBackImage2 = document.querySelector("#SbEdit_BookBackImg2 .SbEdit_BackImg2");
+            const bookBackImage2 = document.querySelector(".SbEdit_BackImg2");
 
             if (thumbnailContainer) {
                 // 새로운 썸네일로 교체
                 thumbnailContainer.innerHTML =
                     '<div class="SbEdit_BookThumb">' +
-                    '<img class="SbEdit_BookThumb_icon" src="' + thumbnailUrl + '" alt="책 썸네일" onclick="openThumbnailModal()">' +
+                    '<img class="SbEdit_BookThumb_icon2" src="' + thumbnailUrl + '" alt="책 썸네일" onclick="openThumbnailModal()">' +
                     '</div>';
             } else {
                 console.error("썸네일 컨테이너를 찾을 수 없습니다.");

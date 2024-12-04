@@ -198,7 +198,7 @@ body {
 
 .SbSample_Image {
 	width: 700px;
-	height: 700px;
+	height: 698px;
 }
 
 .SbSample_Content {
@@ -211,6 +211,8 @@ body {
 	letter-spacing: 0.032px;
 	padding: 50px;
 }
+
+
 </style>
 </head>
 <body>
@@ -239,7 +241,7 @@ body {
 
 		
 				<div class="page" id="Ip">
-					<img src="${content.image}" class="SbSample_Image">
+					<img src="${content.image != null ? content.image : '/img/farARTI.png'}" class="SbSample_Image">
 				</div>
 
 				<div class="page" id="Cp">
