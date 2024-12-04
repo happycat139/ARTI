@@ -7,12 +7,18 @@
 <link rel="stylesheet" href="/css/Header.css" />
 <link rel="icon" href="/img/favicon.ico">
 <style>
-	
+
+@font-face {
+    font-family: 'UhBeeSe_hyun'
+    src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeSe_hyun.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, menu, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, main, menu, nav, output, ruby, section, summary, time, mark, audio, video {
     margin: 0px;
     padding: 0px;
     border: 0px;
-    font: inherit;
     vertical-align: baseline;
 }
 
@@ -27,7 +33,7 @@ select, input, textarea, a {
 input, textarea {
     user-select: text;
 }
-
+   
 textarea, input {
     appearance: none;
 }
@@ -45,20 +51,20 @@ h1, h2, h3, h4, h5, h6, strong, b {
 }
 
 #root {
- 	width: 100%;
- 	height: 100%;
+    width: 100%;
+    height: 100%;
 }
  
 #content {
- 	-webkit-box-flex: 1;
- 	flex-grow: 1;
- 	display: flex;
- 	flex-direction: column;
- 	-webkit-box-pack: justify;
- 	justify-content: space-between;
- 	min-width: 1200px;
- 	min-height: calc(var(--vh, 1vh)* 100);
- 	position: relative;
+    -webkit-box-flex: 1;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    min-width: 1200px;
+    min-height: calc(var(--vh, 1vh)* 100);
+    position: relative;
 }
 
 
@@ -66,11 +72,11 @@ h1, h2, h3, h4, h5, h6, strong, b {
 </head>
 <body>
 <div id="root">
-	<div id="content">
-		<%@ include file="Header.jsp" %>
-		<%@ include file="MainContainer.jsp" %>
-		<%@ include file="SubContainer.jsp" %>
-		<%@ include file="SubContainer2.jsp" %>
+   <div id="content">
+      <%@ include file="Header.jsp" %>
+      <%@ include file="MainContainer.jsp" %>
+      <%@ include file="SubContainer.jsp" %>
+      <%@ include file="SubContainer2.jsp" %>
         <div class="MainWrap1"></div>
         <div class="MainWrap2"></div>
         <div class="MainWrap3"></div>
