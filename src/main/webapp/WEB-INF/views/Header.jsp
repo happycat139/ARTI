@@ -24,6 +24,9 @@
 					// 세션에서 로그인 상태 확인
 					if (user != null) {
 					%>
+					
+					<a href="/arti/coin"><img src="/img/ArtiCoin.png" id="articoin"></a>
+					
 					<!-- 로그인 상태일 때 프로필 표시 -->
 					<div class="profile-btn" onclick="location.href='/profile'">
 						<img
