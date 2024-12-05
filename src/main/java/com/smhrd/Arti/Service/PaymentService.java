@@ -10,6 +10,7 @@ import org.springframework.web.client.HttpServerErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import com.smhrd.Arti.Configuration.PaymentProperties;
+import com.smhrd.Arti.Model.User;
 import com.smhrd.Arti.Repo.UserRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -21,26 +22,18 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class PaymentService {
 
-	private final PaymentProperties paymentProperties; // 설정 주입
-	private final UserRepository repo;
-	private final RestTemplate restTemplate = new RestTemplate();
+	 private final PaymentProperties paymentProperties;
+	    private final UserRepository userRepository;
+	    private final RestTemplate restTemplate = new RestTemplate();
 
-	// 1. 결제 요청
-	public ResponseEntity<Map> requestPayment(String orderId, int amount) {
-	    try {
-	    	
-	    	System.out.println("Base URL: " + paymentProperties.getBaseUrl());
-	    	System.out.println("Secret Key: " + paymentProperties.getSecretKey());
-
-	    	
+	 // 결제 요청
+	    public Map<String, String> requestPayment(String orderId, int amount) {
 	        String url = paymentProperties.getBaseUrl();
-
-	        // 헤더 설정
 	        HttpHeaders headers = new HttpHeaders();
-	        headers.setBasicAuth(paymentProperties.getSecretKey(), ""); // Secret Key 가져오기
-	        headers.setContentType(MediaType.APPLICATION_JSON); // 반드시 JSON 타입으로 설정
+	        headers.setBasicAuth(paymentProperties.getSecretKey(), ""); // Secret Key 설정
+	        headers.setContentType(MediaType.APPLICATION_JSON);
 
-	        // 요청 본문 (JSON 형식)
+	        // 요청 본문
 	        Map<String, Object> body = new HashMap<>();
 	        body.put("amount", amount);
 	        body.put("orderId", orderId);
@@ -48,42 +41,57 @@ public class PaymentService {
 	        body.put("successUrl", paymentProperties.getSuccessUrl());
 	        body.put("failUrl", paymentProperties.getFailUrl());
 
-	        // 요청 본문을 JSON으로 변환
 	        HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
 
-	        // Toss API 호출
-	        return restTemplate.postForEntity(url, request, Map.class);
+	        try {
+	            ResponseEntity<Map> response = restTemplate.postForEntity(url, request, Map.class);
+	            Map<String, Object> responseBody = response.getBody();
 
-	    } catch (HttpServerErrorException e) {
-	        System.out.println("Toss API Error: " + e.getResponseBodyAsString());
-	        throw new RuntimeException("Toss API 요청 실패: " + e.getMessage());
+	            System.out.println("Toss Payments 요청 응답: " + responseBody);
+
+	            // 결제 URL 반환
+	            Map<String, String> paymentResponse = new HashMap<>();
+	            paymentResponse.put("paymentUrl", (String) ((Map<String, Object>) responseBody.get("checkout")).get("url"));
+	            paymentResponse.put("orderId", orderId);
+	            return paymentResponse;
+	        } catch (HttpServerErrorException e) {
+	            throw new RuntimeException("Toss Payments 요청 실패: " + e.getResponseBodyAsString());
+	        }
 	    }
-	}
+
+	    // 결제 성공 처리
+	    public void handlePaymentSuccess(String paymentKey, User user, int amount) {
+	        String verifyUrl = paymentProperties.getBaseUrl() + "/" + paymentKey;
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.setBasicAuth(paymentProperties.getSecretKey(), "");
+
+	        int retryCount = 3; // 최대 3번 재시도
+	        for (int i = 0; i < retryCount; i++) {
+	            try {
+	                // 일정 시간 대기 (예: 1초)
+	                Thread.sleep(1000);
+
+	                HttpEntity<Void> request = new HttpEntity<>(headers);
+	                ResponseEntity<Map> response = restTemplate.exchange(verifyUrl, HttpMethod.GET, request, Map.class);
+
+	                Map<String, Object> responseBody = response.getBody();
+	                System.out.println("Toss Payments 검증 응답: " + responseBody);
+
+	                if ("DONE".equals(responseBody.get("status"))) {
+	                    // 결제 성공 처리
+	                    int coinsToAdd = amount / 1000;
+	                    user.setCoin(user.getCoin() + coinsToAdd);
+	                    userRepository.save(user);
+	                    return; // 성공하면 메서드 종료
+	                }
+	            } catch (InterruptedException e) {
+	                throw new RuntimeException("결제 검증 대기 중 오류 발생", e);
+	            }
+	        }
+
+	        throw new RuntimeException("결제 검증 실패: 결제가 완료되지 않았습니다.");
+	    }
 
 
-	// 2. 결제 확인
-	public ResponseEntity<Map> confirmPayment(String paymentKey) {
-		String url = paymentProperties.getBaseUrl() + "/" + paymentKey;
-
-		// 헤더 설정
-		HttpHeaders headers = new HttpHeaders();
-		headers.setBasicAuth(paymentProperties.getSecretKey(), ""); // Secret Key 가져오기
-
-		// API 호출
-		HttpEntity<Void> request = new HttpEntity<>(headers);
-		return restTemplate.exchange(url, HttpMethod.GET, request, Map.class);
-	}
-
-	// 3. 데이터베이스 업데이트
-	public void handlePaymentSuccess(String paymentKey, String email, int amount) {
-		ResponseEntity<Map> response = confirmPayment(paymentKey);
-
-		if ("DONE".equals(response.getBody().get("status"))) {
-			int coinsToAdd = amount / 1000; // 예: 1000원당 1코인 충전
-			repo.addCoins(email, coinsToAdd);
-		} else {
-			throw new RuntimeException("결제가 완료되지 않았습니다.");
-		}
-	}
 
 }

@@ -21,40 +21,37 @@ import java.util.Map;
 @RequestMapping("/arti/payments")
 public class PaymentRestController {
 
-	private final PaymentService service;
+	private final PaymentService paymentService;
 
-	// 1. 결제 요청
+	// 결제 요청
 	@PostMapping("/request")
-	public ResponseEntity<Map> requestPayment(@RequestBody Map<String, Integer> requestBody, HttpSession session) {
-	    int amount = requestBody.get("amount"); // JSON에서 amount 가져오기
-	    User user = (User) session.getAttribute("user"); // 세션에서 이메일 가져오기
-	    String email = user.getEmail();
-	    
-	    System.out.println("Amount: " + amount);
-	    System.out.println("Email: " + email);
-	    String orderId = "order_" + System.currentTimeMillis(); // 고유 주문 ID 생성
-	    return service.requestPayment(orderId, amount);
+	public ResponseEntity<Map<String, String>> requestPayment(@RequestBody Map<String, Object> requestBody) {
+	    int amount = (int) requestBody.get("amount"); // amount는 Integer로 처리
+	    String orderId = (String) requestBody.get("orderId"); // orderId를 String으로 처리
+
+	    // 서비스에서 결제 요청 처리
+	    Map<String, String> paymentResponse = paymentService.requestPayment(orderId, amount);
+
+	    // orderId를 포함한 응답 반환
+	    paymentResponse.put("orderId", orderId);
+	    return ResponseEntity.ok(paymentResponse);
 	}
 
 
-	// 2. 결제 성공
-	@GetMapping("/success")
-	public String paymentSuccess(@RequestParam String paymentKey, @RequestParam String orderId,
-			@RequestParam int amount, HttpSession session) {
-		User user = (User) session.getAttribute("user"); // 로그인된 사용자 ID
-		String email = user.getEmail();
-		
-		System.out.println("Amount: " + amount);
-	    System.out.println("Email: " + email);
-	    System.out.println("paymentKey: " + paymentKey);
+	// 결제 성공 처리
+		@GetMapping("/success")
+		public String paymentSuccess(@RequestParam String paymentKey, @RequestParam String orderId,
+				@RequestParam int amount, HttpSession session) {
+			User user = (User) session.getAttribute("user");
+			
 
-		// 결제 성공 처리
-		service.handlePaymentSuccess(paymentKey, email, amount);
+			// 서비스에서 결제 성공 처리
+			paymentService.handlePaymentSuccess(paymentKey, user, amount);
 
-		return "결제가 성공적으로 완료되었습니다!";
-	}
+			return "결제가 성공적으로 완료되었습니다!";
+		}
 
-	// 3. 결제 실패
+	// 결제 실패 처리
 	@GetMapping("/fail")
 	public String paymentFail() {
 		return "결제가 실패했습니다.";

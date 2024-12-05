@@ -143,26 +143,52 @@ h3 {
 		</div>
 	</div>
 
-	<script>
-		function next(amount) {
-		    fetch("/arti/payments/request", {
-		        method: "POST",
-		        headers: {
-		            "Content-Type": "application/json" // JSON 형식 사용
-		        },
-		        body: JSON.stringify({ amount: amount }) // JSON 데이터
-		    })
-		    .then(function(response) {
-		        return response.json(); // 응답을 JSON으로 파싱
-		    })
-		    .then(function(data) {
-		        console.log("결제 요청 성공:", data);
-		    })
-		    .catch(function(error) {
-		        console.error("결제 요청 실패:", error);
-		    });
-		}
-	</script>
+
+
+
+<script src="https://js.tosspayments.com/v1"></script>
+<script>
+  const clientKey = "test_ck_4yKeq5bgrpWqnYoeJ72BVGX0lzW6"; // Toss Payments Console에서 확인
+  const tossPayments = TossPayments(clientKey);
+
+  function next(amount) {
+	  const orderId = 'order_' + new Date().getTime(); // JavaScript에서 고유 orderId 생성
+	  console.log('Amount:', amount);
+	  console.log('Order ID:', orderId);
+
+	  fetch('/arti/payments/request', {
+	    method: 'POST',
+	    headers: {
+	      'Content-Type': 'application/json',
+	    },
+	    body: JSON.stringify({
+	      amount: amount,
+	      orderId: orderId, // orderId를 문자열로 전달
+	    }),
+	  })
+	    .then((response) => response.json())
+	    .then((data) => {
+	      console.log('Server Response:', data); // 서버 응답 확인
+	      tossPayments
+	        .requestPayment('카드', {
+	          amount: amount,
+	          orderId: orderId, // 클라이언트에서 생성한 orderId 사용
+	          orderName: '코인 충전',
+	          successUrl: "http://localhost:8093/arti/payments/success?orderId="+orderId,
+	          failUrl: 'http://localhost:8093/arti/payments/fail',
+	        })
+	        .catch(function (error) {
+	          console.error('결제 요청 실패:', error);
+	        });
+	    })
+	    .catch((error) => console.error('서버 요청 실패:', error));
+	}
+
+	  
+
+</script>
+
+
 
 
 
