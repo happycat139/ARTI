@@ -16,7 +16,7 @@
         <section class="Login-Container">
         <div class="View-Box">
 			<div class="LogoWrap">
-				<img src="img/ArtiLogo.png" alt="로고">
+				<img src="https://storage.googleapis.com/smhrd_arti/MainPage/User/Login/ArtiLogo.png" alt="로고">
 			</div>
 			<div class="TitleWrap">
 				<h1>로그인하고 <br> 마음의 그림을 그려봐요!</h1>
