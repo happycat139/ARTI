@@ -23,5 +23,9 @@ public interface StoryBookRepository extends JpaRepository<StoryBook, Long> {
 	// 최신순으로 모든 동화책 가져오기
 	@Query("SELECT s FROM StoryBook s WHERE s.book_thumbnail IS NOT NULL ORDER BY s.book_idx DESC")
     Page<StoryBook> findAllByOrderByIdDesc(Pageable pageable);
+	
+	// 최신순대로 다가져오기
+	@Query("SELECT s FROM StoryBook s WHERE s.book_thumbnail IS NOT NULL ORDER BY s.createDt DESC")
+	List<StoryBook> findAllByOrderByCreateDtDesc();
 
 }
