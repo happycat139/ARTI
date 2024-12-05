@@ -184,6 +184,11 @@ public class StoryBookService {
 		public List<StoryBook> getStoryBooksByEmail(String email) {
 			return repo1.findByEmail(email);
 		}
+		
+		// 최신순 동화책 가져오기 (공개 갤러리)
+	     public List<StoryBook> getStoryBooks() {
+	         return repo1.findAllByOrderByCreateDtDesc(); 
+	     }
 
 
 

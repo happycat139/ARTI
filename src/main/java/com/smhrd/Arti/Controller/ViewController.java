@@ -1,10 +1,20 @@
 package com.smhrd.Arti.Controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import com.smhrd.Arti.Model.StoryBook;
+import com.smhrd.Arti.Service.StoryBookService;
 
 @Controller
 public class ViewController {
+	
+	@Autowired
+	StoryBookService service;
 
 	/* 헤더 호출 */
 	@GetMapping("/SbHeader")
@@ -60,8 +70,13 @@ public class ViewController {
 	
 	/* 스케치북 메인 페이지 호출 */
 	@GetMapping("/arti/storybook/main")
-	public String StMainPage() {
-		return "ArtisBook/ArtisBookMain";
+	public String StMainPage(Model model) {
+		
+	    List<StoryBook> storyBooks = service.getStoryBooks(); // 모든 동화책 가져오기
+	    
+	    model.addAttribute("storyBooks", storyBooks);
+	    
+	    return "ArtisBook/ArtisBookMain"; // 데이터를 JSP로 전달
 	}
 	
 	

@@ -20,6 +20,4 @@ public interface StoryContentRepository extends JpaRepository<StoryContent, Long
     @Query("SELECT sc FROM StoryContent sc WHERE sc.book_idx = :bookIdx AND sc.pageNum = :pageNum")
     Optional<StoryContent> findByBookIdxAndPageNum(@Param("bookIdx") Long bookIdx, @Param("pageNum") int pageNum);
     
-
-	
 }
