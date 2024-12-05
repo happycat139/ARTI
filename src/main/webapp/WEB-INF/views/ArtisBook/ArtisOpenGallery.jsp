@@ -21,33 +21,75 @@
     min-height: 760px;
     margin: 0 auto;
     padding: 50px 0;
+    gap: 60px;
 }
 
-.p_pagetitle {
-    font-size: 20px;
+.headline-text {
+    line-height: 42px;
+    font-size: 30px;
+    font-weight: 600;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.subline-text {
+    margin-top: 10px;
+    line-height: 26px;
+    font-size: 16px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.7);
+}
+
+/* 베스트 동화책 관련 CSS */
+
+#best {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+}
+
+.p_bestBook {
+    font-size: 18px;
     font-family: 'STUNNING-Bd';
     color: black;
-    text-align: center;
+    margin-top: 50px; 
+    padding-bottom : 10px;
 }
 
-.p_greeting {
-    text-align: center;
-    font-family: 'STUNNING-Bd';
-    font-size: 16px;
-    font-weight: 400;
-    color: Zinc Gray;
-    margin-top: 10px;
-            
+#best .text-wrapper {
+    display: flex;
+    flex-direction: row;
+    gap: 9px;
+    align-items: center;
 }
 
-.book-wrapper {
+#best .text-wrapper img {
+    height: 24px;
+}
+
+#best .text-wrapper div {
+    line-height: 30px;
+    font-size: 20px;
+    font-weight: 500;
+    letter-spacing: -0.12px;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.book-wrapper.best {
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 각 행에 3개의 컬럼 */
     gap: 30px 21px; /* 각 동화책 사이의 간격 */
+}
+
+.book-wrapper.normal {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 각 행에 4개의 컬럼 */
+    gap: 20px; /* 각 동화책 사이의 간격 */
     margin: 40px 0;
 }
 
-.book_info {
+.book_info.best {
     padding: 0 15px;
     aspect-ratio: 1 / 1.227;
     border-radius: 20px;
@@ -61,6 +103,51 @@
 img {
     vertical-align: middle;
     border-style: none;
+}
+
+.book_info.normal {
+    display: flex;
+    flex-direction: column; /* 위아래로 정렬 */
+    border-radius: 20px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+    height: 300px;
+    box-shadow: 3px 3px 4px rgba(0, 0, 0, 0.15);
+    margin: 30px 0; /* 위아래 간격 추가 */
+}
+
+.book_top.best {
+    background-image: url('https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_2-1.webp');
+    background-size: cover; /* 이미지가 컨테이너 크기에 맞게 조절 */
+    background-position: center; /* 이미지 중심 배치 */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.book_top.normal {
+    flex: 3; /* 3:1 비율에서 위쪽 영역 */
+    background-image: url('https://storage.googleapis.com/smhrd_arti/STORY_SAMPLE_2-1.webp');
+    background-size: cover; /* 이미지가 컨테이너 크기에 맞게 조절 */
+    background-position: center; /* 이미지 중심 배치 */
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+.book_bottom.best {
+    text-align: left;
+    padding: 10px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.book_bottom.normal {
+    flex: 0.5; /* 3:1 비율에서 아래쪽 영역 */
+    background-color: white;
+    text-align: left;
+    padding: 10px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
 }
 
 .book_item {
@@ -77,108 +164,180 @@ img {
     text-align: left;
 }
 
-        .coverimg-top-empty {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 270 / 43;
-        }
+.coverimg-top-empty {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 270 / 43;
+}
 
-        .booktitle-top-empty {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 270 / 15;
-        }
+.booktitle-top-empty {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 270 / 15;
+}
 
-        .book_item p {
-            width: 100%;
-            height: auto;
-            aspect-ratio: 270 / 39;
-            margin-top: 280px;
-            padding: 0 5px;
-            font-size: 20px;
-            color: white;
-            font-family: 'STUNNING-Bd';
-        }
+.book_bottom.best p {
+    margin-top: 380px;
+    padding: 0;
+    font-size: 16px;
+    color: white;
+    font-family: 'STUNNING-Bd';
+}
 
-        .book_item-coverimg img {
-            margin-left: 17px;
-            margin-top: 15px;
-            width: 250px;
-            height: 240px;
-        }
+.book_bottom.normal p {
+    margin: 0;
+    padding: 0;
+    font-size: 16px;
+    color: black;
+    font-family: 'STUNNING-Bd';
+}
 
-        @media (max-width: 1024px) {
-            .book-wrapper {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
+@media (max-width: 1024px) {
+    .book-wrapper.best {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
-        @media (max-width: 768px) {
-            .book-wrapper {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+    .book-wrapper.normal {
+        grid-template-columns: repeat(3, 1fr); /* 화면이 작아지면 한 줄에 3개 */
+    }
+}
+
+@media (max-width: 768px) {
+    .book-wrapper.best,
+    .book-wrapper.normal {
+        grid-template-columns: 1fr; /* 모바일에서는 한 줄에 1개 */
+    }
+}
+
+/* page-wrapper 관련 CSS */
+
+#page-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 6px;
+    height: 40px;
+    margin-bottom: 128px;
+}
+
+.page-item {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.page-item.active {
+    color: blue;
+    font-weight: 700; 
+    font-style: normal; 
+}
+
+
+.page-item > img {
+    vertical-align: middle;
+    border-style: none;
+}
+
+</style>
 </head>
 <body>
 <!-- Header -->
 <%@ include file="SbHeader.jsp" %>
 
 <div class="content-wrapper">
-    <p class="p_pagetitle">공개 갤러리</p>
-    <p class="p_greeting">다른 친구들이 만든 동화를 함께 봐요!</p>
-
-    <div class="book-wrapper">
-    
-        <!-- sample2 동화책 -->
-        <div class="book_info">
-            <div class="book_item sample">
-                <div class="coverimg-top-empty"></div>
-                <div class="booktitle-top-empty"></div>
-                <p>
-                	소피아와 마법의 바다
-                <br>
-                	김예원
-                </p>
-            </div>
-            <div class="book_date"></div>
-            <div class="book_info-hover"></div>
-        </div>
-        
-        <!-- sample2 동화책 -->
-        <div class="book_info">
-            <div class="book_item sample">
-                <div class="coverimg-top-empty"></div>
-                <div class="booktitle-top-empty"></div>
-                <p>
-                	소피아와 마법의 바다
-                <br>
-                	김예원
-                </p>
-            </div>
-            <div class="book_date"></div>
-            <div class="book_info-hover"></div>
-        </div>
-        
-        <!-- sample2 동화책 -->
-        <div class="book_info">
-            <div class="book_item sample">
-                <div class="coverimg-top-empty"></div>
-                <div class="booktitle-top-empty"></div>
-                <p>
-                	소피아와 마법의 바다
-                <br>
-                	김예원
-                </p>
-            </div>
-            <div class="book_date"></div>
-            <div class="book_info-hover"></div>
-        </div>
-
+	
+	<div>
+    	<div class="headline-text">공개 갤러리</div>
+    	<div class="subline-text">다른 친구들이 만든 동화를 함께 봐요!</div>
+	</div>
+	
+	<div id="best">
+	
+		<div class="text-wrapper">
+			<img src="https://storage.googleapis.com/smhrd_arti/ArtisBook/Gallery/best_book/ic_best_sizeup.png">
+			<div>베스트 동화책</div>
+		</div>	
 		
-        
+    <!-- Best 동화책: 한 줄에 3개씩 표시 -->
+    <div class="book-wrapper best">
+        <!-- sample1 동화책 -->
+        <div class="book_info best">
+            <div class="book_top best"></div>
+            <div class="book_bottom best">
+                <p>소피아와 마법의 바다<br>김예원</p>
+            </div>
+        </div>
+
+        <!-- sample2 동화책 -->
+        <div class="book_info best">
+            <div class="book_top best"></div>
+            <div class="book_bottom best">
+                <p>소피아와 마법의 바다<br>김예원</p>
+            </div>
+        </div>
+
+        <!-- sample3 동화책 -->
+        <div class="book_info best">
+            <div class="book_top best"></div>
+            <div class="book_bottom best">
+                <p>소피아와 마법의 바다<br>김예원</p>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <!-- Normal 동화책: 한 줄에 4개씩 표시, 위아래 3:1 비율로 나누기 -->
+    <div class="book-wrapper normal">
+        <c:forEach var="storybook" items="${storyBooks}" varStatus="status">
+        	<!-- 최대 12개의 항목만 보여줌 -->
+        	<c:if test="${status.index < 12}">
+            	<div class="book_info normal" onclick="location.href='/arti/book/storybook?book_idx=${storybook.book_idx}'">
+                	<div class="book_top normal" style="background-image: url('${storybook.book_thumbnail}');"></div>
+                	<div class="book_bottom normal">
+                    	<p>${storybook.book_name}<br>${storybook.author}</p>
+                	</div>
+            	</div>
+        	</c:if>
+    	</c:forEach>
+    </div>
+    
+    <div id="page-wrapper">
+    	<div id="first" class="page-item" style="height:20px;" onclick="location.href='gallery?page=1'">
+    		<img src="https://storage.googleapis.com/smhrd_arti/ArtisBook/Gallery/page_wrap/ic_first.png">
+    	</div>
+    	<div id="prev" class="page-item" style="height:20px;"
+    		onclick="location.href='gallery?page=${currentPage > 1 ? currentPage - 1 : 1}'">
+    		<img src="https://storage.googleapis.com/smhrd_arti/ArtisBook/Gallery/page_wrap/ic_prev.png">
+    	</div>
+    	
+    	<!-- 페이지 번호 반복 -->
+    	<c:forEach begin="1" end="${totalPages}" var="page">
+        	<c:choose>
+            	<c:when test="${page eq currentPage}">
+                	<div id="" class="page-item active">${page}</div>
+            	</c:when>
+            	<c:otherwise>
+                	<div id="" class="page-item" onclick="location.href='gallery?page=${page}'">${page}</div>
+            	</c:otherwise>
+        	</c:choose>
+    	</c:forEach>
+    
+    	<div id="next" class="page-item" style="height:20px;"
+    		onclick="location.href='gallery?page=${currentPage < totalPages ? currentPage + 1 : totalPages}'">
+    		<img src="https://storage.googleapis.com/smhrd_arti/ArtisBook/Gallery/page_wrap/ic_next.png">
+    	</div>
+    	<div id="last" class="page-item" style="height:20px;"
+    		onclick="location.href='gallery?page=${totalPages}'">
+    		<img src="https://storage.googleapis.com/smhrd_arti/ArtisBook/Gallery/page_wrap/ic_last.png">
+    	</div>
     </div>
 </div>
+
 
 <!-- Footer -->
 <%@ include file="SbFooter.jsp" %>

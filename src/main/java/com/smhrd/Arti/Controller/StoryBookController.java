@@ -3,6 +3,9 @@ package com.smhrd.Arti.Controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -43,12 +46,6 @@ public class StoryBookController {
 	
 
 	/* 페이지 관련 뷰 컨트롤러 */
-
-	// 나의 동화책 페이지 호출
-//	@GetMapping("/mypage")
-//	public String SbMypage() {
-//		return "ArtisBook/SbMypage";
-//	}
 
 	// 나의 동화책 작가 등록 페이지 호출
 	@GetMapping("/start")
@@ -120,10 +117,22 @@ public class StoryBookController {
 		return "ArtisBook/SbSample2";
 	}
 	
-	// 공개 갤러리 페이지 호출
+	// 공개갤러리 페이지 호출 (페이징 처리 포함)
 	@GetMapping("/gallery")
-	public String OpenGalleryPage() {
-		return "ArtisBook/ArtisOpenGallery";
+	public String showGallery(@RequestParam(value = "page", defaultValue = "1") int page,
+	                          @RequestParam(value = "size", defaultValue = "12") int size,
+	                          Model model) {
+		
+	    Pageable pageable = PageRequest.of(page - 1, size);
+	    Page<StoryBook> storyBookPage = service.getStoryBooksLatest(pageable); 
+
+	    model.addAttribute("storyBooks", storyBookPage.getContent());
+	    model.addAttribute("currentPage", page);
+	    model.addAttribute("totalPages", storyBookPage.getTotalPages());
+	    model.addAttribute("totalElements", storyBookPage.getTotalElements());
+
+	    return "ArtisBook/ArtisOpenGallery"; 
+	    
 	}
 	
 	/* 동화생성 관련 기능 메소드 */
@@ -145,7 +154,7 @@ public class StoryBookController {
 	            return "ArtisBook/SbMypage"; // storybook.jsp로 이동
 	        } else {
 	            model.addAttribute("errorMessage", "로그인 후 이용해주세요.");
-	            return "login"; // 로그인 페이지로 이동
+	            return "Login"; // 로그인 페이지로 이동
 	        }
 	    }
 	

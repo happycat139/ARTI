@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -151,8 +153,13 @@ public class StoryBookService {
      public List<StoryContent> getAllContentByBookIdx(Long bookIdx) {
 	        return repo2.findByBookIdx(bookIdx);
 	 }
+     
+     // 최신순 동화책 가져오기 (공개 갤러리)
+     public Page<StoryBook> getStoryBooksLatest(Pageable pageable) {
+         return repo1.findAllByOrderByIdDesc(pageable); 
+     }
 
-	    // 이미지 URL 업데이트
+	 // 이미지 URL 업데이트
 	 public void updateImage(Long bookIdx, int pageNum, String imageUrl) {
 	        StoryContent content = repo2.findByBookIdxAndPageNum(bookIdx, pageNum)
 	            .orElseThrow(() -> new RuntimeException("페이지를 찾을 수 없습니다."));
