@@ -25,4 +25,12 @@ public interface UserRepository extends JpaRepository<User, String> {
 	boolean existsByEmail(String email);
     boolean existsByNickname(String nickname);
     Optional<User> findByEmail(String email);
+    
+ // 사용자 코인 업데이트 (SQL 직접 작성)
+    @Modifying
+    @Transactional
+    @Query("UPDATE User u SET u.coin = u.coin + :amount WHERE u.email = :email")
+    void addCoins(String email, int amount);
+
+
 }

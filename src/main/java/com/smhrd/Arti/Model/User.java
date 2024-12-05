@@ -42,8 +42,8 @@ public class User {
     // 가입 일자 
     private Timestamp join_dt;
 
-    // 기본 토큰 
-    private int join_token = 10;
+    // 기본 코인 
+    private int coin = 10;
 
 	
 	public User() {
@@ -53,7 +53,7 @@ public class User {
 	// 빌더 기본값 설정
     public static class UserBuilder {
         private Timestamp join_dt = new Timestamp(System.currentTimeMillis());
-        private int join_token = 10;
+        private int coin = 10;
     }
 	
 }

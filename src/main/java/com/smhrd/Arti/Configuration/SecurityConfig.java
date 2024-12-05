@@ -23,6 +23,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     	http.csrf().disable()
         .authorizeHttpRequests()
+        .requestMatchers("/arti/payments/**").permitAll()
         .requestMatchers("/security-login/info").authenticated()
         .requestMatchers("/security-login/admin/**").hasAuthority(UTYPE.ADMIN.name())
         .anyRequest().permitAll()
@@ -39,4 +40,6 @@ public class SecurityConfig {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+    
+    
 }
