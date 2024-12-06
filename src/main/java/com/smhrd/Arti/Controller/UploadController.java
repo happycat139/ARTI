@@ -69,9 +69,14 @@ public class UploadController {
                     .upload_dt(new Timestamp(System.currentTimeMillis())) // 현재 시간
                     .email(email) // 사용자 이메일
                     .build();
+            
+            System.out.println(upload);
 
             // DB 저장
             uploadRepository.save(upload);
+            
+            System.out.println("-------------------------------");
+            System.out.println(upload);
             
             // YOLO 모델 호출
             String yoloResult = yoloService.analyzeImage(imageUrl);
