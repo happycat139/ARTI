@@ -29,12 +29,12 @@ public class GoogleCloudStorageService {
     // 하드코딩된 버킷 이름
     private static final String BUCKET_NAME = "smhrd_arti"; // 실제 버킷 이름을 여기에 입력
 
-    public String uploadFile(MultipartFile file) throws IOException {
+    public String uploadFile(MultipartFile file, String folderName) throws IOException {
 
         Resource resource = resourceLoader.getResource("classpath:arti-440803-317400484c88.json");
         File credentialsFile = resource.getFile();
 
-        String filename = UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
+        String filename = folderName + "/" + UUID.randomUUID().toString() + "_" + file.getOriginalFilename();
 
         // 서비스 계정 키 파일을 통해 자격 증명 생성
         GoogleCredentials credentials = GoogleCredentials.fromStream(new FileInputStream(credentialsFile));
@@ -54,7 +54,7 @@ public class GoogleCloudStorageService {
         return String.format("https://storage.googleapis.com/%s/%s", BUCKET_NAME, filename);
     }
     
- // URL에서 이미지 업로드
+    // URL에서 이미지 업로드
     public String uploadImageFromUrl(String imageUrl) throws IOException {
         // 이미지 URL로부터 InputStream 가져오기
         URL url = new URL(imageUrl);

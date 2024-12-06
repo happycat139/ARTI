@@ -67,11 +67,12 @@
               <p class="TI_SubContent">내 아이의 마음을 확인해요</p>
          </header>
                 
-         <div class="TI-Container">
-              <div class="TI-Content-Container">
-                   <input type="file" id="testImageInput" accept="image/*" onchange="uploadTestImage()">
-              </div>
-         </div>
+         <form action="/htp/upload" method="post" enctype="multipart/form-data">
+    		<div class="TI-Content-Container">
+        		<input type="file" name="file" id="testImageInput" accept="image/*" required><br>
+        		<button type="submit">이미지 업로드</button>
+    		</div>
+		</form>
 	</div>
 </section>
 </body>

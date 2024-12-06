@@ -90,8 +90,12 @@ public class ProfileRestController {
     	User user = getCurrentUserFromSession(session);
     	
         try {
+        	
+        	// 폴더 지정 
+        	String folderName = "User/Profile";
+        	
             // 파일을 Google Cloud Storage에 업로드
-            String imageUrl = googleCloudStorageService.uploadFile(file);
+            String imageUrl = googleCloudStorageService.uploadFile(file, folderName);
 
             // 사용자 프로필에 새로운 이미지 URL 업데이트
             profileService.updateProfileImage(email, imageUrl);

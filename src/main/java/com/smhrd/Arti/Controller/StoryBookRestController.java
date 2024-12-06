@@ -179,8 +179,12 @@ public class StoryBookRestController {
             @RequestParam("contentIdx") Long contentIdx) {
 
         try {
+        	
+        	// 0. 폴더 지정
+        	String folderName = "User/ArtiBook";
+        	
             // 1. 파일을 클라우드에 업로드
-            String uploadedImageUrl = googleCloudStorageService.uploadFile(file);
+            String uploadedImageUrl = googleCloudStorageService.uploadFile(file, folderName);
 
             // 2. DB에 이미지 경로 저장
             service.updateImage(contentIdx, uploadedImageUrl);

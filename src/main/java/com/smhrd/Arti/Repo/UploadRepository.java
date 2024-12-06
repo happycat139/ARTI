@@ -1,4 +1,4 @@
-		package com.smhrd.Arti.Repo;
+package com.smhrd.Arti.Repo;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
