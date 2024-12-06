@@ -25,7 +25,7 @@
 					if (user != null) {
 					%>
 					
-					<button onclick="openPopup()"><img src="/img/ArtiCoin.png" id="articoin"><span><%=user.getCoin()%></span></button>
+					<button onclick="location.href='/arti/coin'"><img src="/img/ArtiCoin.png" id="articoin"><span><%=user.getCoin()%></span></button>
 					
 					
 					<!-- 로그인 상태일 때 프로필 표시 -->
@@ -48,12 +48,6 @@
 		</div>
 	</header>
 	
-<script>
-function openPopup() {
-    // 새 창 열기
-    window.open("/arti/coin", "팝업 창", "width=500,height=635,resizable=no");
-}
-</script>	
 
 </body>
 </html>

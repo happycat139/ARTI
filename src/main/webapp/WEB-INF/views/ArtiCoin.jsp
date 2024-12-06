@@ -152,37 +152,32 @@ h3 {
   const tossPayments = TossPayments(clientKey);
 
   function next(amount) {
-	  const orderId = 'order_' + new Date().getTime(); // JavaScript에서 고유 orderId 생성
-	  console.log('Amount:', amount);
-	  console.log('Order ID:', orderId);
+	    const orderId = 'order_' + new Date().getTime(); // 고유 주문 ID 생성
+	    const orderName = '코인 충전';
+	    const successUrl = 'http://localhost:8093/arti/payments/success';
+	    const failUrl = 'http://localhost:8093/arti/payments/fail';
 
-	  fetch('/arti/payments/request', {
-	    method: 'POST',
-	    headers: {
-	      'Content-Type': 'application/json',
-	    },
-	    body: JSON.stringify({
-	      amount: amount,
-	      orderId: orderId, // orderId를 문자열로 전달
-	    }),
-	  })
-	    .then((response) => response.json())
-	    .then((data) => {
-	      console.log('Server Response:', data); // 서버 응답 확인
-	      tossPayments
-	        .requestPayment('카드', {
-	          amount: amount,
-	          orderId: orderId, // 클라이언트에서 생성한 orderId 사용
-	          orderName: '코인 충전',
-	          successUrl: "http://localhost:8093/arti/payments/success?orderId="+orderId,
-	          failUrl: 'http://localhost:8093/arti/payments/fail',
-	        })
-	        .catch(function (error) {
-	          console.error('결제 요청 실패:', error);
-	        });
+	    // 서버로 결제 요청
+	    fetch('/arti/payments/request', {
+	        method: 'POST',
+	        headers: { 'Content-Type': 'application/json' },
+	        body: JSON.stringify({ amount, orderId }),
 	    })
-	    .catch((error) => console.error('서버 요청 실패:', error));
+	        .then((response) => response.json())
+	        .then((data) => {
+	            // Toss Payments 결제창 띄우기
+	            tossPayments.requestPayment('간편결제', {
+	                amount: amount,
+	                orderId: orderId,
+	                orderName: orderName,
+	                successUrl: successUrl,
+	                failUrl: failUrl,
+	            }).catch((error) => console.error('결제 요청 실패:', error));
+	        })
+	        .catch((error) => console.error('서버 요청 실패:', error));
 	}
+
+
 
 	  
 

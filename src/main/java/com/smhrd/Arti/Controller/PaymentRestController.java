@@ -1,6 +1,7 @@
 package com.smhrd.Arti.Controller;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,6 +15,7 @@ import com.smhrd.Arti.Service.PaymentService;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -26,30 +28,18 @@ public class PaymentRestController {
 	// 결제 요청
 	@PostMapping("/request")
 	public ResponseEntity<Map<String, String>> requestPayment(@RequestBody Map<String, Object> requestBody) {
-	    int amount = (int) requestBody.get("amount"); // amount는 Integer로 처리
-	    String orderId = (String) requestBody.get("orderId"); // orderId를 String으로 처리
+		int amount = (int) requestBody.get("amount"); // amount는 Integer로 처리
+		String orderId = (String) requestBody.get("orderId"); // orderId를 String으로 처리
 
-	    // 서비스에서 결제 요청 처리
-	    Map<String, String> paymentResponse = paymentService.requestPayment(orderId, amount);
+		// 서비스에서 결제 요청 처리
+		Map<String, String> paymentResponse = paymentService.requestPayment(orderId, amount);
 
-	    // orderId를 포함한 응답 반환
-	    paymentResponse.put("orderId", orderId);
-	    return ResponseEntity.ok(paymentResponse);
+		// orderId를 포함한 응답 반환
+		paymentResponse.put("orderId", orderId);
+		return ResponseEntity.ok(paymentResponse);
 	}
 
 
-	// 결제 성공 처리
-		@GetMapping("/success")
-		public String paymentSuccess(@RequestParam String paymentKey, @RequestParam String orderId,
-				@RequestParam int amount, HttpSession session) {
-			User user = (User) session.getAttribute("user");
-			
-
-			// 서비스에서 결제 성공 처리
-			paymentService.handlePaymentSuccess(paymentKey, user, amount);
-
-			return "결제가 성공적으로 완료되었습니다!";
-		}
 
 	// 결제 실패 처리
 	@GetMapping("/fail")

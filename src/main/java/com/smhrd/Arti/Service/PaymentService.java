@@ -40,6 +40,7 @@ public class PaymentService {
 	        body.put("orderName", "코인 충전");
 	        body.put("successUrl", paymentProperties.getSuccessUrl());
 	        body.put("failUrl", paymentProperties.getFailUrl());
+	        body.put("method", "토스페이"); // 결제수단 명시
 
 	        HttpEntity<Map<String, Object>> request = new HttpEntity<>(body, headers);
 
@@ -61,6 +62,7 @@ public class PaymentService {
 
 	    // 결제 성공 처리
 	    public void handlePaymentSuccess(String paymentKey, User user, int amount) {
+	    	System.out.println(user.getEmail());
 	        String verifyUrl = paymentProperties.getBaseUrl() + "/" + paymentKey;
 	        HttpHeaders headers = new HttpHeaders();
 	        headers.setBasicAuth(paymentProperties.getSecretKey(), "");
@@ -77,13 +79,12 @@ public class PaymentService {
 	                Map<String, Object> responseBody = response.getBody();
 	                System.out.println("Toss Payments 검증 응답: " + responseBody);
 
-	                if ("DONE".equals(responseBody.get("status"))) {
 	                    // 결제 성공 처리
 	                    int coinsToAdd = amount / 1000;
 	                    user.setCoin(user.getCoin() + coinsToAdd);
 	                    userRepository.save(user);
 	                    return; // 성공하면 메서드 종료
-	                }
+	                
 	            } catch (InterruptedException e) {
 	                throw new RuntimeException("결제 검증 대기 중 오류 발생", e);
 	            }
