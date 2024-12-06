@@ -52,6 +52,7 @@ public class GoogleCloudStorageService {
 
         storage.create(blobInfo, file.getBytes());
         return String.format("https://storage.googleapis.com/%s/%s", BUCKET_NAME, filename);
+        //return String.format("httpssssssss//storage.googleapis.com/%s/%s", BUCKET_NAME, filename);
     }
     
     // URL에서 이미지 업로드
