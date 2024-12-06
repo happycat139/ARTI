@@ -31,6 +31,17 @@
                     <input class="Pf_NicknameContent" id="nicknameInput" placeholder="<%= user != null ? user.getNickname() : "" %>" type="text">
                 </div>
                 
+                <div class="Pr_mycoin">
+                	<p><b>보유 코인</b></p>
+                	<div class="coin_info">
+                		<img id="articoin" alt="코인" src="/img/ArtiCoin.png">
+                		<b><%= user != null ? user.getCoin() : "" %></b> 
+                		<button class="coinup" onclick="location.href='/arti/coin'">충전</button>             	
+                	</div>
+                </div>
+                
+                
+                
                 <div class="DescWrap" style="margin-top: 30px;">
                     <p>비밀번호</p>
                     <button class="Pr_Pw_btn"><p>비밀번호 변경</p></button>
@@ -46,6 +57,12 @@
                 <input type="file" id="profileImageInput" style="display: none;" accept="image/*" onchange="uploadProfileImage()">
             </div>
         </div>
+        
+        
+
+        	
+        
+
        
         <hr style="border: none; border-top: 1px dotted #E9E9E9; margin: 40px 0;">
         

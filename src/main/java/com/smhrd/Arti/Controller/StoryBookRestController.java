@@ -96,10 +96,15 @@ public class StoryBookRestController {
 		
         try {
         	
-        	// 번역
-        	// Iprompt = chatGptService.translatePrompt(Iprompt);
+        	String prompt = Iprompt + " \n 위의 내용에 맞는 '동화' 그림을 생성해줘. " +
+        		    "\n 고퀄리티 그림으로 그리고, 따뜻한 색감과 부드러운 수채화 스타일로 만들어줘. " +
+        		    "\n 주요 인물과 배경 요소를 강조해." +
+        		    "\n 아이들이 좋아할 수 있는 밝고 매력적인 분위기를 연출해줘.." +
+        		    "\n 중요: 어떠한 텍스트 요소도 완전히 배제해야 해." ;;
+        	
+        	
             // 1. AI API를 통해 이미지 생성
-            String ImageUrl = dallEApiService.generateImage(Iprompt);
+            String ImageUrl = dallEApiService.generateImage(prompt);
 
             // 2. Google Cloud Storage에 이미지 업로드
             String uploadedImageUrl = googleCloudStorageService.uploadImageFromUrl(ImageUrl);
@@ -146,12 +151,11 @@ public class StoryBookRestController {
 
             // 2. 프롬프트 생성
         	String prompt = content.getContent() + 
-        		    " \n 위의 줄거리에 맞는 글자를 뺸 그림을 생성해줘. " +
-        		    "\n 동화 느낌으로 그리고, 따뜻한 색감과 부드러운 수채화 스타일로 만들어줘. " +
+        		    " \n 위의 내용에 맞는 동화 느낌의 이미지를 생성해줘. " +
+        		    "\n 고퀄리티 그림으로 그리고, 따뜻한 색감과 부드러운 수채화 스타일로 만들어줘. " +
         		    "\n 주요 인물과 배경 요소를 강조해." +
-        		    "\n 아이들이 좋아할 수 있는 밝고 매력적인 분위기를 연출해줘. 그리고 고퀄리티 그림이여야 해." +
-        		    "\n 중요: 이미지에는 텍스트 빼."
-        		    + "어떠한 텍스트 요소도 완전히 배제해야 해." ;
+        		    "\n 아이들이 좋아할 수 있는 밝고 매력적인 분위기를 연출해줘." +
+        		    "\n 중요: 어떠한 텍스트 요소도 완전히 배제해야 해." ;
 
             // 3. AI API를 통해 이미지 생성
             String imageUrl = dallEApiService.generateImage(prompt);
