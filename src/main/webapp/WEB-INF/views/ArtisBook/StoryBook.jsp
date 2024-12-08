@@ -29,6 +29,14 @@ body {
 	box-sizing: border-box;
 }
 
+.storyBook-Wrap {
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+    align-items: center; /* 수직 중앙 정렬 */
+    position: relative; /* 버튼 위치를 위해 부모를 기준으로 설정 */
+    height: 100vh; /* 화면 전체 높이 사용 */
+}
+
 .ex1 {
 	display: flex;
 	vertical-align: middle;
@@ -39,6 +47,8 @@ body {
 	width: 700px;
 	height: 700px;
 	margin: 5% auto;
+	position: relative; 
+	box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
 }
 
 #book .page {
@@ -48,38 +58,42 @@ body {
 }
 
 .SbEdit_pBtn, .SbEdit_nBtn {
-	cursor: pointer;
-	display: inline-block;
-	padding: 10px 20px;
-	background-color: white;
-	color: black;
-	border: none;
-	border-radius: 50%;
-	font-size: 16px;
-	text-align: center;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-	max-width: 100%; /* 이미지가 버튼 크기를 넘지 않도록 설정 */
-	max-height: 100%;
-	object-fit: contain; /* 이미지 크기를 버튼 안에 맞게 조정 */
+    position: absolute; 
+    top: 50%; 
+    transform: translateY(-50%);
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 50%;
+    font-size: 16px;
+    text-align: center;
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.3);
+    width: 60px;
+    height: 60px;
+    cursor: pointer;
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 0; 
 }
 
 .SbEdit_pBtn {
-	position: fixed; /* 화면에 고정 */
-    top: 100px; 
-    left: 20px; 
-	margin-left: 5%;
-	width: 60px;
-	height: 60px;
+	width: 50px;
+	height: 50px;
+	left: 200px;
 }
 
 .SbEdit_nBtn {
-	position: fixed; /* 화면에 고정 */
-    bottom: 20px; /* 화면 하단에서 20px 간격 */
-    right: 20px; /* 화면 오른쪽에서 20px 간격 */
-	margin-right: 5%;
-	width: 60px;
-	height: 60px;
+	width: 50px;
+	height: 50px;
+	right: 200px;
 }
+
+.SbEdit_pBtn img, .SbEdit_nBtn img {
+    width: 40px; /* 이미지 크기 조정 */
+    height: 40px;
+}
+
 
 .SbEdit_PageLeft {
 	flex: 1;
@@ -95,11 +109,11 @@ body {
 .SbEdit_PageRight, .SbEdit_PageLeft1, .SbEdit_PageRight1 {
 	flex: 1;
 	background-color: #fff;
-	position: relative; /* 텍스트 중앙 정렬을 위한 설정 */
-	display: flex; /* Flexbox를 사용하여 내부 요소를 중앙 정렬 */
-	align-items: center; /* 수직 중앙 정렬 */
-	justify-content: center; /* 수평 중앙 정렬 */
-	height: 100%; /* 부모 요소의 높이에 맞추기 */
+	position: relative; 
+	display: flex; 
+	align-items: center; 
+	justify-content: center; 
+	height: 100%; 
 	border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
 
@@ -220,21 +234,27 @@ body {
 </style>
 </head>
 <body>
-	<%@ include file="SbHeader.jsp"%>
+<%@ include file="SbHeader.jsp"%>
+	
+<div class="storyBook-Wrap">
+	
 	<!-- 이전 버튼 div -->
-	<button class="SbEdit_pBtn">이전</button>
+	<button class="SbEdit_pBtn">
+		<img src="https://storage.googleapis.com/smhrd_arti/ArtisBook/StoryBook/prev.png">
+	</button>
 
 	<!-- 책 구조 -->
 	<div id="book">
-		<div class="right-section">
+		<div class="page" class="right-section">
 			<div class="SbEdit_BookThumb">
-					<img src="${storybook.book_thumbnail}" class="SbEdit_BookThumb_icon">
+				<img src="${storybook.book_thumbnail}" class="SbEdit_BookThumb_icon">
 			</div>
 
 			<div class="bottom-right" id="0">
 				<p class="SbEdit_BookMainTitle" id="SbEdit_BookMainTitle">${storybook.book_name}</p>
 				<p class="SbEdit_BookMainWriter">${storybook.author}지음</p>
 			</div>
+			
 		</div>
 		<div class="page testPage" id="p1"></div>
 		<div class="page" class="SbEdit_BookMainWriter" id="p2">${storybook.book_name}</div>
@@ -242,7 +262,6 @@ body {
 		<!-- 책 시작 -->
 		<c:forEach var="content" items="${storyContentList}"
 			varStatus="status">
-
 		
 				<div class="page" id="Ip">
 					<img src="${content.image != null ? content.image : '/img/farARTI.png'}" class="SbSample_Image">
@@ -275,34 +294,55 @@ body {
 		</div>
 		<div class="page" id="p26"></div>
 
-		<div class="Story_LastPage" id="last">
+		<div class="page" class="Story_LastPage" id="last">
 			<img src="${storybook.book_thumbnail}" class="SbEdit_BackImg2">
 		</div>
 	</div>
 
 	<!-- 다음 버튼 div -->
-	<button class="SbEdit_nBtn">다음</button>
+	<button class="SbEdit_nBtn">
+		<img src="https://storage.googleapis.com/smhrd_arti/ArtisBook/StoryBook/next.png">
+	</button>
 
-	<script>
-		$(document).ready(function() {
-			$("#book").turn({
-				width : 1400, // 책의 너비
-				height : 700, // 책의 높이
-				autoCenter : true, // 책 중앙 정렬
-				gradient : true, // 페이지 말아지는 그림자 활성화
-				corners : "tl, tr, bl, br", // 모든 모서리에서 넘기기 가능
-			});
+	</div>
+	
+<script>
+    $(document).ready(function () {
+        // Turn.js 초기화
+        $("#book").turn({
+            width: 700, // 초기 싱글 페이지 너비
+            height: 700, // 초기 싱글 페이지 높이
+            autoCenter: true,
+            gradient: true,
+            display: 'single', // 첫 페이지 단독 표시
+        });
 
-			// 이전 버튼
-			$(".SbEdit_pBtn").click(function() {
-				$("#book").turn("previous");
-			});
+        // 페이지 전환 이벤트 처리
+        $("#book").bind("turning", function (event, page) {
+            const totalPages = $("#book").turn("pages");
 
-			// 다음 버튼
-			$(".SbEdit_nBtn").click(function() {
-				$("#book").turn("next");
-			});
-		});
-	</script>
+            if (page === 2) {
+                // 두 번째 페이지부터는 두 페이지씩 표시
+                $("#book").turn("display", "double");
+                $("#book").turn("size", 1400, 700); // 크기 변경
+            } else if (page === totalPages) {
+                // 마지막 페이지는 단독 페이지로 표시
+                $("#book").turn("display", "single");
+                $("#book").turn("size", 700, 700); // 크기 변경
+            }
+        });
+
+        // 이전 버튼 동작
+        $(".SbEdit_pBtn").on("click", function () {
+            $("#book").turn("previous");
+        });
+
+        // 다음 버튼 동작
+        $(".SbEdit_nBtn").on("click", function () {
+            $("#book").turn("next");
+        });
+    });
+</script>
+
 </body>
 </html>
