@@ -20,7 +20,7 @@ import com.smhrd.Arti.Service.PublishService;
 import jakarta.servlet.http.HttpSession;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("arti/publish")
 public class PublishRestController {
 
 	  @Autowired
