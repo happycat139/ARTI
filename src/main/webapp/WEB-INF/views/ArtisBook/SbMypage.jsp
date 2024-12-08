@@ -273,17 +273,22 @@ img {
 }
 
 .cart-preview img {
-    width: 80px;
-    height: 100px;
+    width: 130px;
+    height: 130px;
     margin-bottom: 5px;
 }
 
-#cart-preview p {
-    font-size: 14px;
-    color: black;
-    margin: 0;
-    overflow: visible;
+.cart-preview p {
+    font-size: 16px; /* 적절한 폰트 크기 */
+    color: #000; /* 글자 색 검정으로 설정 */
+    margin: 5px 0; /* 간격 추가 */
+    text-align: center; /* 텍스트 중앙 정렬 */
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    overflow: hidden; /* 넘칠 경우 숨기기 */
+    text-overflow: ellipsis; /* 텍스트가 넘칠 경우 "..." 표시 */
+    font-family: 'STUNNING-Bd';
 }
+
 
 
 </style>
@@ -407,7 +412,7 @@ img {
 				</div>
 			</c:forEach>
 
-			<div class="fixed-cart-button" onclick="location.href='/arti/cart'" onmouseover="showCartItems()" onmouseleave="hideCartItems()">
+			<div class="fixed-cart-button" onclick="location.href='/arti/publish/cart'" onmouseover="showCartItems()" onmouseleave="hideCartItems()">
 				🛒
 			<div class="cart-preview" id="cart-preview"></div>	
 			</div>
@@ -423,7 +428,7 @@ img {
 <script>
 
 function addToCart(bookIdx) {
-    fetch('/cart/add', {
+    fetch('/arti/publish/add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -446,30 +451,48 @@ function showCartItems() {
     const previewDiv = document.getElementById('cart-preview');
     previewDiv.style.display = 'flex'; // 장바구니 미리보기 표시
 
-    fetch('/cart/items')
+    fetch('/arti/publish/items')
         .then(response => response.json())
         .then(items => {
-            console.log('받은 데이터:', items);
             previewDiv.innerHTML = ''; // 기존 내용 비우기
-            items.forEach(item => {
-            	console.log('책 이름:', item.book_name); // 이름 디버깅
-                const itemDiv = document.createElement('div'); // 이미지와 이름을 감싸는 div
-                itemDiv.style.textAlign = 'center'; // 이름과 이미지 정렬
 
-                // 썸네일 이미지 추가
-                const img = document.createElement('img');
-                img.src = item.book_thumbnail || '/img/default-thumbnail.png'; // 책 썸네일
-                img.alt = item.name || '동화책';
+            // 장바구니 내역 제목 추가
+            const title = document.createElement('p');
+            title.textContent = '장바구니 내역';
+            title.style.marginBottom = '20px';
+            title.style.fontWeight = 'bold';
+            title.style.fontSize = '20px';
+            previewDiv.appendChild(title);
 
-                // 책 이름 추가
-                const title = document.createElement('p');
-                title.textContent = item.book_name || '이름 없음'; // 책 이름
+            if (items.length > 0) {
+                // 장바구니에 아이템이 있는 경우 모두 표시
+                items.forEach(item => {
+                    const itemDiv = document.createElement('div'); // 이미지와 이름을 감싸는 div
+                    itemDiv.style.textAlign = 'center';
+                    itemDiv.style.marginBottom = '15px';
 
-                // 요소를 미리보기 div에 추가
-                itemDiv.appendChild(img);
-                itemDiv.appendChild(title);
-                previewDiv.appendChild(itemDiv);
-            });
+                    // 썸네일 이미지 추가
+                    const img = document.createElement('img');
+                    img.src = item.book_thumbnail || '/img/default-thumbnail.png';
+                    img.alt = item.book_name || '동화책';
+
+                    // 책 이름 추가
+                    const bookName = document.createElement('p');
+                    bookName.textContent = item.book_name || '이름 없음';
+
+                    // 요소를 미리보기 div에 추가
+                    itemDiv.appendChild(img);
+                    itemDiv.appendChild(bookName);
+                    previewDiv.appendChild(itemDiv);
+                });
+            } else {
+                // 장바구니가 비어 있는 경우
+                const emptyMessage = document.createElement('p');
+                emptyMessage.textContent = '장바구니가 비어 있습니다.';
+                emptyMessage.style.color = '#888'; // 회색 텍스트
+                emptyMessage.style.fontSize = '14px'; // 회색 텍스트
+                previewDiv.appendChild(emptyMessage);
+            }
         })
         .catch(error => {
             console.error('장바구니 목록 가져오기 오류:', error);
