@@ -328,19 +328,19 @@ input[type='text'], textarea {
 					<!-- 수량 -->
 					<div class="Pub_ea">
 						<div class="Pub_ea_top">
-							<input type="text" name="ea" value="1" maxlength="3"> <span>권</span>
+							<input type="text" name="ea" value="${cart.quantity}" maxlength="3"> <span>권</span>
 						</div>
-						<a class="option-button" onclick="reflash()">수량 변경</a>
+						<a class="option-button" onclick="changeEa(${cart.book_idx}, document.getElementById('quantity-${cart.book_idx}'))">수량 변경</a>
 					</div>
 
 					<!-- 판매금액 -->
 					<div class="Pub_regular">
-						<p>22,800원</p>
+						<p>${9900 * cart.quantity}원</p>
 					</div>
 
 					<!-- 결제금액 -->
 					<div class="Pub_price">
-						<p>22,800원</p>
+						<p>${9900 * cart.quantity}원</p>
 					</div>
 				</div>
 			</c:forEach>
@@ -348,7 +348,7 @@ input[type='text'], textarea {
 			<div id="Pub_cart_total">
 				<div class="Pub_total_regular">
 					<div class="Pub_total_info">판매금액</div>
-					45,600원
+					${totalPrice}원
 				</div>
 				<div class="Pub_total_operator">
 					<div class="Pub_total_info"></div>
@@ -356,7 +356,7 @@ input[type='text'], textarea {
 				</div>
 				<div class="Pub_total_delivery">
 					<div class="Pub_total_info">배송비</div>
-					3,000원
+					${totalPrice < 50000 ? 3000 : 0}원
 				</div>
 				<div class="Pub_total_operator">
 					<div class="Pub_total_info"></div>
@@ -364,12 +364,12 @@ input[type='text'], textarea {
 				</div>
 				<div class="Pub_total_price">
 					<div class="Pub_total_info">결제금액</div>
-					<div class="Pub_total_highlight">45,600원</div>
+					<div class="Pub_total_highlight"><c:out value="${totalPrice + (totalPrice < 50000 ? 3000 : 0)}"/>원</div>
 				</div>
 			</div>
 
 
-			<div class="Pub_main_button">
+			<div class="Pub_main_button" onclick="location.href='/arti/publish/check'">
 				주문하기
 				<button class="Pub_order_button"></button>
 			</div>
