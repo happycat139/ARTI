@@ -427,13 +427,14 @@ img {
 
 <script>
 
+//장바구니에 추가
 function addToCart(bookIdx) {
     fetch('/arti/publish/add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ bookIdx: bookIdx })
+        body: JSON.stringify({ bookIdx: bookIdx }) // 책 식별자 전송
     })
     .then(response => {
         if (response.ok) {
@@ -447,12 +448,18 @@ function addToCart(bookIdx) {
     });
 }
 
+// 장바구니 미리보기 표시
 function showCartItems() {
     const previewDiv = document.getElementById('cart-preview');
     previewDiv.style.display = 'flex'; // 장바구니 미리보기 표시
 
-    fetch('/arti/publish/items')
-        .then(response => response.json())
+    fetch('/arti/publish/items') // REST API 호출
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('장바구니 목록 가져오기 실패');
+            }
+            return response.json();
+        })
         .then(items => {
             previewDiv.innerHTML = ''; // 기존 내용 비우기
 
@@ -465,9 +472,9 @@ function showCartItems() {
             previewDiv.appendChild(title);
 
             if (items.length > 0) {
-                // 장바구니에 아이템이 있는 경우 모두 표시
+                // 장바구니에 아이템이 있는 경우 표시
                 items.forEach(item => {
-                    const itemDiv = document.createElement('div'); // 이미지와 이름을 감싸는 div
+                    const itemDiv = document.createElement('div'); // 아이템 컨테이너
                     itemDiv.style.textAlign = 'center';
                     itemDiv.style.marginBottom = '15px';
 
@@ -475,12 +482,16 @@ function showCartItems() {
                     const img = document.createElement('img');
                     img.src = item.book_thumbnail || '/img/default-thumbnail.png';
                     img.alt = item.book_name || '동화책';
+                    img.style.width = '50px'; // 적절한 크기 조정
+                    img.style.height = '50px';
 
                     // 책 이름 추가
                     const bookName = document.createElement('p');
                     bookName.textContent = item.book_name || '이름 없음';
+                    bookName.style.fontSize = '14px';
+                    bookName.style.marginTop = '10px';
 
-                    // 요소를 미리보기 div에 추가
+                    // 컨테이너에 추가
                     itemDiv.appendChild(img);
                     itemDiv.appendChild(bookName);
                     previewDiv.appendChild(itemDiv);
@@ -490,7 +501,7 @@ function showCartItems() {
                 const emptyMessage = document.createElement('p');
                 emptyMessage.textContent = '장바구니가 비어 있습니다.';
                 emptyMessage.style.color = '#888'; // 회색 텍스트
-                emptyMessage.style.fontSize = '14px'; // 회색 텍스트
+                emptyMessage.style.fontSize = '14px';
                 previewDiv.appendChild(emptyMessage);
             }
         })
@@ -499,11 +510,12 @@ function showCartItems() {
         });
 }
 
-
+// 장바구니 미리보기 숨기기
 function hideCartItems() {
     const previewDiv = document.getElementById('cart-preview');
     previewDiv.style.display = 'none'; // 장바구니 미리보기 숨기기
 }
+
 
 
 
