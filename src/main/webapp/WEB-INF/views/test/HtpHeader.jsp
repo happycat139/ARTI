@@ -14,7 +14,7 @@
 			<a href="/"><img src="/img/ArtiLogo.png"></a>
 			<div id="menu">
 				<div class="menu-container">
-					<a href="/arti/test">심리검사</a> <a href="/arti/storybook/main">스케치북</a>
+					<a href="/arti/test">자주 묻는 질문</a> <a href="/arti/storybook/main">스케치북</a>
 					<a href="#">게시판</a> <a href="/arti/board/main">문의하기</a>
 				</div>
 
