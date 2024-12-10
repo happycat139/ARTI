@@ -1,6 +1,7 @@
 package com.smhrd.Arti.Controller;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.smhrd.Arti.Model.AnalysisObject;
 import com.smhrd.Arti.Model.Upload;
 import com.smhrd.Arti.Model.User;
+import com.smhrd.Arti.Repo.ObjectRepository;
 import com.smhrd.Arti.Repo.UploadRepository;
 import com.smhrd.Arti.Service.GoogleCloudStorageService;
 import com.smhrd.Arti.Service.YoloService;
@@ -28,6 +31,9 @@ public class UploadController {
 
     @Autowired
     private UploadRepository uploadRepository;
+    
+    @Autowired
+    private ObjectRepository objectRepository;
     
     @Autowired
     private YoloService yoloService;
@@ -95,4 +101,5 @@ public class UploadController {
             return "error"; // 에러 페이지로 이동
         }
     }
+   
 }

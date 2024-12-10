@@ -39,7 +39,7 @@ public class ViewController {
 	/* 심리검사 페이지 호출 */
 	@GetMapping("/arti/test")
 	public String ArtiTestPage() {
-		return "ArtiTest";
+		return "test/TestMain";
 	}
 	
 	/* 심리검사 정보 페이지 호출 */
@@ -55,7 +55,7 @@ public class ViewController {
 	}
 	
 	/* HTP검사 페이지 호출 */
-	@GetMapping("/arti/test/htp")
+	@GetMapping("/arti/test/htpqwet")
 	public String HtpTestPage() {
 		return "test/HtpTest";
 	}
@@ -65,6 +65,14 @@ public class ViewController {
 	public String FaqPage() {
 		return "test/FAQ";
 	}
+	
+	/* HTP검사 페이지 호출 */
+	@GetMapping("/arti/test/beta")
+	public String Test1Page() {
+		return "ArtiTest";
+	}
+	
+	
 	
 	/* 스케치북 관련 페이지 */
 	
