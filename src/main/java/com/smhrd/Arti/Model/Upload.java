@@ -1,6 +1,7 @@
 package com.smhrd.Arti.Model;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
