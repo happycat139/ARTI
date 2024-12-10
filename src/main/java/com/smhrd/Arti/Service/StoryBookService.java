@@ -16,6 +16,7 @@ import com.smhrd.Arti.Model.StoryContent;
 import com.smhrd.Arti.Model.User;
 import com.smhrd.Arti.Repo.StoryBookRepository;
 import com.smhrd.Arti.Repo.StoryContentRepository;
+import com.smhrd.Arti.Repo.UserRepository;
 
 import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
@@ -28,6 +29,9 @@ public class StoryBookService {
 
 	@Autowired
 	StoryContentRepository repo2;
+	
+	@Autowired
+	UserRepository repo3;
 	
 	// 기본정보 생성 메소드
 	public void saveBase(StoryBook storybook, HttpSession session, Long book_idx) {
@@ -43,6 +47,14 @@ public class StoryBookService {
 		// storybookId가 null이 아니면 기존 동화를 검색, 없으면 새 객체 생성
 		if (book_idx != null) {
 			story = repo1.findById(book_idx).orElseThrow(() -> new IllegalArgumentException("해당 동화를 찾을 수 없습니다."));
+			int currentCoins = user.getCoin();
+	        if (currentCoins <= 0) {
+	            throw new IllegalStateException("보유한 코인이 부족합니다."); // 코인 부족 예외 처리
+	        }
+	        user.setCoin(currentCoins - 10);
+
+	        // 유저 정보 DB 업데이트
+	        repo3.save(user);
 		} else {
 			story = new StoryBook();
 		}

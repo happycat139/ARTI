@@ -122,6 +122,13 @@ public class PublishController {
         }
     }
     
+    @GetMapping("/test")
+    public String finalizePudblish(HttpSession session, Model model) {
+ 
+            return "PublishComplete"; // 완료 JSP로 이동
+
+    }
+    
     
     
     
