@@ -328,9 +328,9 @@ input[type='text'], textarea {
 					<!-- 수량 -->
 					<div class="Pub_ea">
 						<div class="Pub_ea_top">
-							<input type="text" name="ea" value="${cart.quantity}" maxlength="3"> <span>권</span>
+							<input type="text" id="quantity-${cart.book_idx}" name="ea" value="${cart.quantity}" maxlength="3"> <span>권</span>
 						</div>
-						<a class="option-button" onclick="changeEa(${cart.book_idx}, document.getElementById('quantity-${cart.book_idx}'))">수량 변경</a>
+						<a class="option-button" onclick="changeEa(${cart.book_idx})">수량 변경</a>
 					</div>
 
 					<!-- 판매금액 -->
@@ -389,6 +389,75 @@ input[type='text'], textarea {
 
 
 	<%@ include file="Footer.jsp"%>
+	
+	<script>
+	function changeEa(book_idx) {
+		
+		
+		if (!book_idx) {
+	        console.error("book_idx 값이 유효하지 않습니다:", book_idx);
+	        return;
+	    }
+		
+	    // 특정 book_idx의 input 태그를 가져옴
+	    const quantityInput = document.getElementById("quantity-" + book_idx);
+
+	    if (quantityInput) {
+	        // 입력된 새로운 수량 값
+	        const newQuantity = parseInt(quantityInput.value, 10);
+
+	        // 새로운 수량 값이 유효한지 확인
+	        if (isNaN(newQuantity) || newQuantity <= 0) {
+	            alert("유효한 수량을 입력하세요.");
+	            return;
+	        }
+
+	        // 서버에 수량 변경 요청 (fetch API 사용)
+	        fetch("/arti/publish/updateQuantity", {
+	            method: "POST",
+	            headers: {
+	                "Content-Type": "application/json"
+	            },
+	            body: JSON.stringify({
+	                book_idx: book_idx,
+	                quantity: newQuantity
+	            })
+	        })
+	            .then(response => {
+	                if (response.ok) {
+	                    // 요청 성공 시
+	                    console.log("수량 변경 성공:", book_idx, newQuantity);
+	                    alert("수량이 성공적으로 변경되었습니다.");
+	                    // 필요한 경우 페이지를 새로고침
+	                    location.reload();
+	                } else {
+	                    // 요청 실패 시
+	                    console.error("수량 변경 실패:", response.status);
+	                    alert("수량 변경에 실패했습니다. 다시 시도해주세요.");
+	                }
+	            })
+	            .catch(error => {
+	                // 네트워크 또는 기타 오류 처리
+	                console.error("수량 변경 중 오류 발생:", error);
+	                alert("수량 변경 중 오류가 발생했습니다.");
+	            });
+	    } else {
+	        // 해당 book_idx에 대한 input 태그를 찾지 못했을 때
+	        console.error("수량 입력 필드를 찾을 수 없습니다. book_idx:", book_idx);
+	    }
+	}
+
+
+	
+	
+	
+	
+	
+	
+	
+	</script>
+	
+	
 
 </body>
 </html>

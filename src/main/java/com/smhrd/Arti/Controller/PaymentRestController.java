@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.smhrd.Arti.Model.PublishRequest;
 import com.smhrd.Arti.Model.User;
 import com.smhrd.Arti.Service.PaymentService;
 
@@ -37,6 +38,22 @@ public class PaymentRestController {
 		// orderId를 포함한 응답 반환
 		paymentResponse.put("orderId", orderId);
 		return ResponseEntity.ok(paymentResponse);
+	}
+
+
+	@PostMapping("/request/pub")
+	public ResponseEntity<Map<String, String>> requestPayment(
+	        @RequestBody PublishRequest publishRequest, // JSON 데이터를 PublishRequest로 매핑
+	        HttpSession session
+	) {
+	    // 1. PublishRequest 객체를 세션에 저장
+	    session.setAttribute("publishRequest", publishRequest);
+	    // 2. 결제 요청 처리
+	    Map<String, String> paymentResponse = paymentService.requestPayment(publishRequest.getOrderId() , publishRequest.getTotalPrice());
+
+	    // 3. 응답 반환
+	    paymentResponse.put("pub_idx", publishRequest.getPub_idx().toString()); // pub_idx 반환
+	    return ResponseEntity.ok(paymentResponse);
 	}
 
 

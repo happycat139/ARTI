@@ -14,6 +14,8 @@ public class PublishRequest {
     private String zipCode; // 우편 번호
     private String address; // 집 주소
     private String message; // 배송 메세지
+    private int totalPrice; // 총 결제 금액
+    private String orderId; // 총 결제 금액
 	
 	
 }

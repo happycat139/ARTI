@@ -49,7 +49,7 @@ public class Publish {
 	private String message; // 배송 메시지
 
 	@Column(nullable = false)
-	private Integer totalPrice; // 총 결제 금액
+	private int totalPrice; // 총 결제 금액
 
 	@CreationTimestamp
 	private LocalDateTime createdAt; // 생성 시각

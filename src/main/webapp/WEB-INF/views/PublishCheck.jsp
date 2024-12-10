@@ -3,6 +3,7 @@
 <%@page import="com.smhrd.Arti.Model.StoryBook"%>
 <%@ page isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,7 +11,10 @@
 <title>Insert title here</title>
 
 <style>
-body, div, p, span, input, table {
+<
+link href ="https: //fonts.googleapis.com /css2 ?family =Noto+Sans+KR:wght
+	 @100 ;300 ;400 ;500 ;700 ;900 &display =swap " rel ="stylesheet ">body,
+	div, p, span, input, table {
 	margin: 0;
 	padding: 0;
 }
@@ -133,6 +137,8 @@ body {
 	margin: 0;
 	font-size: 14px; /* 텍스트 크기 조정 */
 	line-height: 1.5; /* 텍스트 간격 */
+	text-align: left;
+	margin-left: 10px;
 }
 
 #Pch_order_list, #Pch_delivery_list, #Pch_payment_list {
@@ -287,7 +293,14 @@ input[type='checkbox'] {
 				style="color: rgba(0, 0, 0, 0.5);">완료</span>
 		</div>
 
-		<form action="#" method="post">
+		<form id="publishForm" action="finalize" method="post"
+			onsubmit="combineInfo();">
+
+			<input type="hidden" name="pub_idx" value="${pub_idx}"> <input
+				type="hidden" name="totalPrice"
+				value="${totalPrice + (totalPrice < 50000 ? 3000 : 0)}">
+
+
 			<div id="Pch_left">
 				<div id="Pch_list" class="Pch_display_list">
 					<div class="Pch_header">
@@ -320,12 +333,20 @@ input[type='checkbox'] {
 
 								<!-- 판매 금액 -->
 								<div class="Pub_regular">
-									<p>${9900 * cart.quantity}원</p>
+									<p>
+										<fmt:formatNumber value="${9900 * cart.quantity}"
+											type="number" />
+										원
+									</p>
 								</div>
 
 								<!-- 결제 금액 -->
 								<div class="Pub_price">
-									<p>${9900 * cart.quantity}원</p>
+									<p>
+										<fmt:formatNumber value="${9900 * cart.quantity}"
+											type="number" />
+										원
+									</p>
 								</div>
 							</div>
 							<c:set var="totalQuantity"
@@ -338,20 +359,24 @@ input[type='checkbox'] {
 						<div class="Pch_list_padding">
 							<div class="Pch_item_title">이름</div>
 							<div class="Pch_item_input">
-								<input type="text" name="name" placeholder="이름을 입력해 주세요.">
+								<input type="text" name="pub_sender" placeholder="이름을 입력해 주세요.">
 							</div>
 						</div>
 
 						<div class="Pch_list_padding">
 							<div class="Pch_item_title">휴대폰</div>
 							<div class="Pch_item_input">
-								<input type="text" maxlength="3" name="hand1"
+								<input type="text" maxlength="3"
+									oninput="moveNext(this, 'sender_phone2')" name="sender_phone1"
+									id="sender_phone1"
 									style="float: left; width: 88px; ime-mode: disabled;">
 								<div class="hyphen">-</div>
-								<input type="text" maxlength="4" name="hand2"
+								<input type="text" maxlength="4" name="sender_phone2"
+									oninput="moveNext(this, 'sender_phone3')" id="sender_phone2"
 									style="float: left; width: 88px; ime-mode: disabled;">
 								<div class="hyphen">-</div>
-								<input type="text" maxlength="4" name="hand3"
+								<input type="text" maxlength="4" name="sender_phone3"
+									id="sender_phone3"
 									style="float: left; width: 88px; ime-mode: disabled;">
 							</div>
 						</div>
@@ -359,7 +384,7 @@ input[type='checkbox'] {
 						<div class="Pch_list_padding">
 							<div class="Pch_item_title">이메일</div>
 							<div class="Pch_item_input">
-								<input type="text" name="email" placeholder="이메일을 입력해 주세요.">
+								<input type="text" name="pub_email" placeholder="이메일을 입력해 주세요.">
 							</div>
 						</div>
 					</div>
@@ -370,7 +395,8 @@ input[type='checkbox'] {
 						<div class="Pch_list_padding">
 							<div class="Pch_item_title">이름</div>
 							<div class="Pch_item_input">
-								<input type="text" name="re_name" placeholder="이름을 입력해 주세요.">
+								<input type="text" name="pub_receiver"
+									placeholder="이름을 입력해 주세요.">
 								<div
 									style="display: inline-block; height: 24px; margin-left: 23px; position: relative;">
 									<input type="checkbox" class="Pch_checkbox" name="check1"
@@ -383,13 +409,18 @@ input[type='checkbox'] {
 						<div class="Pch_list_padding">
 							<div class="Pch_item_title">휴대폰</div>
 							<div class="Pch_item_input">
-								<input type="text" maxlength="3" name="hand1"
+								<input type="text" maxlength="3" name="receiver_phone1"
+									oninput="moveNext(this, 'receiver_phone2')"
+									id="receiver_phone1"
 									style="float: left; width: 88px; ime-mode: disabled;">
 								<div class="hyphen">-</div>
-								<input type="text" maxlength="4" name="hand2"
+								<input type="text" maxlength="4" name="receiver_phone2"
+									oninput="moveNext(this, 'receiver_phone3')"
+									id="receiver_phone2"
 									style="float: left; width: 88px; ime-mode: disabled;">
 								<div class="hyphen">-</div>
-								<input type="text" maxlength="4" name="hand3"
+								<input type="text" maxlength="4" name="receiver_phone3"
+									id="receiver_phone3"
 									style="float: left; width: 88px; ime-mode: disabled;">
 							</div>
 						</div>
@@ -397,9 +428,10 @@ input[type='checkbox'] {
 						<div class="Pch_list_padding">
 							<div class="Pch_item_title">우편번호</div>
 							<div class="Pch_item_input">
-								<input type="text" id="re_post" name="re_post" size="7"
+								<input type="text" id="zipCode" name="zipCode" size="7"
 									maxlength="7" style="width: 111px; background: #F9F9F9;"
 									readonly> <a class="Pch_outline_button"
+									onclick="execDaumPostcode()"
 									style="width: 102px; margin: 0 10px; top: unset; transform: none;">
 									우편번호 검색</a>
 							</div>
@@ -408,12 +440,10 @@ input[type='checkbox'] {
 						<div class="Pch_list_padding">
 							<div class="Pch_item_title" style="line-height: 90px;">주소</div>
 							<div class="Pch_item_input">
-								<input type="text" maxlength="200" id="re_address"
-									name="re_address"
-									style="margin-bottom: 10px; background: #F9F9F9;" readonly="">
-								<br> <input type="text" maxlength="200"
-									id="re_address_detail" name="re_address_detail" value=""
-									placeholder="상세주소를 입력해 주세요.">
+								<input type="text" maxlength="200" id="address1" name="address1"
+									style="margin-bottom: 10px; background: #F9F9F9;" readonly>
+								<br> <input type="text" maxlength="200" id="address2"
+									name="address2" value="" placeholder="상세주소를 입력해 주세요.">
 							</div>
 						</div>
 
@@ -421,7 +451,7 @@ input[type='checkbox'] {
 							<div class="Pch_item_title" style="line-height: 95px;">배송
 								메세지</div>
 							<div class="Pch_item_input">
-								<textarea name="content" rows="5" cols="40"
+								<textarea name="message" id="message" rows="5" cols="40"
 									style="padding: 8px 13px; resize: none;"></textarea>
 								<br>
 								<p
@@ -468,84 +498,216 @@ input[type='checkbox'] {
 						</div>
 					</div>
 				</div>
-				<div class="Pch_color_button" onclick="nfire();"
+
+				<input type="hidden" name="sender_phone" id="sender_phone">
+				<input type="hidden" name="receiver_phone" id="receiver_phone">
+				<input type="hidden" name="address" id="address">
+
+				<div class="Pch_color_button" type="button"
+					onclick="publish(${totalPrice + (totalPrice < 50000 ? 3000 : 0)})"
 					style="width: 344px;">결제하기</div>
 			</div>
 
 
+		</form>
 
-			<div id="Pch_right">
-				<div id="Pch_moving_div" style="top: 198px; position: fixed;">
-					<div id="Pch_total">
-						<div class="Pch_header"
-							style="margin: 0 12px 5px; padding: 0; border-bottom: 1px solid #E6E6E6;">결제
-							상세</div>
-						<div class="Pch_total_item" style="font-size: 15px;">
-							주문 상품 수량 <span id="ea_count" style="font-weight: 500;">${totalQuantity}개</span>
+		<div id="Pch_right">
+			<div id="Pch_moving_div" style="position: fixed;">
+				<div id="Pch_total">
+					<div class="Pch_header"
+						style="margin: 0 12px 5px; padding: 0; border-bottom: 1px solid #E6E6E6;">결제
+						상세</div>
+					<div class="Pch_total_item" style="font-size: 15px;">
+						주문 상품 수량 <span id="ea_count" style="font-weight: 500;">${totalQuantity}개</span>
+					</div>
+					<div class="Pch_total_item">
+						<div class="Pch_total_title">판매금액</div>
+						<div class="Pch_total_price_d">
+							<fmt:formatNumber value="${totalPrice}" type="number" />
+							원
 						</div>
-						<div class="Pch_total_item">
-							<div class="Pch_total_title">판매금액</div>
-							<div class="Pch_total_price_d">
-								<c:out value="${totalPrice + (totalPrice < 50000 ? 3000 : 0)}" />
-								원
-							</div>
+					</div>
+					<div class="Pch_total_item">
+						<div class="Pch_total_title">배송비</div>
+						<div class="Pch_total_price_d">
+							<fmt:formatNumber value="${totalPrice < 50000 ? 3000 : 0}"
+								type="number" />
+							원
 						</div>
-						<div class="Pch_total_item">
-							<div class="Pch_total_title">배송비</div>
-							<div class="Pch_total_price_d">${totalPrice < 50000 ? 3000 : 0}원</div>
-						</div>
-
-						<div class="Pch_total_item"
-							style="margin-bottom: 12px; font-size: 13px; color: rgba(0, 0, 0, 0.6);">
-							<img src="/img/Pch_notice.png"
-								style="vertical-align: text-bottom;"> 50,000만원 이상 구매 시
-							무료배송
-						</div>
-
-
 					</div>
 
+					<div class="Pch_total_item"
+						style="margin-bottom: 12px; font-size: 13px; color: rgba(0, 0, 0, 0.6);">
+						<img src="/img/Pch_notice.png"
+							style="vertical-align: text-bottom;"> 50,000만원 이상 구매 시 무료배송
+					</div>
+					<div class="Pch_total_item"
+						style="height: 60px; line-height: 60px; background: #F9F9F9;">
+						<div class="Pch_total_title">총 결제금액</div>
+						<div id="Pch_total_price_final" class="Pch_total_price_d"
+							style="font-weight: 600; color: #FF4040;">
+							<fmt:formatNumber
+								value="${totalPrice + (totalPrice < 50000 ? 3000 : 0)}"
+								type="number" />
+							원
+						</div>
+					</div>
 
 
 				</div>
 
-
-
-
-
-
-
 			</div>
+
+
+		</div>
 	</div>
-
-
-
-
-
-
-
-
-	</form>
-
-
-
-
-
-
-
-
-
-
-
-
-	</div>
-
-
-
-
-
 
 	<%@ include file="Footer.jsp"%>
+
+	<script
+		src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<!-- CDN 방식 사용 -->
+	<script>
+		function execDaumPostcode() {
+			new daum.Postcode(
+					{
+						oncomplete : function(data) {
+							// 팝업을 통한 검색 결과 항목 클릭 시 실행
+							var addr = ''; // 주소_결과값이 없을 경우 공백 
+							var extraAddr = ''; // 참고항목
+
+							//사용자가 선택한 주소 타입에 따라 해당 주소 값을 가져온다.
+							if (data.userSelectedType === 'R') { // 도로명 주소를 선택
+								addr = data.roadAddress;
+							} else { // 지번 주소를 선택
+								addr = data.jibunAddress;
+							}
+
+							if (data.userSelectedType === 'R') {
+								if (data.bname !== ''
+										&& /[동|로|가]$/g.test(data.bname)) {
+									extraAddr += data.bname;
+								}
+								if (data.buildingName !== ''
+										&& data.apartment === 'Y') {
+									extraAddr += (extraAddr !== '' ? ', '
+											+ data.buildingName
+											: data.buildingName);
+								}
+								if (extraAddr !== '') {
+									extraAddr = ' (' + extraAddr + ')';
+								}
+							} else {
+								document.getElementById("UserAdd1").value = '';
+							}
+
+							// 선택된 우편번호와 주소 정보를 input 박스에 넣는다.
+							document.getElementById('zipCode').value = data.zonecode;
+							document.getElementById("address1").value = addr;
+							document.getElementById("address2").value += extraAddr;
+							document.getElementById("address2").focus(); // 우편번호 + 주소 입력이 완료되었음으로 상세주소로 포커스 이동
+
+						}
+					}).open();
+		}
+
+		// 전화번호 탭 넘어가는 기능
+		function moveNext(currentInput, nextInputId) {
+			// 현재 입력창의 값이 maxlength에 도달했을 때
+			if (currentInput.value.length === currentInput.maxLength) {
+				// 다음 입력창으로 포커스 이동
+				const nextInput = document.getElementById(nextInputId);
+				if (nextInput) {
+					nextInput.focus();
+				}
+			}
+		}
+
+		// 전화번호 합치기
+		function combineInfo() {
+
+			// 주문자 전화번호 결합
+			const senderPhone1 = document.getElementById("sender_phone1").value;
+			const senderPhone2 = document.getElementById("sender_phone2").value;
+			const senderPhone3 = document.getElementById("sender_phone3").value;
+			const fullSenderPhone = senderPhone1 + "-" + senderPhone2 + "-"
+					+ senderPhone3;
+			document.getElementById("sender_phone").value = fullSenderPhone;
+
+			// 수령자 전화번호 결합
+			const receiverPhone1 = document.getElementById("receiver_phone1").value;
+			const receiverPhone2 = document.getElementById("receiver_phone2").value;
+			const receiverPhone3 = document.getElementById("receiver_phone3").value;
+			const fullReceiverPhone = receiverPhone1 + "-" + receiverPhone2
+					+ "-" + receiverPhone3;
+			document.getElementById("receiver_phone").value = fullReceiverPhone;
+
+			// 주소 결합
+			const address1 = document.getElementById("address1").value;
+			const address2 = document.getElementById("address2").value;
+			const fulladdress = address1 + " " + address2;
+			document.getElementById("address").value = fulladdress;
+			
+			console.log(fullSenderPhone);
+			console.log(fullReceiverPhone);
+			console.log(fulladdress);
+
+		}
+	</script>
+	<script src="https://js.tosspayments.com/v1"></script>
+	<script>
+	  const clientKey = "test_ck_4yKeq5bgrpWqnYoeJ72BVGX0lzW6"; // Toss Payments Console에서 확인
+	  const tossPayments = TossPayments(clientKey);
+	  const successUrl = 'http://localhost:8093//arti/publish/finalize';
+	  const failUrl = 'http://localhost:8093/arti/payments/fail';
+	  const orderName = '동화책 결제';
+
+	  function publish(amount) {
+		    combineInfo(); // 폼 데이터 준비
+
+		    // 1. 폼 데이터 수집
+		    const formData = new FormData(document.getElementById('publishForm'));
+		    const jsonData = {};
+		    formData.forEach((value, key) => {
+		        jsonData[key] = value;
+		    });
+
+		    // 주문 번호 생성
+		    const orderId = 'order_' + new Date().getTime();
+		    jsonData['amount'] = amount; // 결제 금액 추가
+		    jsonData['orderId'] = orderId; // 주문 번호 추가
+
+		    // 2. 서버에 데이터 전달 및 결제 요청
+		    fetch('/arti/payments/request/pub', {
+		        method: 'POST',
+		        headers: { 'Content-Type': 'application/json' },
+		        body: JSON.stringify(jsonData),
+		    })
+		        .then((response) => response.json())
+		        .then((data) => {
+		            // Toss Payments 결제 요청
+		            TossPayments('test_ck_4yKeq5bgrpWqnYoeJ72BVGX0lzW6')
+		                .requestPayment('간편결제', {
+		                	amount: amount,
+			                orderId: orderId,
+			                orderName: orderName,
+			                successUrl: successUrl,
+			                failUrl: failUrl,
+		                })
+		                .catch((error) => {
+		                    console.error('결제 요청 실패:', error);
+		                    alert('결제 요청에 실패했습니다.');
+		                });
+		        })
+		        .catch((error) => console.error('서버 요청 실패:', error));
+		}
+
+
+
+
+
+	</script>
+
 
 </body>
 </html>

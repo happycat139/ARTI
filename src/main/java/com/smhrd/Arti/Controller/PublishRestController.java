@@ -55,7 +55,8 @@ public class PublishRestController {
 	            }
 
 	            // 서비스 호출
-	            publishService.addToCart(bookId, quantity, user.getEmail());
+	            publishService.addToCart(bookId, quantity, user.getEmail(), session);
+	            
 	            return ResponseEntity.ok("장바구니에 추가되었습니다.");
 	        } catch (IllegalArgumentException e) {
 	            return ResponseEntity.badRequest().body("잘못된 요청: " + e.getMessage());
@@ -76,6 +77,12 @@ public class PublishRestController {
 
 	            // 서비스 호출
 	            List<Map<String, Object>> cartBooks = publishService.getCartBooks(user.getEmail());
+	            
+	         // pub_idx를 세션에 추가 (예: 첫 번째 아이템의 pub_idx 저장)
+	            if (!cartBooks.isEmpty() && cartBooks.get(0).containsKey("pub_idx")) {
+	                session.setAttribute("pub_idx", cartBooks.get(0).get("pub_idx"));
+	            }
+	            
 	            return ResponseEntity.ok(cartBooks);
 	        } catch (IllegalArgumentException e) {
 	            return ResponseEntity.badRequest().body(Collections.emptyList());

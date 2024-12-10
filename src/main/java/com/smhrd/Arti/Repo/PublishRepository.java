@@ -15,5 +15,7 @@ public interface PublishRepository  extends JpaRepository<Publish, Long>{
 	
 	// 특정 사용자의 장바구니 조회
 	Optional<Publish> findByEmailAndStatus(String email, PublishStatus status);
+	
+	Optional<Publish> findByStatus(PublishStatus status); // 상태로 장바구니 검색
 
 }
