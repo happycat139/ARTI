@@ -103,7 +103,7 @@
 					placeholder="예시) 주인공의 심리를 자세히 묘사해줘, 목표를 가지는 이유를 설명해줘"></textarea>
 				<button class="Modify-SBPModal-btn">생성하기</button>
 				<br>
-				<div class="Modify-SBPModal-credit">잔여 크레딧 : 31</div>
+				<div class="Modify-SBPModal-credit">잔여 크레딧 : ${user.coin}</div>
 			</div>
 		</div>
 	</div>

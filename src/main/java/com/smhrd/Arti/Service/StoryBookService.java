@@ -192,6 +192,15 @@ public class StoryBookService {
 	    }
 		
 		
+		public void updateImagePng(Long bookIdx, String imageUrl) {
+	        StoryBook book = repo1.findById(bookIdx)
+	        		.orElseThrow(() -> new RuntimeException("동회를 찾을 수 없습니다."));
+	        book.setBook_thumbnail(imageUrl);
+	        repo1.save(book);
+	    }
+		
+		
+		
 		/* 동화책 목록 가져오는 메소드 (내동화책 관련) */
 		public List<StoryBook> getStoryBooksByEmail(String email) {
 			return repo1.findByEmail(email);

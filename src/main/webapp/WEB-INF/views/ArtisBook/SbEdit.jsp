@@ -612,8 +612,8 @@ body {
 	font-style: normal;
 	font-weight: 400;
 	line-height: 46px;
-	float: left;
-	margin: 0 0 20px 30px;
+	bottom: 20px;
+	right:20px;
 }
 
 .SbEdit-Option {
@@ -676,7 +676,7 @@ body {
 	border-radius: 15px;
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 	width: 650px;
-	height: 350px;
+	height: 380px;
 	padding: 20px;
 	text-align: center;
 	font-family: "Noto Sans KR", sans-serif;
@@ -758,6 +758,33 @@ body {
 	font-family: "Noto Sans KR", sans-serif;
 	font-weight: bold;
 }
+
+.Modify-SbEdit_THUMB {
+    position: relative;
+    text-align: center;
+}
+
+.Modify-SbEdit_THUMB button {
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #6133e2;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#articoin {
+	width:40px;
+	height:36px;
+}
+.SbPlotModifyModalBack_articoin{
+	display: flex;
+	text-align:right;
+	justify-content: right;
+	align-items: center;
+	margin-right: 130px;
+}
+
 </style>
 <body>
 	<%@ include file="SbEditHeader.jsp"%>
@@ -791,7 +818,7 @@ body {
 					<p class="vertical-text">${storybook.book_name}</p>
 				</div>
 				<div class="SbEdit_Writer" style="align-self: flex-end;">
-					<p class="vertical-text">${storybook.author}지음</p>
+					<p class="vertical-text">${storybook.author} 지음</p>
 				</div>
 				<div class="SbEdit_Publisher">
 					<img src="/img/publisher.png">
@@ -893,11 +920,13 @@ body {
 					<button class="modal-button upload-button"
 						onclick="document.getElementById('uploadFileInput').click()">사진
 						업로드하기</button>
-
-
-
 					<button class="modal-button" onclick="generateBookImage()">AI
 						이미지 생성</button>
+					
+					<div class="SbPlotModifyModalBack_articoin" >- 10 아티코인 <img src="/img/ArtiCoin.png" id="articoin"></div>	
+						
+						
+						
 				</div>
 			</div>
 
@@ -1004,9 +1033,14 @@ body {
 					<button class="Modify-SBPModal-btn_THUMB" type="submit">생성하기</button>
 				</form>
 				<br>
-				<div class="Modify-SBPModal-credit_THUMB">잔여 크레딧 : 31</div>
+				<div class="Modify-SBPModal-credit_THUMB">잔여 크레딧 :
+					${user.coin}</div>
 				<div class="Modify-SbEdit_THUMB">
-					<b>직접 그림 업로드</b>
+					<input type="file" id="uploadFileInput1" style="display: none;"
+						onchange="uploadImagePng(event)">
+					<button class="Modify-SbEdit_THUMB button" type="button"
+						onclick="document.getElementById('uploadFileInput1').click()">
+						사진 업로드하기</button>
 				</div>
 			</div>
 		</div>
@@ -1491,6 +1525,71 @@ function uploadImage(event) {
             modal.style.display = "none";
         });
 }
+
+
+function uploadImagePng(event) {
+    const file = event.target.files[0]; // 선택된 파일 가져오기
+    if (!file) {
+        alert("파일을 선택해주세요!");
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("bookIdx", ${storybook.book_idx});
+    console.log(${storybook.book_idx});
+
+    // 파일을 서버로 전송
+    fetch("/arti/book/upload-thumbnail-png", {
+        method: "POST",
+        body: formData,
+    })
+        .then(function (response) {
+            if (!response.ok) {
+                throw new Error("썸네일 업로드 실패");
+            }
+            return response.text(); // 새 썸네일 URL 반환
+        })
+        .then(function (thumbnailUrl) {
+            console.log("업데이트된 썸네일 URL:", thumbnailUrl);
+
+            // 썸네일 업데이트
+            const thumbnailContainer = document.querySelector(".SbEdit_BookThumb");
+            const bookBackImage = document.querySelector("#SbEdit_BookBackImg .SbEdit_BackImg");
+            const bookBackImage2 = document.querySelector(".SbEdit_BackImg2");
+
+            if (thumbnailContainer) {
+                thumbnailContainer.innerHTML =
+                    '<img class="SbEdit_BookThumb_icon2" src="' +
+                    thumbnailUrl +
+                    '" alt="책 썸네일" onclick="openThumbnailModal()">';
+            } else {
+                console.error("썸네일 컨테이너를 찾을 수 없습니다.");
+            }
+
+            if (bookBackImage) {
+                bookBackImage.src = thumbnailUrl;
+            } else {
+                console.error("책 배경 이미지를 찾을 수 없습니다.");
+            }
+
+            if (bookBackImage2) {
+                bookBackImage2.src = thumbnailUrl;
+            } else {
+                console.error("책 배경 이미지를 찾을 수 없습니다.");
+            }
+            // 모달 창 닫기
+            const modal = document.getElementById("SbPlotModifyModalBack_THUMB");
+            if (modal) {
+                modal.style.display = "none";
+            }
+        })
+        .catch(function (error) {
+            console.error("Error:", error);
+            alert("이미지 업로드 중 문제가 발생했습니다. 다시 시도해주세요.");
+        });
+}
+
 
 
 

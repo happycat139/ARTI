@@ -482,8 +482,8 @@ function showCartItems() {
                     const img = document.createElement('img');
                     img.src = item.book_thumbnail || '/img/default-thumbnail.png';
                     img.alt = item.book_name || '동화책';
-                    img.style.width = '50px'; // 적절한 크기 조정
-                    img.style.height = '50px';
+                    img.style.width = '80px'; // 적절한 크기 조정
+                    img.style.height = '80px';
 
                     // 책 이름 추가
                     const bookName = document.createElement('p');
