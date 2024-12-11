@@ -80,7 +80,7 @@
                 <div class="SO_PageLabel">줄거리1</div>
                 <img alt="다음버튼" src="/img/next-grey.svg">
             </div>
-            <button class="SO_submitBtn outline" onclick="location.href='/arti/book/plot'">
+            <button class="SO_submitBtn outline" onclick="showLoadingAndRedirect('/arti/book/plot')">
                 선택한 줄거리로 플롯 생성 <img src="/img/next-button-icon.svg" alt="다음버튼?" class="SO_nextIcon">
             </button>
         </div>
@@ -96,7 +96,7 @@
                           placeholder="예시) 주인공을 강아지로 수정해줘, 바닷속 보물을 찾아 떠나는 모험 이야기로 보고싶어" 
                           autofocus></textarea>
                 <button class="SO_modify_modal_Btn">생성하기</button>
-                <div class="SO_modify_ArtiCoin">잔여 아티코인 : 54</div>
+                <div class="SO_modify_ArtiCoin">잔여 아티코인 : ${user.coin}</div>
                 </form>
             </div>
         </div>
@@ -155,6 +155,14 @@ if (regenerateCount >= 3) {
     createButton.innerText = "재생성 제한 초과"; // 텍스트 변경
     createButton.classList.add("disabled"); // 비활성화 스타일 추가 (옵션)
 }
+
+function showLoadingAndRedirect(url) {
+    showLoadingScreen(); // 로딩 화면 표시
+    setTimeout(() => {
+        location.href = url; // 페이지 이동
+    }, 500); // 로딩 화면 표시를 위한 딜레이 추가 (필요 시 조정 가능)
+}
+
 
 
 </script>

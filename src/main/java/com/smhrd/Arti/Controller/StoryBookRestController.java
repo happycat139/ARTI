@@ -199,6 +199,30 @@ public class StoryBookRestController {
                     .body("이미지 업로드 또는 저장 중 오류 발생: " + e.getMessage());
         }
     }
+
+    
+    @PostMapping("/upload-thumbnail-png")
+    public ResponseEntity<String> uploadImagePng(
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("bookIdx") Long bookIdx) {
+
+        try {
+        	
+        	// 0. 폴더 지정
+        	String folderName = "User/ArtiBook";
+        	
+            // 1. 파일을 클라우드에 업로드
+            String uploadedImageUrl = googleCloudStorageService.uploadFile(file, folderName);
+
+            // 2. DB에 이미지 경로 저장
+            service.updateThumbnail(bookIdx, uploadedImageUrl);
+
+            return ResponseEntity.ok(uploadedImageUrl); // 클라이언트에 이미지 URL 반환
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("이미지 업로드 또는 저장 중 오류 발생: " + e.getMessage());
+        }
+    }
     
     
     

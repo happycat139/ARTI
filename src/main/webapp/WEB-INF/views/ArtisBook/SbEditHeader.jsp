@@ -143,7 +143,7 @@ body {
 
     <!-- 제목 (중앙 정렬) -->
     <div class="SBCH_title-container">
-        <p>제목</p>
+        <p>${storybook.book_name}</p>
     </div>
 
     <!-- 오른쪽 설정 및 저장 -->
