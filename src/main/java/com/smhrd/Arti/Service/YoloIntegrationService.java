@@ -51,6 +51,7 @@ public class YoloIntegrationService {
 	            
 	            System.out.println("-------------");
 	            System.out.println("yoloResultJson : " + yoloResultJson);
+	            System.out.println("-------------");
 	            
 	            JsonNode analysisResultNode = rootNode.get("analysis_result");
 
@@ -64,6 +65,8 @@ public class YoloIntegrationService {
 	            		analysisResultNode.toString(),
 	                    new TypeReference<List<DetectedObject>>() {}
 	            );
+	            
+	            System.out.println("YoloIntegration detectedObjects : " + detectedObjects);
 
 	            // file_idx를 각 객체에 설정하고 저장
 	            detectedObjects.forEach(obj -> {

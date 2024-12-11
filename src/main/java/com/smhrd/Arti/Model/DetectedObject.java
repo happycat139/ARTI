@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,15 +30,25 @@ public class DetectedObject {
 	
 	private Long file_idx;
 
+	@JsonProperty("name")
 	private String obj_name;
 	
+	@JsonProperty("xmin")
 	private float x_min;
+	
+	@JsonProperty("ymin")
 	private float y_min;
+	
+	@JsonProperty("xmax")
 	private float x_max;
+	
+	@JsonProperty("ymax")
 	private float y_max;
 	
+	@JsonProperty("confidence")
 	private float obj_confidence;
 	
+	@JsonProperty("class")
 	private int obj_class;
 	
 	@CreationTimestamp

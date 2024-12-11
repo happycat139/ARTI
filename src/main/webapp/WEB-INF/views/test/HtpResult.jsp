@@ -3,30 +3,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>YOLO 분석 결과</title>
+    <title>진단 결과</title>
 </head>
 <body>
-<%@ include file="HtpHeader.jsp" %>
-<h1>YOLOv5 분석 결과</h1>
+    <h1>진단 결과</h1>
 
-    <!-- 탐지된 객체 목록 -->
-    <h2>탐지된 객체</h2>
+    <p><strong>사용자 이름:</strong> ${htpResult.userName}</p>
+    <p><strong>총합 점수:</strong> ${htpResult.totalScore}</p>
+    <p><strong>총 해설:</strong> ${htpResult.summary}</p>
+
+    <h2>증상별 점수</h2>
     <table border="1">
         <thead>
             <tr>
-                <th>객체 이름</th>
-                <th>신뢰도</th>
-                <th>좌표 (Xmin, Ymin, Xmax, Ymax)</th>
-                <th>클래스</th>
+                <th>증상</th>
+                <th>점수</th>
             </tr>
         </thead>
         <tbody>
-            <c:forEach var="object" items="${detectedObjects}">
+            <c:forEach var="entry" items="${htpResult.symptomScores.entrySet()}">
                 <tr>
-                    <td>${object.obj_name}</td>
-                    <td>${object.obj_confidence}</td>
-                    <td>(${object.x_min}, ${object.y_min}, ${object.x_max}, ${object.y_max})</td>
-                    <td>${object.obj_class}</td>
+                    <td>${entry.key}</td>
+                    <td>${entry.value}</td>
                 </tr>
             </c:forEach>
         </tbody>
