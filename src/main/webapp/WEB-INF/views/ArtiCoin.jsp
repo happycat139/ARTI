@@ -110,29 +110,29 @@ h3 {
 		<div class="coin-buttons">
 			<div class="coin-div">
 				<div class="coin-spans">
-					<span class="amount">1000원</span> <br> <span
-						class="description">+1 아티코인</span>
+					<span class="amount">5000원</span> <br> <span
+						class="description">+500 아티코인</span>
 				</div>
 				<button class="coin-btn" data-value="1000" onclick="next(1000);">충전하기</button>
 			</div>
 			<div class="coin-div">
 				<div class="coin-spans">
 					<span class="amount">10000원</span> <br> <span
-						class="description">+10 아티코인</span>
+						class="description">+1000 아티코인</span>
 				</div>
 				<button class="coin-btn" data-value="10000" onclick="next(10000);">충전하기</button>
 			</div>
 			<div class="coin-div">
 				<div class="coin-spans">
 					<span class="amount">30000원</span> <br> <span
-						class="description">+30 아티코인</span>
+						class="description">+3000 아티코인</span>
 				</div>
 				<button class="coin-btn" data-value="30000" onclick="next(30000);">충전하기</button>
 			</div>
 			<div class="coin-div">
 				<div class="coin-spans">
 					<span class="amount">50000원</span> <br> <span
-						class="description">+50 아티코인</span>
+						class="description">+5000 아티코인</span>
 				</div>
 				<button class="coin-btn" data-value="50000" onclick="next(50000);">충전하기</button>
 			</div>

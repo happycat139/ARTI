@@ -210,7 +210,7 @@ public class StoryBookController {
 	
 	
 	@PostMapping("/generate-all-images")
-	public ResponseEntity<String> generateAllImages(@RequestParam("book_idx") Long bookIdx) {
+	public ResponseEntity<String> generateAllImages(@RequestParam("book_idx") Long bookIdx, HttpSession session) {
 	    try {
 	        // 1. DB에서 모든 페이지의 줄거리 가져오기
 	        List<StoryContent> contents = service.getAllContentByBookIdx(bookIdx);
@@ -225,7 +225,7 @@ public class StoryBookController {
 	        		    "텍스트는 무조건 빼 줘." ;
 
 	            // 3. DALL-E API로 이미지 생성
-	            String imageUrl = dallEApiService.generateImage(prompt);
+	            String imageUrl = dallEApiService.generateImage(prompt, session);
 
 	            // 4. 생성된 이미지 경로를 Google Cloud Storage에 업로드
 	            String uploadedImageUrl = googleCloudStorageService.uploadImageFromUrl(imageUrl);
@@ -253,6 +253,24 @@ public class StoryBookController {
 
 		
 		return "ArtisBook/StoryBook";
+	}
+	
+	
+	@GetMapping("/useredit")
+	public String SbUserEditPage(Model model, HttpSession session, @RequestParam("book_name") String bookName) {
+
+		 StoryBook storybook = service.createEmptyStoryBook(session, bookName);
+		 List<StoryContent> storyContentList = service.createEmptyStoryContent(storybook.getBook_idx());
+		 	 
+		 model.addAttribute("storybook", storybook);
+		 model.addAttribute("storyContentList", storyContentList);
+
+		return "ArtisBook/SbUserEdit";
+	}
+	
+	@GetMapping("/title")
+	public String SbBookNamepage() {
+		return "ArtisBook/SbBookName";
 	}
 	
 	

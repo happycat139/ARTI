@@ -32,7 +32,7 @@ $(document).ready(function() {
         <div class="SBC_index-page">
         <form action="/arti/book/select" method="get">
             <div id="SBC_name" class="SBC_title">안녕하세요 ___ 작가님!</div>
-            <input id="SBC_input-field" class="SBC_writer" name="author" placeholder="작가님의 이름을 알려주세요." autocomplete="off">
+            <input id="SBC_input-field" class="SBC_writer" name="author" placeholder="작가님의 이름을 알려주세요." autocomplete="off" required>
             <button type="submit" id="SBC_next-button" class="SBC_submit-button index">다음</button>
         </form>
         </div>

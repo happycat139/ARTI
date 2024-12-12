@@ -26,7 +26,7 @@
     		<br>
     			제목도 내용도 내가 직접 써요
     		</div>
-    		<button class="SBS_select_button empty">글 편집 단계로</button>
+    		<button class="SBS_select_button empty" onclick="location.href='/arti/book/title'">글 편집 단계로</button>
     	</div>
     	
     	<div class="SBS_select_box">
