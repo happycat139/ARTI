@@ -230,7 +230,13 @@ body {
 	padding: 50px;
 }
 
+.SbEdit_page_num {
+	position: absolute; /* 화면 기준으로 고정 */
+    bottom: 20px; /* 화면의 하단에 배치 */
+    right: 20px; /* 왼쪽 시작 */
+    color: gray;
 
+}
 </style>
 </head>
 <body>
@@ -269,6 +275,7 @@ body {
 
 				<div class="page" id="Cp">
 					<p class="SbSample_Content">${content.content}</p>
+					<div class="SbEdit_page_num">${content.pageNum}</div>
 				</div>
 			
 		</c:forEach>

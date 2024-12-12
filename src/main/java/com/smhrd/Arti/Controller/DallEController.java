@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.smhrd.Arti.Service.DallEApiService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 public class DallEController {
 	
@@ -14,8 +16,8 @@ public class DallEController {
 	private DallEApiService dallEApiService;
 	
 	@GetMapping("/generate-image")
-	public String generateImage(@RequestParam String Iprompt) {
-		return dallEApiService.generateImage(Iprompt);
+	public String generateImage(@RequestParam String Iprompt, HttpSession session) {
+		return dallEApiService.generateImage(Iprompt, session);
 	}
 	
 	

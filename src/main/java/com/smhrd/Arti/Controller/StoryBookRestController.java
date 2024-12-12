@@ -22,6 +22,8 @@ import com.smhrd.Arti.Service.DallEApiService;
 import com.smhrd.Arti.Service.GoogleCloudStorageService;
 import com.smhrd.Arti.Service.StoryBookService;
 
+import jakarta.servlet.http.HttpSession;
+
 @RestController
 @RequestMapping("/arti/book")
 public class StoryBookRestController {
@@ -88,7 +90,7 @@ public class StoryBookRestController {
 	@PostMapping("/generate-thumbnail")
     public ResponseEntity<String> generateThumbnail(
             @RequestParam("Iprompt") String Iprompt,
-            @RequestParam("book_idx") Long bookIdx) {
+            @RequestParam("book_idx") Long bookIdx, HttpSession session) {
 		
 		System.out.println(Iprompt);
 		System.out.println(bookIdx);
@@ -100,11 +102,11 @@ public class StoryBookRestController {
         		    "\n 고퀄리티 그림으로 그리고, 따뜻한 색감과 부드러운 수채화 스타일로 만들어줘. " +
         		    "\n 주요 인물과 배경 요소를 강조해." +
         		    "\n 아이들이 좋아할 수 있는 밝고 매력적인 분위기를 연출해줘.." +
-        		    "\n 중요: 어떠한 텍스트 요소도 완전히 배제해야 해." ;;
+        		    "\n 중요: 어떠한 텍스트 요소도 완전히 배제해야 해." ;
         	
         	
             // 1. AI API를 통해 이미지 생성
-            String ImageUrl = dallEApiService.generateImage(prompt);
+            String ImageUrl = dallEApiService.generateImage(prompt, session);
 
             // 2. Google Cloud Storage에 이미지 업로드
             String uploadedImageUrl = googleCloudStorageService.uploadImageFromUrl(ImageUrl);
@@ -138,7 +140,7 @@ public class StoryBookRestController {
     
     
     @PostMapping("/generate-image")
-    public ResponseEntity<String> generateImage(@RequestBody Map<String, Object> request) {
+    public ResponseEntity<String> generateImage(@RequestBody Map<String, Object> request, HttpSession session) {
     	
     	// JSON 데이터에서 contentIdx 추출
         Long contentIdx = Long.valueOf(request.get("content_idx").toString());
@@ -158,7 +160,7 @@ public class StoryBookRestController {
         		    "\n 중요: 어떠한 텍스트 요소도 완전히 배제해야 해." ;
 
             // 3. AI API를 통해 이미지 생성
-            String imageUrl = dallEApiService.generateImage(prompt);
+            String imageUrl = dallEApiService.generateImage(prompt, session);
             
             System.out.println(imageUrl);
 

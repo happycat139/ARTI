@@ -200,8 +200,7 @@ body {
 	position: relative; /* 자식 요소의 절대 위치를 기준으로 함 */
 }
 
-.SbEdit_PageLeft, .SbEdit_PageRight, .SbEdit_PageLeft1,
-	.SbEdit_PageRight1 {
+.SbEdit_PageLeft, .SbEdit_PageRight, .SbEdit_PageLeft1, .SbEdit_PageRight1 {
 	flex: 1;
 	background-color: #fff;
 	position: relative; /* 텍스트 중앙 정렬을 위한 설정 */
@@ -211,6 +210,7 @@ body {
 	height: 100%; /* 부모 요소의 높이에 맞추기 */
 	border-right: 1px solid rgba(0, 0, 0, 0.1);
 }
+
 
 .SbEdit_PageLeft1 {
 	background-color: #F0E9EC;
@@ -613,7 +613,7 @@ body {
 	font-weight: 400;
 	line-height: 46px;
 	bottom: 20px;
-	right:20px;
+	right: 20px;
 }
 
 .SbEdit-Option {
@@ -741,45 +741,28 @@ body {
 	color: #555;
 }
 
-#generateAllImagesButton {
-	position: fixed; /* 화면에 고정 */
-	bottom: 20px; /* 하단에서 20px 간격 */
-	right: 20px; /* 오른쪽에서 20px 간격 */
-	display: inline-block;
-	padding: 15px 30px;
-	margin: 10px;
-	font-size: 20px;
-	color: #fff;
-	background-color: #6133e2;
-	border: none;
-	border-radius: 10px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-	font-family: "Noto Sans KR", sans-serif;
-	font-weight: bold;
-}
-
 .Modify-SbEdit_THUMB {
-    position: relative;
-    text-align: center;
+	position: relative;
+	text-align: center;
 }
 
 .Modify-SbEdit_THUMB button {
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #6133e2;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
+	padding: 10px 20px;
+	font-size: 16px;
+	color: #6133e2;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
 }
 
 #articoin {
-	width:40px;
-	height:36px;
+	width: 40px;
+	height: 36px;
 }
-.SbPlotModifyModalBack_articoin{
+
+.SbPlotModifyModalBack_articoin {
 	display: flex;
-	text-align:right;
+	text-align: right;
 	justify-content: right;
 	align-items: center;
 	margin-right: 130px;
@@ -792,7 +775,6 @@ body {
     color: gray;
 
 }
-
 
 </style>
 <body>
@@ -827,7 +809,7 @@ body {
 					<p class="vertical-text">${storybook.book_name}</p>
 				</div>
 				<div class="SbEdit_Writer" style="align-self: flex-end;">
-					<p class="vertical-text">${storybook.author} 지음</p>
+					<p class="vertical-text">${storybook.author}지음</p>
 				</div>
 				<div class="SbEdit_Publisher">
 					<img src="/img/publisher.png">
@@ -932,11 +914,13 @@ body {
 						업로드하기</button>
 					<button class="modal-button" onclick="generateBookImage()">AI
 						이미지 생성</button>
-					
-					<div class="SbPlotModifyModalBack_articoin" >- 10 아티코인 <img src="/img/ArtiCoin.png" id="articoin"></div>	
-						
-						
-						
+
+					<div class="SbPlotModifyModalBack_articoin">
+						- 10 아티코인 <img src="/img/ArtiCoin.png" id="articoin">
+					</div>
+
+
+
 				</div>
 			</div>
 
@@ -1057,10 +1041,6 @@ body {
 
 
 
-
-
-
-		<button id="generateAllImagesButton">AI 그림 전체 생성</button>
 
 	</div>
 
@@ -1610,3 +1590,4 @@ function uploadImagePng(event) {
 </script>
 </body>
 </html>
+>

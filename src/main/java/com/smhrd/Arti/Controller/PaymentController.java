@@ -39,7 +39,7 @@ public class PaymentController {
 	    // 성공한 정보 JSP로 전달
 	    model.addAttribute("orderId", orderId);
 	    model.addAttribute("amount", amount);
-	    model.addAttribute("coinsAdded", amount / 1000);
+	    model.addAttribute("coinsAdded", amount / 10);
 
 	    // 성공 페이지로 이동
 	    return "success"; // success.jsp를 반환
