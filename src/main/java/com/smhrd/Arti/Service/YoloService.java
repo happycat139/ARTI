@@ -60,8 +60,6 @@ public class YoloService {
 			// YOLO 결과 파싱 및 저장
 			List<DetectedObject> detectedObjects = yoloIntegrationService.parseAndSaveResults(yoloResultJson, upload.getFile_idx() );
 			
-			System.out.println("YoloService detectedObjects : " + detectedObjects);
-			
 			return detectedObjects;
 		} catch (Exception e) {
 			throw new RuntimeException("이미지 처리 중 오류 발생: " + e.getMessage(), e);

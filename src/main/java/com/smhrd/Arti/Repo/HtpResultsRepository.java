@@ -9,5 +9,7 @@ import java.util.List;
 public interface HtpResultsRepository extends JpaRepository<HtpResult, Long> {
 	
 	List<HtpResult> findByUserName(String userName);
+	
+	List<HtpResult> findByFileIdx(Long fileIdx);
 
 }

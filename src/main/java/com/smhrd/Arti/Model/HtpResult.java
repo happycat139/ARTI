@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 @Entity
 @Data
 @Builder
@@ -17,7 +19,10 @@ import java.time.LocalDateTime;
 public class HtpResult {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long hId;
+    
+    @Column(name = "file_idx")
+    private Long fileIdx;
 
     @Column(name = "user_name", nullable = false)
     private String userName;
@@ -35,6 +40,7 @@ public class HtpResult {
     private String summary;
 
     @Column(name = "created_at", updatable = false, nullable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 }
 

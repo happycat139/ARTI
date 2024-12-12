@@ -43,15 +43,11 @@ public class YoloIntegrationService {
 	}
 	
 	// 결과 저장하기
-	   public List<DetectedObject> parseAndSaveResults(String yoloResultJson, Long fileIdx) {
-	        try {
+	public List<DetectedObject> parseAndSaveResults(String yoloResultJson, Long fileIdx) {
+		try {
 	        	
 	        	// JSON 파싱
 	            JsonNode rootNode = objectMapper.readTree(yoloResultJson);
-	            
-	            System.out.println("-------------");
-	            System.out.println("yoloResultJson : " + yoloResultJson);
-	            System.out.println("-------------");
 	            
 	            JsonNode analysisResultNode = rootNode.get("analysis_result");
 
@@ -66,14 +62,12 @@ public class YoloIntegrationService {
 	                    new TypeReference<List<DetectedObject>>() {}
 	            );
 	            
-	            System.out.println("YoloIntegration detectedObjects : " + detectedObjects);
-
 	            // file_idx를 각 객체에 설정하고 저장
 	            detectedObjects.forEach(obj -> {
 	                obj.setFile_idx(fileIdx); // 외래 키 설정
 	                objectRepository.save(obj); // DB에 저장
 	            });
-
+	            
 	            return detectedObjects; // 저장된 객체 리스트 반환
 	        } catch (Exception e) {
 	            throw new RuntimeException("YOLO 결과 처리 중 오류 발생: " + e.getMessage(), e);
