@@ -19,6 +19,7 @@ public class HtpResultDTO {
 	 @Column(name = "file_idx")
 	 private Long fileIdx;						// 파일 식별자
 	 private Map<String, Integer> symptomScores; // 증상별 점수 (예: "우울" -> 3, "공격성" -> 2)
+	 private Map<String, String> symptomExplanations;
 	 private int totalScore;                    // 총합 점수
 	 private String summary;                    // 총 해설
 	

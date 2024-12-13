@@ -42,5 +42,11 @@ public class HtpResult {
     @Column(name = "created_at", updatable = false, nullable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
+    
+    @Column(name = "explanations", columnDefinition = "TEXT") 
+    private String explanations;
+    
+    // 파일 이름(링크)
+ 	private String file_name; 
 }
 

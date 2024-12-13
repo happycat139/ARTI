@@ -3,6 +3,7 @@ package com.smhrd.Arti.Model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,8 +22,9 @@ public class Upload {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "file_idx")
 	// 파일 식별자
-	private Long file_idx;
+	private Long fileIdx;
 	
 	// 파일 이름(링크)
 	private String file_name;
