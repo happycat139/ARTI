@@ -34,6 +34,12 @@ public class ViewController {
 		return "Test";
 	}
 	
+	/* 테스터 호출 */
+	@GetMapping("/new")
+	public String NewFile() {
+		return "NewFile";
+	}
+	
 	/* 심리검사 관련 페이지 */
 	
 	/* 심리검사 페이지 호출 */
