@@ -93,7 +93,7 @@ select, input, textarea, a {
 	margin-left: 40px;
 }
         
-/* 로그인/회원가입 버튼 스타일 */
+/* 로그인/회원가입 버튼 스타일 */s
 .auth-button {
     display: inline-flex;
     align-items: center;
