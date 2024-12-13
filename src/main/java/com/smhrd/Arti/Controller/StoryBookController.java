@@ -67,20 +67,34 @@ public class StoryBookController {
 	}
 
 	// 동화책 에디터 페이지 호출
+	// 동화책 에디터 페이지 호출
 	@GetMapping("/edit")
 	public String SbEditPage(Model model, Long book_idx) {
-		
-		// 이미지 프롬프트 생성 (매개변수 book_idx)
-		chatGptService.makeImgPrompt(book_idx);
+	    
+	    // StoryBook 가져오기
+	    StoryBook storybook = service.getStoryBook(book_idx);
+	    model.addAttribute("storybook", storybook);
 
-		StoryBook storybook = service.getStoryBook(book_idx);
-		model.addAttribute("storybook", storybook);
+	    // StoryContent 리스트 가져오기
+	    List<StoryContent> storyContentList = service.getStoryContent(book_idx);
+	    model.addAttribute("storyContentList", storyContentList);
 
-		List<StoryContent> storyContentList = service.getStoryContent(book_idx);
-		model.addAttribute("storyContentList", storyContentList);
+	    // imgPrompt 필드가 null인지 확인
+	    boolean hasNullImgPrompt = storyContentList.stream()
+	            .anyMatch(content -> content.getImgPrompt() == null);
 
-		return "ArtisBook/SbEdit";
+	    // null 값이 있으면 GPT를 호출해 이미지 프롬프트 생성
+	    if (hasNullImgPrompt) {
+	        chatGptService.makeImgPrompt(book_idx);
+
+	        // 프롬프트 생성 후 리스트를 다시 갱신
+	        storyContentList = service.getStoryContent(book_idx);
+	        model.addAttribute("storyContentList", storyContentList);
+	    }
+
+	    return "ArtisBook/SbEdit";
 	}
+
 
 	// 임시 줄거리 페이지 호출
 	@GetMapping("/plot")
@@ -276,7 +290,7 @@ public class StoryBookController {
 		return "ArtisBook/SbBookName";
 	}
 	
-	
+
 	
 	
 	
