@@ -69,6 +69,9 @@ public class StoryBookController {
 	// 동화책 에디터 페이지 호출
 	@GetMapping("/edit")
 	public String SbEditPage(Model model, Long book_idx) {
+		
+		// 이미지 프롬프트 생성 (매개변수 book_idx)
+		chatGptService.makeImgPrompt(book_idx);
 
 		StoryBook storybook = service.getStoryBook(book_idx);
 		model.addAttribute("storybook", storybook);

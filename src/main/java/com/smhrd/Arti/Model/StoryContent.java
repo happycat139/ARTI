@@ -43,4 +43,8 @@ public class StoryContent {
 
 	   // 그림 구분
 	   private String image_type;
+	   
+	   // 이미지 생성용 프롬포트
+	   @Column(name = "img_prompt", columnDefinition = "TEXT")
+	   private String imgPrompt;
 }
