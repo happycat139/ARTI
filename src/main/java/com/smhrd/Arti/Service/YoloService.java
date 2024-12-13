@@ -37,6 +37,14 @@ public class YoloService {
 		this.yoloIntegrationService = yoloIntegrationService;
 	}
 	
+	// fileIdx값으로 이미지URL 찾아오기
+	public String getUploadedImageUrl(Long fileIdx) {
+	    return uploadRepository.findByFileIdx(fileIdx)
+	            .map(Upload::getFile_name)
+	            .orElseThrow(() -> new RuntimeException("파일 URL을 찾을 수 없습니다: file_idx=" + fileIdx));
+	}
+	
+	
 	public List<DetectedObject> processImage(MultipartFile file, String email) {
 		
 		try {
@@ -58,9 +66,7 @@ public class YoloService {
 			String yoloResultJson = yoloIntegrationService.analyzeImage(imageUrl);
 			
 			// YOLO 결과 파싱 및 저장
-			List<DetectedObject> detectedObjects = yoloIntegrationService.parseAndSaveResults(yoloResultJson, upload.getFile_idx() );
-			
-			System.out.println("YoloService detectedObjects : " + detectedObjects);
+			List<DetectedObject> detectedObjects = yoloIntegrationService.parseAndSaveResults(yoloResultJson, upload.getFileIdx() );
 			
 			return detectedObjects;
 		} catch (Exception e) {
