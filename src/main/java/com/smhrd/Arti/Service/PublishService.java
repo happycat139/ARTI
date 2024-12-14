@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -170,6 +172,11 @@ public class PublishService {
         // 데이터 저장
         publishRepository.save(publish);
     }
+    
+    public Page<Publish> getPublishedObjects(Pageable pageable) {
+        return publishRepository.findAllByStatusOrderByPub_idxDesc(PublishStatus.PUBLISHED, pageable);
+    }
+    
 	    
 	    
 }

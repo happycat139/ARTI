@@ -99,6 +99,12 @@ public class ViewController {
 		return "ArtiCoin";
 	}
 	
+	// 아티코인 충전 페이지 호출
+		@GetMapping("/arti/dashboard")
+		public String ArtiDashboardPage() {
+			return "Dashboard";
+		}
+	
 	
 	
 }

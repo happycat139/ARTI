@@ -11,7 +11,8 @@
 <link rel="icon" href="/img/favicon.ico">
 <style>
 @font-face {
-	font-family: 'UhBeeSe_hyun' src : 
+	font-family: 'UhBeeSe_hyun' src :  
+		
 		url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeSe_hyun.woff')
 		format('woff');
 	font-weight: normal;
@@ -83,14 +84,9 @@ h1, h2, h3, h4, h5, h6, strong, b {
 	<div id="root">
 		<div id="content">
 
-			<c:choose>
-				<c:when test="${user != null && user.role == 'ADMIN'}">
-					<%@ include file="AdminHeader.jsp"%>
-				</c:when>
-				<c:otherwise>
-					<%@ include file="Header.jsp"%>
-				</c:otherwise>
-			</c:choose>
+
+			<%@ include file="Header.jsp"%>
+
 
 			<%@ include file="MainContainer.jsp"%>
 			<%@ include file="SubContainer.jsp"%>

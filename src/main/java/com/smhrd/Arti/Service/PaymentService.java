@@ -80,7 +80,7 @@ public class PaymentService {
 	                System.out.println("Toss Payments 검증 응답: " + responseBody);
 
 	                    // 결제 성공 처리
-	                    int coinsToAdd = amount / 1000;
+	                    int coinsToAdd = amount / 10;
 	                    user.setCoin(user.getCoin() + coinsToAdd);
 	                    userRepository.save(user);
 	                    return; // 성공하면 메서드 종료

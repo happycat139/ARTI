@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.smhrd.Arti.Model.Publish;
 import com.smhrd.Arti.Model.PublishRequest;
 import com.smhrd.Arti.Model.StoryBook;
 import com.smhrd.Arti.Model.User;
@@ -122,14 +126,22 @@ public class PublishController {
         }
     }
     
+    
     @GetMapping("/mgmt")
-    public String finalizePudblish(HttpSession session, Model model) {
- 
-            return "PublishMGMT"; 
+    public String PublishMGMTPage(@RequestParam(value = "page", defaultValue = "1") int page,
+                              @RequestParam(value = "size", defaultValue = "8") int size,
+                              Model model) {
 
+        Pageable pageable = PageRequest.of(page - 1, size); // 페이지 번호는 0부터 시작
+        Page<Publish> publishPage = publishService.getPublishedObjects(pageable);
+
+        model.addAttribute("publishes", publishPage.getContent());
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", publishPage.getTotalPages());
+        model.addAttribute("totalElements", publishPage.getTotalElements());
+
+        return "PublishMGMT"; // JSP 파일 이름
     }
-    
-    
     
     
 }
