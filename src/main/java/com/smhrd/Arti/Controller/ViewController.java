@@ -105,10 +105,5 @@ public class ViewController {
 		return "ArtiCoin";
 	}
 	
-	@GetMapping("/arti/loadingtest")
-	public String ArtiloadingPage() {
-		return "LoadingTest";
-	}
-	
 	
 }
