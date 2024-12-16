@@ -13,21 +13,21 @@
 		<div id="top-content">
 			<a href="/"><img src="/img/ArtiLogo.png"></a>
 			<div id="menu">
+
+
+
 				<div class="menu-container">
-					<a href="/arti/test">심리검사</a> <a href="/arti/storybook/main">스케치북</a>
+
+					<a href="/arti/dashboard">대시보드</a> <a href="/arti/storybook/main">스케치북</a>
 					<a href="/arti/publish/mgmt">출판관리</a> <a href="/arti/board/main">문의관리</a>
 				</div>
 
 				<div class="AccountContainer">
 					<%
-					User user = (User) session.getAttribute("user");
 					// 세션에서 로그인 상태 확인
 					if (user != null) {
 					%>
-					
-					<button onclick="location.href='/arti/coin'"><img src="/img/ArtiCoin.png" id="articoin"><span><%=user.getCoin()%></span></button>
-					
-					
+
 					<!-- 로그인 상태일 때 프로필 표시 -->
 					<div class="profile-btn" onclick="location.href='/profile'">
 						<img
@@ -47,7 +47,7 @@
 			</div>
 		</div>
 	</header>
-	
+
 
 </body>
 </html>

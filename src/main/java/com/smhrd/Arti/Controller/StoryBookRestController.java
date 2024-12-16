@@ -98,13 +98,13 @@ public class StoryBookRestController {
 		
         try {
         	
-        	String prompt = Iprompt + " \n A beautiful and magical landscape, inspired by storybook illustration styles "
-        			+ "such as those by Beatrix Potter or E. H. Shepard. The scene features lush green trees, vibrant flowers,"
-        			+ " and warm white illumination streaming through the canopy. Soft pastel tones, smooth textures,"
-        			+ " and a harmonious balance of light and shadow create an enchanting and whimsical atmosphere."
-        			+ " The landscape is detailed with playful and expressive animal characters in a naturalistic yet "
-        			+ "imaginative setting, evoking a charming and lively world.";
-        	    	
+        	String prompt = Iprompt + " \n 위의 내용에 맞는 '동화' 그림을 생성해줘. " +
+        		    "\n 고퀄리티 그림으로 그리고, 따뜻한 색감과 부드러운 수채화 스타일로 만들어줘. " +
+        		    "\n 주요 인물과 배경 요소를 강조해." +
+        		    "\n 아이들이 좋아할 수 있는 밝고 매력적인 분위기를 연출해줘.." +
+        		    "\n 중요: 어떠한 텍스트 요소도 완전히 배제해야 해." ;
+        	
+        	
             // 1. AI API를 통해 이미지 생성
             String ImageUrl = dallEApiService.generateImage(prompt, session);
 

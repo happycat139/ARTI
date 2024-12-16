@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@page import="com.smhrd.Arti.Model.User"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,6 +55,14 @@
         color: #00129A;    /* 텍스트 색상 */
         padding-top: 14%;    /* 위쪽 여백을 조금 크게 설정 */
     }
+    
+    
+    .txt-pkg .tot {
+        font-size: 3.5rem; /* ARTI 강조 */
+        color: #4682B4; /* 파란색 강조 */
+        font-family: 'UhBeeSe_hyun';
+    }
+    
 
     .txt-pkg .tit {
         font-size: 3rem; /* 제목 폰트 크기 */
@@ -128,6 +138,12 @@
     <div id="container-wrap">
         <div class="txt-box">
             <div class="txt-pkg">
+            <c:choose>
+				<c:when test="${user != null && user.role == 'ADMIN'}">
+					 <span class="tot">관리자용!</span><br>
+				</c:when>
+			</c:choose>
+                       
                 <span class="tit">내 아이의 마음 스케치북</span><br>
                 <span class="txt">ARTI</span><br>
                 <img botton class="gif" src="https://storage.googleapis.com/smhrd_arti/MainPage/MainScroll.gif" alt="Animated Image" onclick="scrollDownClick()" style="cursor: pointer;">
