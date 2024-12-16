@@ -10,6 +10,16 @@
 <link rel="icon" href="/img/favicon.ico">
 <style>
 
+@font-face {
+	font-family: 'STUNNING-Bd';
+	src:
+		url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-2@1.0/STUNNING-Bd.woff2')
+		format('woff2');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
 body {
 	font-family: Arial, sans-serif;
     margin: 0;
@@ -117,6 +127,29 @@ main {
     margin: 5px 0;
     line-height: 1.5;
 }
+
+.fixed-button {
+    position: fixed; /* 화면에 고정 */
+    right: 40px; /* 오른쪽에서 20px */
+    bottom: 40px; /* 아래쪽에서 20px */
+    width: 270px; /* 버튼 너비 고정 */
+    height: 60px; /* 버튼 높이 고정 */
+    background-color: #1150ab; /* 버튼 배경 색 */
+    border: 1px solid #ddd; /* 테두리 */
+    border-radius: 8px; /* 둥근 테두리 */
+    font-size: 16px; /* 글자 크기 */
+    color: white; /* 글자 색 */
+    cursor: pointer; /* 마우스 오버 시 커서 변경 */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+    z-index: 1000; /* 다른 요소 위에 표시 */
+    font-family: 'STUNNING-Bd';
+}
+
+.fixed-button:hover {
+    background-color: #e2e6ea; /* 마우스 오버 시 색상 변경 */
+    color: #1150ab;
+}
+
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
@@ -158,8 +191,11 @@ main {
         				</c:forEach>
     			</div>
 			</div>
+			
+			
         </div>
-    </div>
+			<button class="fixed-button">심리 상태 관련 동화 만들러가기</button>
+		</div>
 </main>
 <script>
 const labels = ${labelsJson};
