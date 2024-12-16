@@ -234,12 +234,9 @@ public class StoryBookController {
 
 	        for (StoryContent content : contents) {
 	            // 2. 프롬프트 생성
-	        	String prompt = content.getContent() + 
-	        		    " 위의 줄거리에 맞는 그림을 생성해줘. " +
-	        		    "그림은 동화책에 사용될 그림으로, 따뜻한 색감과 부드러운 수채화 스타일로 만들어줘. " +
-	        		    "주요 인물과 배경 요소를 강조하고, 각각의 세부사항이 잘 드러나도록 해줘. " +
-	        		    "아이들이 좋아할 수 있는 밝고 매력적인 분위기를 연출해줘. 그리고 고퀄리티 그림이여야 해." +
-	        		    "텍스트는 무조건 빼 줘." ;
+	        	String prompt = content.getImgPrompt() + 
+	        		    " \n A beautiful and magical landscape, inspired by storybook illustration styles such as those by Beatrix Potter or E. H. Shepard. The scene features lush green trees, vibrant flowers, and warm white illumination streaming through the canopy. Soft pastel tones, smooth textures, and a harmonious balance of light and shadow create an enchanting and whimsical atmosphere. The landscape is detailed with playful and expressive animal characters in a naturalistic yet imaginative setting, evoking a charming and lively world.";
+
 
 	            // 3. DALL-E API로 이미지 생성
 	            String imageUrl = dallEApiService.generateImage(prompt, session);
