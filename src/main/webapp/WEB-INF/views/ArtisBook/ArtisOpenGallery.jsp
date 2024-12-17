@@ -92,7 +92,6 @@
 }
 
 .book_info.best1 {
-	padding: 0 15px;
 	aspect-ratio: 1/1.227;
 	border-radius: 20px;
 	position: relative;
@@ -101,10 +100,10 @@
 		url('https://storage.googleapis.com/smhrd_arti/796f281f-3590-4f77-a2b5-7bba8b4dfdea.png');
 	background-size: cover; /* 이미지가 컨테이너 크기에 맞게 조절 */
 	background-position: center; /* 이미지 중심 배치 */
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); 
 }
 
 .book_info.best2 {
-	padding: 0 15px;
 	aspect-ratio: 1/1.227;
 	border-radius: 20px;
 	position: relative;
@@ -113,10 +112,10 @@
 		url('https://storage.googleapis.com/smhrd_arti/3479ba51-8b8b-4acb-87bc-a1d20552313c.png');
 	background-size: cover; /* 이미지가 컨테이너 크기에 맞게 조절 */
 	background-position: center; /* 이미지 중심 배치 */
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); 
 }
 
 .book_info.best3 {
-	padding: 0 15px;
 	aspect-ratio: 1/1.227;
 	border-radius: 20px;
 	position: relative;
@@ -125,6 +124,7 @@
 		url('https://storage.googleapis.com/smhrd_arti/1a8f0e51-00ac-4492-8dc7-41fd4a40ea66.png');
 	background-size: cover; /* 이미지가 컨테이너 크기에 맞게 조절 */
 	background-position: center; /* 이미지 중심 배치 */
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); 
 }
 
 img {
@@ -164,6 +164,7 @@ img {
 }
 
 .book_bottom.best {
+	margin-top: 370px;
 	text-align: left;
 	padding: 10px;
 	border-bottom-left-radius: 20px;
@@ -206,12 +207,19 @@ img {
 }
 
 .book_bottom.best p {
-	margin-top: 380px;
 	padding: 0;
-	font-size: 16px;
-	color: white;
+	font-size: 17px;
+	margin-top: 10px;
+	margin-bottom: 10px;
 	font-family: 'STUNNING-Bd';
 }
+
+.book_bottom.best {
+	background-color: white;
+	color: black;
+	height: 80px;
+}
+
 
 .book_bottom.normal p {
 	margin: 0;
@@ -296,7 +304,7 @@ img {
 					<div class="book_top best"></div>
 					<div class="book_bottom best">
 						<p>
-							소피아와 마법의 바다<br>김예원
+							땅굴 속 마법 탐험대<br>김은숙
 						</p>
 					</div>
 				</div>
@@ -306,7 +314,7 @@ img {
 					<div class="book_top best"></div>
 					<div class="book_bottom best">
 						<p>
-							소피아와 마법의 바다<br>김예원
+							고양이 나라의 비밀 여행<br>감자도리
 						</p>
 					</div>
 				</div>
@@ -316,7 +324,7 @@ img {
 					<div class="book_top best"></div>
 					<div class="book_bottom best">
 						<p>
-							소피아와 마법의 바다<br>김예원
+							소피아와 숲의 마법<br>예워닝
 						</p>
 					</div>
 				</div>
