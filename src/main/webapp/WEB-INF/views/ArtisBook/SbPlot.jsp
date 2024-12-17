@@ -107,6 +107,15 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- 로딩 화면 -->
+	<div id="loading-screen" style="display: none;">
+		<!-- 처음엔 숨김 -->
+		<div class="loading-content">
+			<img src="/img/ARTI_Loading.gif" alt="로딩 중" />
+			<p>동화책 생성 중입니다</p>
+		</div>
+	</div>
 
 	<script>
 		// 모달창 열기
@@ -149,6 +158,25 @@
 		document.getElementById('SbPlotModifyModalClose').onclick = function() {
 			document.getElementById('SbPlotModifyModalBack').style.display = 'none';
 		};
+		
+		//로딩 화면 표시 함수
+		function showLoadingScreen() {
+			document.getElementById("loading-screen").style.display = "flex";
+		}
+
+		// 로딩 화면 숨김 함수 (필요 시 사용)
+		function hideLoadingScreen() {
+			document.getElementById("loading-screen").style.display = "none";
+		}
+
+		// 폼 제출 이벤트와 로딩 화면 연결
+		document.querySelector("form").addEventListener("submit",
+				function(event) {
+					// 로딩 화면 표시
+					showLoadingScreen();
+
+					// 폼이 정상적으로 제출되도록 기본 동작 유지
+				});
 	</script>
 </body>
 </html>

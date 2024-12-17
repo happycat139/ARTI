@@ -281,36 +281,38 @@ public class ChatGPTService {
 		// 사용자 요청 메시지 생성
 		StringBuilder fullPrompt = new StringBuilder();
 		
-		
 		fullPrompt.append("### 동화 기본정보\n")
         .append("- 동화 제목: ").append(story.getBook_name()).append("\n")
         .append("- 장르: ").append(story.getBook_genre()).append("\n")
         .append("- 주제: ").append(story.getBook_subject()).append("\n")
         .append("- 배경: ").append(story.getBook_background()).append("\n")
-        .append("- 주인공: ").append(story.getBook_mc()).append("\n")
-        .append("- 요약: ").append(story.getBook_summary()).append("\n\n")
-        
+        .append("- 주인공: ").append(story.getBook_mc()).append("\n\n")
+
         .append("### JSON 형식 요구사항\n")
-        .append("다음 형식으로 작성해주세요:\n")
-        .append("json\n")
-        .append("{\n  \"page\": [페이지 번호],\n  \"description\": \"등장인물: [변하지 않는 등장인물의 외형 정보]. 장면: [줄거리를 바탕으로 등장인물의 표정, 몸짓, 행동, 배경을 구체적으로 묘사].\"\n}\n")
-        .append("\n\n")
+        .append("아래의 JSON 형식을 사용해 페이지별로 장면을 작성해주세요. **등장인물의 외형 정보는 모든 페이지에서 동일하게 반복해서 작성**해야 합니다. **캐릭터 이름은 절대 사용하지 마세요.**:\n\n")
+        .append("{\n")
+        .append("  \"page\": [페이지 번호],\n")
+        .append("  \"description\": \"등장인물: [등장인물의 변하지 않는 외형 정보]. 장면: [줄거리를 바탕으로 배경, 등장인물의 표정, 행동을 묘사].\"\n")
+        .append("}\n\n")
+
         .append("### 작성 규칙\n")
         .append("1. **등장인물**:\n")
-        .append("   - 모든 등장인물의 변하지 않는 **외형 정보**를 작성해주세요.\n")
-        .append("   - 각 등장인물의 이름, 나이, 얼굴, 키, 옷차림, 머리색 등 **변하지 않는 특징**을 포함합니다.\n")
-        .append("   - 예시: \"수빈이(짧은 검은 머리, 큰 눈을 가진 10살 소녀, 파란색 잠옷을 입고 있음), 루미(작고 귀여운 흰 고양이, 반짝이는 파란 눈, 핑크색 스카프를 목에 두르고 있음)\"\n\n")
-        
+        .append("   - 등장인물의 **변하지 않는 외형 정보**를 일관되게 작성해주세요.  **이름은 절대 포함하지 않습니다.**\n")
+        .append("   - 모든 페이지에서 등장인물의 머리색, 나이, 옷차림 등 고정된 특징을 유지해야 합니다.\n")
+        .append("   - 예시: \"소년(짧은 검은 머리, 갈색 눈, 파란 티셔츠와 청바지를 입은 12살 소년), 귀여운 동물 친구(작고 노란 몸, 번개 모양의 꼬리를 가진 활기찬 캐릭터)\"\n\n")
+
         .append("2. **장면**:\n")
-        .append("   - 페이지 줄거리를 바탕으로 등장인물의 **표정, 몸짓, 행동**을 구체적으로 작성해주세요.\n")
-        .append("   - **배경**에는 시간대(낮, 밤), 장소(운동장, 숲), 날씨(맑음, 흐림), 주변 환경을 포함해주세요.\n")
-        .append("   - 예시: \"도심의 작은 초등학교 운동장 한 구석, 맑은 오후 햇살이 내리쬐고 철봉과 그네가 보임. 준수는 친구들과 철봉에 매달리며 깔깔 웃고 있지만, 친구들의 옷을 잡아당기며 장난을 치고 있음. 친구들은 처음에는 웃었지만 점점 지쳐가는 모습이 보임.\"\n\n")
+        .append("   - 각 페이지의 줄거리를 기반으로 **장소, 시간, 분위기**를 구체적으로 묘사해주세요.\n")
+        .append("   - 등장인물의 행동과 감정을 중심으로 표현하되, 주변 환경도 생동감 있게 묘사합니다.\n")
+        .append("   - 예시: \"숲 속 길가에서 소년과 귀여운 동물 친구는 나무 그늘 아래에서 모험을 준비하며 밝게 웃고 있다. 주변에는 새소리가 들리고, 꽃내음이 가득하다.\"\n\n")
 
         .append("3. **일관성 유지**:\n")
-        .append("   - 등장인물의 외형 정보는 모든 페이지에서 **일관되게** 작성됩니다.\n")
-        .append("   - 장면에서는 줄거리에 따라 등장인물의 **표정과 행동**만 변경되며, 배경은 상황에 맞게 구체적으로 작성해주세요.\n\n")
+        .append("   - 등장인물의 외형과 특징을 모든 페이지에서 동일하게 유지해주세요.\n")
+        .append("   - 장면 묘사는 동화적인 분위기를 강조하면서 부드러운 감성과 희망찬 분위기를 살려주세요.\n\n")
 
         .append("### 페이지별 줄거리\n");
+
+		
 
 
 		
@@ -319,7 +321,7 @@ public class ChatGPTService {
 			.append("\"\n");
 		}
 		
-		fullPrompt.append("\n위 페이지별 줄거리를 바탕으로 JSON 형식에 맞게 장면을 작성해주세요.");
+		fullPrompt.append("\n위 페이지별 줄거리와 동화 기본정보를 바탕으로 JSON 형식에 맞게 장면을 작성해주세요.");
 
 		messages.add(new ChatMessage("user", fullPrompt.toString()));
 

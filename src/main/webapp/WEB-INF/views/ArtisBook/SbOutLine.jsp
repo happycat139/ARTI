@@ -11,13 +11,22 @@
 </head>
 <body>
     <%@ include file="SbCreateHeader.jsp"%>  
-    <%@ include file="LoadingPage.jsp"%>
     
     
     
     <%
     StoryBook story = (StoryBook) session.getAttribute("storybook");
 	%>
+    
+    <!-- 로딩 화면 -->
+	<div id="loading-screen" style="display: none;">
+		<!-- 처음엔 숨김 -->
+		<div class="loading-content">
+			<img src="/img/ARTI_Loading.gif" alt="로딩 중" />
+			<p>동화책 생성 중입니다</p>
+		</div>
+	</div>
+    
     
     
     <div class="SO_Page">

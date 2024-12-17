@@ -1,6 +1,8 @@
 package com.smhrd.Arti.Controller;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -226,34 +229,7 @@ public class StoryBookController {
 	
 	
 	
-	@PostMapping("/generate-all-images")
-	public ResponseEntity<String> generateAllImages(@RequestParam("book_idx") Long bookIdx, HttpSession session) {
-	    try {
-	        // 1. DB에서 모든 페이지의 줄거리 가져오기
-	        List<StoryContent> contents = service.getAllContentByBookIdx(bookIdx);
 
-	        for (StoryContent content : contents) {
-	            // 2. 프롬프트 생성
-	        	String prompt = content.getImgPrompt() + 
-	        		    " \n A beautiful and magical landscape, inspired by storybook illustration styles such as those by Beatrix Potter or E. H. Shepard. The scene features lush green trees, vibrant flowers, and warm white illumination streaming through the canopy. Soft pastel tones, smooth textures, and a harmonious balance of light and shadow create an enchanting and whimsical atmosphere. The landscape is detailed with playful and expressive animal characters in a naturalistic yet imaginative setting, evoking a charming and lively world.";
-
-
-	            // 3. DALL-E API로 이미지 생성
-	            String imageUrl = dallEApiService.generateImage(prompt, session);
-
-	            // 4. 생성된 이미지 경로를 Google Cloud Storage에 업로드
-	            String uploadedImageUrl = googleCloudStorageService.uploadImageFromUrl(imageUrl);
-
-	            // 5. DB에 이미지 URL 저장
-	            service.updateImage(content.getBook_idx(), content.getPageNum(), uploadedImageUrl);
-	        }
-
-	        return ResponseEntity.ok("모든 이미지 생성 및 저장이 완료되었습니다.");
-	    } catch (Exception e) {
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                             .body("이미지 생성 중 문제가 발생했습니다: " + e.getMessage());
-	    }
-	}
 
 
 	@GetMapping("/storybook")
