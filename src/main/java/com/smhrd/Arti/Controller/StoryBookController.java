@@ -264,7 +264,10 @@ public class StoryBookController {
 	}
 	
 
-	
+	@GetMapping("/loading")
+	public String SbloadingPage() {
+		return "ArtisBook/LoadingPage";
+	}
 	
 	
 }

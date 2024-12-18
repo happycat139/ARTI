@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -90,9 +91,8 @@ public class StoryBookRestController {
 
 		try {
 
-			String prompt = Iprompt + " \n 위의 내용에 맞는 '동화' 그림을 생성해줘. " + "\n 고퀄리티 그림으로 그리고, 따뜻한 색감과 부드러운 수채화 스타일로 만들어줘. "
-					+ "\n 주요 인물과 배경 요소를 강조해." + "\n 아이들이 좋아할 수 있는 밝고 매력적인 분위기를 연출해줘.."
-					+ "\n 중요: 어떠한 텍스트 요소도 완전히 배제해야 해.";
+			String prompt = Iprompt + "A magical storybook illustration. The scene features green trees, colorful flowers, and soft sunlight filtering through the leaves. Gentle pastel colors, smooth textures, and a balance of light and shadow create a peaceful, enchanting atmosphere. Cute and expressive animal friends add charm and life to this whimsical setting."
+					+ "";
 
 			// 1. AI API를 통해 이미지 생성
 			String ImageUrl = dallEApiService.generateImage(prompt, session);
@@ -136,7 +136,7 @@ public class StoryBookRestController {
 			for (StoryContent content : contents) {
 				// 2. 프롬프트 생성
 				String prompt = content.getImgPrompt()
-						+ "A magical storybook illustration featuring lush green trees, vibrant flowers, and warm sunlight streaming through the canopy. Soft pastel tones, smooth textures, and balanced light and shadow create a whimsical, enchanting atmosphere. Playful animal characters with expressive details blend naturally into this charming, lively world.\r\n"
+						+ "A magical storybook illustration. The scene features green trees, colorful flowers, and soft sunlight filtering through the leaves. Gentle pastel colors, smooth textures, and a balance of light and shadow create a peaceful, enchanting atmosphere. Cute and expressive animal friends add charm and life to this whimsical setting."
 						+ "";
 
 				// 3. DALL-E API로 이미지 생성
@@ -158,6 +158,12 @@ public class StoryBookRestController {
 
 	}
 
+	@RequestMapping(value = "/generate-all-images", method = RequestMethod.GET)
+	public ResponseEntity<String> handleInvalidGet() {
+		return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
+				.body("GET method is not allowed for this endpoint.");
+	}
+
 	@PostMapping("/generate-image")
 	public ResponseEntity<String> generateImage(@RequestBody Map<String, Object> request, HttpSession session) {
 
@@ -171,8 +177,8 @@ public class StoryBookRestController {
 
 			// 2. 프롬프트 생성
 			String prompt = content.getImgPrompt()
-					+ " \n  아름답고 마법 같은 풍경. 동화책 일러스트 스타일로, 베아트릭스 포터나 E.H. 셰퍼드의 작품에서 영감을 받음.  \r\n" + "\r\n"
-					+ "부드러운 파스텔 색감과 섬세한 질감이 조화를 이루며 빛과 그림자가 어우러져 따뜻하고 신비로운 분위기를 연출한다.  \r\n" + " ";
+					+ "A magical storybook illustration. The scene features green trees, colorful flowers, and soft sunlight filtering through the leaves. Gentle pastel colors, smooth textures, and a balance of light and shadow create a peaceful, enchanting atmosphere. Cute and expressive animal friends add charm and life to this whimsical setting."
+					+ "";
 
 			// 3. AI API를 통해 이미지 생성
 			String imageUrl = dallEApiService.generateImage(prompt, session);

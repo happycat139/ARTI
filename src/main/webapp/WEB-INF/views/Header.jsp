@@ -52,7 +52,7 @@
                     %>
                     <button onclick="location.href='/arti/coin'" class="articoin">
                         <img src="/img/ArtiCoin.png" id="articoin">
-                        <span><%= user.getCoin() %></span>
+                        <span class="coincount"><%= user.getCoin() %></span>
                     </button>
 
                     <div class="profile-btn" onclick="location.href='/profile'">

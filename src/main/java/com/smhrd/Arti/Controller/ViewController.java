@@ -103,12 +103,6 @@ public class ViewController {
 		return "Dashboard";
 	}
 	
-	// 로딩 페이지
-	@GetMapping("/arti/loading")
-	public String LoadingPage() {
-		return "LoadingPage";
-	}
-	
 	
 	
 

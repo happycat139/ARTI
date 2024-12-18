@@ -625,36 +625,6 @@ body {
 	border-radius: 30px;
 }
 
-/* 로딩 화면 스타일 */
-#loading-screen {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(0, 0, 0, 0.7); /* 반투명 검정색 */
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	z-index: 1000;
-}
-
-.loading-content {
-	text-align: center;
-	color: white;
-}
-
-.loading-content img {
-	width: 70%; /* 기본: 화면 너비의 50% */
-	max-width: 800px; /* 최대 크기 제한 */
-	height: auto;
-}
-
-.loading-content p {
-	margin-top: 20px;
-	font-size: 2rem; /* 기본 크기 */
-	font-weight: bold;
-}
 
 /* 모달 배경 */
 #SbPlotModifyModalBack_Image {
@@ -797,7 +767,8 @@ body {
 </style>
 <body>
 	<%@ include file="SbEditHeader.jsp"%>
-
+	<%@ include file="LoadingPage.jsp"%>
+	
 
 
 	<div class="SbEditPage" id="ArtiBook-Page">
@@ -933,7 +904,7 @@ body {
 					<button class="modal-button" onclick="generateBookImage()">AI
 						이미지 생성</button>
 					
-					<div class="SbPlotModifyModalBack_articoin" >- 10 아티코인 <img src="/img/ArtiCoin.png" id="articoin"></div>	
+					<div class="SbPlotModifyModalBack_articoin" >- 10 아티코인&nbsp; <img src="/img/ArtiCoin.png" id="articoin"></div>	
 						
 						
 						
@@ -1056,24 +1027,10 @@ body {
 		</div>
 
 
-
-
-
-
 		<button id="generateAllImagesButton">AI 그림 전체 생성</button>
 
 	</div>
 
-
-
-	<!-- 로딩 화면 -->
-	<div id="loading-screen" style="display: none;">
-		<!-- 처음엔 숨김 -->
-		<div class="loading-content">
-			<img src="/img/ARTI_Loading.gif" alt="로딩 중" />
-			<p>동화책 생성 중입니다</p>
-		</div>
-	</div>
 
 
 
@@ -1396,26 +1353,37 @@ document.getElementById("generateAllImagesButton").addEventListener("click", fun
 
     // 로딩 화면 표시
     const loadingScreen = document.getElementById("loading-screen");
-    loadingScreen.style.display = "flex";
+    if (loadingScreen) {
+        loadingScreen.style.display = "flex";
+    }
 
-    fetch("/arti/book/generate-all-images?book_idx=" + bookIdx, {
+    fetch("/arti/book/generate-all-images", {
         method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ book_idx: bookIdx }),
     })
         .then(function (response) {
             if (!response.ok) {
                 throw new Error("이미지 생성 요청 실패");
             }
-            return response.text();
+            // 요청 성공 시 새로고침
+            location.reload();
         })
-        .then(function () {
-            // 페이지 새로고침
-            window.location.reload();
-        })
-        .catch(function (error) {
-            console.error("Error:", error);
+        .catch(function () {
+            // 실패 시 메시지 표시
             alert("이미지 생성 중 문제가 발생했습니다. 다시 시도해주세요.");
+        })
+        .finally(function () {
+            // 로딩 화면 숨김
+            if (loadingScreen) {
+                loadingScreen.style.display = "none";
+            }
         });
 });
+
+
 
 // AI 이미지 생성 (개별)
 function generateBookImage() {
@@ -1424,11 +1392,14 @@ function generateBookImage() {
     const contentIdx = modal.getAttribute("data-content-idx");
     console.log("generateBookImage 호출, contentIdx:", contentIdx);
     
-    console.log(contentIdx);
-
     if (!contentIdx) {
         console.error("content_idx가 설정되지 않았습니다.");
         return;
+    }
+
+    // 모달 창 닫기
+    if (modal) {
+        modal.style.display = "none";
     }
 
     // 로딩 화면 표시
@@ -1436,7 +1407,8 @@ function generateBookImage() {
     if (loadingScreen) {
         loadingScreen.style.display = "flex";
     }
- // API 요청
+
+    // API 요청
     fetch("/arti/book/generate-image", {
         method: "POST",
         headers: {
@@ -1456,10 +1428,8 @@ function generateBookImage() {
 
             // 이미지를 페이지에 반영 (예: 특정 요소에 추가)
             const imageElement = document.querySelector('[data-content-idx="' + contentIdx + '"] .SbEdit_InputContent');
-
-
             if (imageElement) {
-            	imageElement.innerHTML = 
+                imageElement.innerHTML = 
                     '<img class="Sb_PutImage" id="Sb_UImage" src="' + imageUrl + '" alt="페이지 이미지">';
             } else {
                 console.error("이미지를 반영할 요소를 찾을 수 없습니다.");
@@ -1470,10 +1440,10 @@ function generateBookImage() {
             alert("이미지 생성 중 문제가 발생했습니다. 다시 시도해주세요.");
         })
         .finally(function () {
+            // 로딩 화면 숨김
             if (loadingScreen) {
                 loadingScreen.style.display = "none";
             }
-            modal.style.display = "none"; // 모달 닫기
         });
 }
 

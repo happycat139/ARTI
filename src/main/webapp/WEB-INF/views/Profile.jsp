@@ -34,7 +34,7 @@
                 <div class="Pr_mycoin">
                 	<p><b>보유 코인</b></p>
                 	<div class="coin_info">
-                		<img id="articoin" alt="코인" src="/img/ArtiCoin.png">
+                		<img id="articoin" alt="코인" src="/img/ArtiCoin.png">&nbsp;
                 		<b><%= user != null ? user.getCoin() : "" %></b> 
                 		<button class="coinup" onclick="location.href='/arti/coin'">충전</button>             	
                 	</div>

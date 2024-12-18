@@ -37,7 +37,7 @@
 
 .loading-content img.loading-image {
 	width: 40%;
-	max-width: 500px;
+	max-width: 400px;
 }
 
 .loading-text {
@@ -66,7 +66,7 @@
 	margin: 10px;
 }
 
-.brush-controls button {
+.brush-e-button button {
 	width: 90px;
 	height: 30px;
 	margin: 5px;
@@ -145,10 +145,10 @@
 					style="background-color: violet;"></button>
 				<button onclick="colorChange('lime')" class="brush-color-button"
 					style="background-color: lime;"></button>
-				<button onclick="colorChange('white')">지우개</button>
-				<button onclick="clearAll()">전체지우기</button>
+				<button onclick="colorChange('white')" class="brush-e-button">지우개</button>
+				<button onclick="clearAll()" class="brush-e-button">전체지우기</button>
 			</div>
-			<canvas id="drawing-canvas" width="1000" height="500"></canvas>
+			<canvas id="drawing-canvas" width="1600" height="900"></canvas>
 			<p class="loading-text-cute">기다리면서 새로운 상상력을 펼쳐보세요!</p>
 		</div>
 	</div>
@@ -166,7 +166,7 @@
 			x : -1,
 			y : -1,
 		};
-		var canvas = document.getElementById('canvas');
+		var canvas = document.getElementById('drawing-canvas');
 		var ctx = canvas.getContext('2d');
 		var rect = canvas.getBoundingClientRect(); // 터치 스크린
 

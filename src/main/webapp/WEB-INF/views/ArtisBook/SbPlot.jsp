@@ -13,10 +13,10 @@
 </head>
 <body>
 	<%@ include file="SbCreateHeader.jsp"%>
+	<%@ include file="LoadingPage.jsp"%>
 	<div id="#" class="SbPlot-page">
 
 		<%
-		
 		StoryBook story = (StoryBook) session.getAttribute("storybook");
 		// 세션에서 storyContentList 가져오기
 		List<StoryContent> storyContentList = (List<StoryContent>) session.getAttribute("storyContentList");
@@ -39,8 +39,7 @@
 			<%
 			for (StoryContent content : storyContentList) {
 			%>
-			<div id="SbPlot-box-<%=content.getPageNum() - 1%>"
-				class="SbPlot-box">
+			<div id="SbPlot-box-<%=content.getPageNum() - 1%>" class="SbPlot-box">
 				<div class="SbPlot-index"><%=content.getPageNum()%></div>
 				<div id="SbPlot-Content-<%=content.getPageNum() - 1%>"
 					class="SbPlot-Content">
@@ -85,8 +84,10 @@
 				<div class="SbPlot-ModalSubTitle">선택한 플롯이 맞는지 확인 후 만들어주세요.</div>
 				<div>
 					<button id="SbPlot-CancelBtn" class="SbPlot-CancelBtn">취소하기</button>
-					<button id="SbPlotModal-Btn" class="SbPlotModal-Btn" onclick="location.href='/arti/book/edit?book_idx=${storybook.book_idx}'">글 편집
-						단계로</button>
+					<button id="SbPlotModal-Btn" class="SbPlotModal-Btn"
+						onclick="showLoadingAndRedirect('/arti/book/edit?book_idx=${storybook.book_idx}')">
+						글 편집 단계로</button>
+
 				</div>
 			</div>
 		</div>
@@ -107,7 +108,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<!-- 로딩 화면 -->
 	<div id="loading-screen" style="display: none;">
 		<!-- 처음엔 숨김 -->
@@ -158,7 +159,7 @@
 		document.getElementById('SbPlotModifyModalClose').onclick = function() {
 			document.getElementById('SbPlotModifyModalBack').style.display = 'none';
 		};
-		
+
 		//로딩 화면 표시 함수
 		function showLoadingScreen() {
 			document.getElementById("loading-screen").style.display = "flex";
@@ -177,6 +178,16 @@
 
 					// 폼이 정상적으로 제출되도록 기본 동작 유지
 				});
+
+		function showLoadingAndRedirect(url) {
+			// 로딩 화면을 표시
+			document.getElementById('loading-screen').style.display = 'flex';
+
+			// 약간의 딜레이를 두고 페이지 이동 (로딩 화면이 확실히 보이도록 설정)
+			setTimeout(function() {
+				window.location.href = url;
+			}, 500); // 0.5초 딜레이
+		}
 	</script>
 </body>
 </html>
