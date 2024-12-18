@@ -80,13 +80,13 @@ body {
 .SbEdit_pBtn {
 	width: 50px;
 	height: 50px;
-	left: 200px;
+	left: 120px;
 }
 
 .SbEdit_nBtn {
 	width: 50px;
 	height: 50px;
-	right: 200px;
+	right: 120px;
 }
 
 .SbEdit_pBtn img, .SbEdit_nBtn img {

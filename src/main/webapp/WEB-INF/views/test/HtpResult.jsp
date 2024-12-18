@@ -36,6 +36,7 @@ main {
     display: flex;
     width: 100%;
     gap: 20px;
+    padding-top: 3%;
 }
 
 .left-panel {
@@ -51,13 +52,15 @@ main {
     height: auto;
     object-fit: contain;
     border-radius: 8px;
+    margin-top: 20%;
 }
 
 .right-panel {
     flex: 1;
     padding: 0 30px;
-    height: 650px; 
-    overflow-y: auto; 
+    height: 55%; 
+    overflow-y: auto;
+     
 }
 
 .right-panel h1 {

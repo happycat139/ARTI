@@ -12,4 +12,9 @@ public class HtpController {
 	public String htpMainPage() {
 		return "test/HtpTestMain";
 	}
+	
+	@GetMapping("/user/upload")
+	public String HtpMainPage() {
+		return "test/HtpUpload";
+	}
 }

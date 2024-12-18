@@ -254,7 +254,7 @@ main {
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-<%@ include file="Header.jsp"%>
+<%@ include file="../Header.jsp"%>
 
 <main>
     <div class="container">
@@ -324,7 +324,7 @@ main {
         </div>
     </div>
 </main>
-<%@ include file="Footer.jsp"%>
+<%@ include file="../Footer.jsp"%>
 <script>
 
 function openModal() {

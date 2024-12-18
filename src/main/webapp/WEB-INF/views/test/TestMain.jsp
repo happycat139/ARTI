@@ -8,6 +8,14 @@
 <link rel="icon" href="/img/favicon.ico">
 </head>
 <style>
+
+  @font-face {
+       font-family: 'UhBeeSe_hyun';
+       src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_five@2.0/UhBeeSe_hyun.woff') format('woff');
+       font-weight: normal;
+       font-style: normal;
+   }
+   
 .HtpMainSec {
 	position: relative;
 }
@@ -31,15 +39,17 @@
 
 .InfoSec .Logo {
 	margin-bottom: 32px;
-	font-size: 3.556em;
-	font-family: "ivymode-variable", sans-serif;
+	font-size: 2.556em;
+	font-family: 'UhBeeSe_hyun';
 	font-variation-settings: "ital" 0, "wght" 300;
 	line-height: 1;
 	letter-spacing: 0;
 }
 
-.MainSec .InfoSec .Logo, .MainSec .InfoSec .info_txt {
-	color: #565656;
+.info_txt {
+	font-family: 'UhBeeSe_hyun' !important;
+	padding-top: 30px;
+	color: black;
 }
 
 .MainSec .InfoSec .Logo>em {
@@ -73,6 +83,15 @@
 	min-height: 400px;
 	padding: 60px;
 	box-sizing: border-box;
+}
+
+.subT {
+	font-size: 30px !important;
+	color: #00129A;
+}
+
+.Titl {
+	color: #007AFF;
 }
 
 /* 리스트 개별 CSS */
@@ -280,10 +299,12 @@
 				<!-- 왼쪽 섹션 -->
 				<div class="InfoSec">
 					<p class="Logo">
-						<em>ARTI</em> Services
+						<em class="subT">내 아이의 마음 스케치북</em>
+							<br>
+						<em class="Titl">ARTI</em> 
 					</p>
 					<p class="info_txt">
-						ARTI와 AI가 만나 <br> 새로운 도전을 합니다
+						아이와 소통하고 마음을 열어보세요 !
 					</p>
 				</div>
 
@@ -293,7 +314,7 @@
 							class="List_Title"> HTP검사 </span> <span class="List_SubTitle">
 								아이가 그린 특정 그림을 보고 <br> ARTI가 분석해드려요
 						</span>
-					</span> <span class="List_btn" onclick="openModal()"> 더보기 </span>
+					</span> <span class="List_btn" onclick="location.href='test/user/upload'"> 더보기 </span>
 					</a> <a class="List02"> <span class="List_txt_box"> <span
 							class="List_Title"> 미술심리분석 </span> <span class="List_SubTitle">
 								아이가 그린 그림을 보고 <br> AI가 분석해드려요

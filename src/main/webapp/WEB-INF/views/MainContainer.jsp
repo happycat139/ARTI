@@ -8,155 +8,117 @@
 <meta charset="UTF-8">
 <title>MainContainer</title>
 <style>
-
    @font-face {
-    font-family: 'UhBeeSe_hyun'
-    src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_five@.2.0/UhBeeSe_hyun.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
+       font-family: 'UhBeeSe_hyun';
+       src: url('https://gcore.jsdelivr.net/gh/projectnoonnu/noonfonts_five@2.0/UhBeeSe_hyun.woff') format('woff');
+       font-weight: normal;
+       font-style: normal;
    }
 
-    body, html {
-        margin: 0;
-        padding: 0;
-        width: 100%;
-        height: 100%;
-        font-family: 'UhBeeSe_hyun'
-        background-color: white; /* 배경을 흰색으로 설정 */
-        overflow-x: hidden;
-    }
+   body, html {
+       margin: 0;
+       padding: 0;
+       width: 100vw;
+       height: 100vh;
+       font-family: 'UhBeeSe_hyun';
+       background-color: white;
+       overflow-y: auto; /* 수직 스크롤 허용 */
+       overflow-x: hidden; /* 가로 스크롤은 여전히 숨김 */
+   }
 
-    #container-wrap {
-        text-align: center; /* 텍스트 중앙 정렬 */
-           
-        
-        background-image: url('https://storage.googleapis.com/smhrd_arti/MainPage/MainPage1.png');
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;  /* 이미지를 반복하지 않음 */
-        
-        opacity: 0; /* 처음에는 보이지 않도록 설정 */
-        transform: translateY(30px); /* 아래쪽에서 올라오는 효과 */
-        animation: fadeInUp 1.5s ease-out forwards; /* 애니메이션 효과 */
-    }
+   /* 컨테이너 정렬 및 배경 */
+   #container-wrap {
+       display: flex;
+       flex-direction: column;
+       justify-content: center; /* 세로 중앙 정렬 */
+       align-items: center; /* 가로 중앙 정렬 */
+       height: 100vh;
+       background-image: url('https://storage.googleapis.com/smhrd_arti/MainPage/MainPage1.png');
+       background-position: center;
+       background-repeat: no-repeat;
+       background-size: contain; /* 이미지 비율 유지하면서 화면에 맞춤 */
+   }
 
-    @keyframes fadeInUp {
-        0% {
-            opacity: 0;
-            transform: translateY(30px); /* 아래에서 시작 */
-        }
-        100% {
-            opacity: 1;
-            transform: translateY(0); /* 원래 위치로 이동 */
-        }
-    }
+   .txt-box {
+       text-align: center;
+       padding-top: 10vh;
+   }
 
-    .txt-box {
-        color: #00129A;    /* 텍스트 색상 */
-        padding-top: 14%;    /* 위쪽 여백을 조금 크게 설정 */
-    }
-    
-    
-    .txt-pkg .tot {
-        font-size: 3.5rem; /* ARTI 강조 */
-        color: #4682B4; /* 파란색 강조 */
-        font-family: 'UhBeeSe_hyun';
-    }
-    
+   .txt-pkg .tit {
+       font-size: 3vw; /* 뷰포트 너비 기반 글자 크기 */
+       margin-bottom: 2vh;
+       color: #00129A;
+       font-family: 'UhBeeSe_hyun';
+   }
 
-    .txt-pkg .tit {
-        font-size: 3rem; /* 제목 폰트 크기 */
-        font-weight: bold;
-        margin-bottom: 20px;
-        font-family: 'UhBeeSe_hyun';
-    }
+   .txt-pkg .txt {
+       font-size: 4vw; /* 강조 텍스트 크기 */
+       color: #007AFF;
+       font-family: 'UhBeeSe_hyun';
+   }
 
-    .txt-pkg .txt {
-        font-size: 4rem; /* ARTI 강조 */
-        color: #007AFF; /* 파란색 강조 */
-        font-family: 'UhBeeSe_hyun';
-    }
+   .txt-pkg .tot {
+       font-size: 4vw; /* 관리자용 강조 텍스트 */
+       color: #4682B4;
+       font-family: 'UhBeeSe_hyun';
+   }
 
-    /* 반응형 디자인을 위한 미디어 쿼리 */
-    @media (max-width: 1024px) {
-        #container-wrap {
-            padding: 30px 15px; /* 패딩 줄이기 */
-        }
+   .gif {
+       width: 10vw; /* 비율에 맞는 이미지 크기 */
+       height: auto;
+       margin-top: 5vh;
+       cursor: pointer;
+   }
 
-        .txt-pkg .tit {
-            font-size: 2.5rem; /* 큰 화면에서는 적절한 폰트 크기 */
-        }
+   /* 반응형 디자인 */
+   @media (max-width: 768px) {
+       .txt-pkg .tit {
+           font-size: 6vw;
+       }
+       .txt-pkg .txt {
+           font-size: 7vw;
+       }
+       .gif {
+           width: 15vw;
+       }
+   }
 
-        .txt-pkg .txt {
-            font-size: 3.5rem; /* 큰 화면에서 강조 텍스트 크기 */
-        }
-    }
-
-    @media (max-width: 768px) {
-        #container-wrap {
-            padding: 20px 10px; /* 작은 화면에서는 패딩 줄이기 */
-        }
-
-        .txt-pkg .tit {
-            font-size: 2rem; /* 작은 화면에서 제목 글자 크기 조정 */
-        }
-
-        .txt-pkg .txt {
-            font-size: 3rem; /* 작은 화면에서 강조 텍스트 크기 조정 */
-        }
-    }
-
-    @media (max-width: 480px) {
-        #container-wrap {
-            padding: 15px 5px; /* 모바일 화면에서 패딩 줄이기 */
-        }
-
-        .txt-pkg .tit {
-            font-size: 1.8rem; /* 더 작은 화면에서 제목 크기 조정 */
-        }
-
-        .txt-pkg .txt {
-            font-size: 2.5rem; /* 더 작은 화면에서 강조 텍스트 크기 조정 */
-        }
-    }
-    
-    .gif {
-       width: 100px;
-       height: 100px;
-       margin-top: 150px;
-    }
-    
-    .gif-button {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 0;
-    }
+   @media (max-width: 480px) {
+       .txt-pkg .tit {
+           font-size: 7vw;
+       }
+       .txt-pkg .txt {
+           font-size: 8vw;
+       }
+       .gif {
+           width: 20vw;
+       }
+   }
 </style>
 </head>
 <body>
     <div id="container-wrap">
         <div class="txt-box">
             <div class="txt-pkg">
-            <c:choose>
-				<c:when test="${user != null && user.role == 'ADMIN'}">
-					 <span class="tot">관리자용!</span><br>
-				</c:when>
-			</c:choose>
-                       
+                <c:choose>
+                    <c:when test="${user != null && user.role == 'ADMIN'}">
+                        <span class="tot">관리자용!</span><br>
+                    </c:when>
+                </c:choose>
                 <span class="tit">내 아이의 마음 스케치북</span><br>
                 <span class="txt">ARTI</span><br>
-                <img botton class="gif" src="https://storage.googleapis.com/smhrd_arti/MainPage/MainScroll.gif" alt="Animated Image" onclick="scrollDownClick()" style="cursor: pointer;">
+                <img class="gif" src="https://storage.googleapis.com/smhrd_arti/MainPage/MainScroll.gif" 
+                     alt="Animated Image" onclick="scrollDownClick()">
             </div>
         </div>
     </div>
+
     <script>
        function scrollDownClick() {
-          //현재 스크롤 위치에서 한 화면만큼 더 스크롤
-          window.scrollBy({
-             top: window.innerHeight, //한 화면의 높이만큼 아래로 이동
-             behavior: 'smooth'       //부드러운 스크롤 효과
-          });
+           window.scrollBy({
+               top: window.innerHeight, // 한 화면의 높이만큼 스크롤
+               behavior: 'smooth'       // 부드러운 스크롤 효과
+           });
        }
     </script>
 </body>
