@@ -56,7 +56,7 @@ main {
 .right-panel {
     flex: 1;
     padding: 0 30px;
-    height: 600px; 
+    height: 650px; 
     overflow-y: auto; 
 }
 
@@ -149,6 +149,8 @@ main {
     background-color: #e2e6ea; /* 마우스 오버 시 색상 변경 */
     color: #1150ab;
 }
+
+
 
 </style>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
