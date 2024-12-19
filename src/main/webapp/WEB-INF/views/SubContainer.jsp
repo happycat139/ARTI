@@ -18,7 +18,6 @@ body {
    margin: 0;
    padding: 0;
    font-family: 'UhBeeSe_hyun', Arial, sans-serif;
-   background-color: #F5F5F5;
 }
 
 .SubContainer {
@@ -86,11 +85,11 @@ body {
 }
 
 .img .image li {
-    background: url(img/subcontainerimg.png) no-repeat;
+    background: url(https://storage.googleapis.com/smhrd_arti/MainPage/HTP1.png) no-repeat;
 }
 
 .img .image2 li {
-   background: url(img/subcontainerimg2.png) no-repeat;
+   background: url(https://storage.googleapis.com/smhrd_arti/MainPage/HTP2.png) no-repeat;
 }
 
 .img .image li:hover, .img .image2 li:hover {
