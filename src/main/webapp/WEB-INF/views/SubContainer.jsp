@@ -14,103 +14,144 @@
    font-style: normal;
 }
 
-body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    scroll-behavior: smooth;
-    font-family: 'UhBeeSe_hyun', Arial, sans-serif;
-    overflow-x: hidden;
+body {
+   margin: 0;
+   padding: 0;
+   font-family: 'UhBeeSe_hyun', Arial, sans-serif;
+   background-color: #F5F5F5;
 }
 
 .SubContainer {
-    background-color: white;
-    background-image: url('img/Moonapple.jpg');               /* 배경 이미지 설정 */
-    background-size: 40%;                                     /* div의 50% 크기로 이미지 크기 조절 */
-    background-position: 75% 50%;                             /* 이미지의 위치를 설정 */
-    background-repeat: no-repeat;                             /* 이미지 반복 방지 */
-    height: 100vh;                                            /* 전체 화면 높이로 설정 */
-    display: flex;                                            /* Flexbox 활성화 */
-    justify-content: left;
-   
-    transform: translateY(100px);
-    transition: opacity 1s ease-out, transform 1s ease-out;
+    width: 94%;
+    margin: 0 auto;
+    max-width: 1400px;
+    display: flex;
 }
 
-#notice {
-   margin-top: 22%;
-   margin-left: 11%   ;
-   
-   opacity: 0;
-    transform: translateY(100px);
-    transition: opacity 1s ease-out, transform 1s ease-out;
-   
+.notice {
+   width:50%;
+    margin-top: 22%;          /* 아래로 50px 이동 */
+    
+    opacity: 0;               /* 초기 상태: 투명 */
+    transform: translateY(100px); /* 초기 상태: 아래 위치 */
+    transition: opacity 0.4s ease-out, transform 2s ease-out; /* 애니메이션 */
 }
 
-.fade-in-visible {
-    animation: fadeInUp 1s ease-out forwards;
+.notice.visible {
+    opacity: 1;               /* 보이도록 */
+    transform: translateY(0); /* 원래 위치로 이동 */
 }
 
-.css1 {
-    font-size: 200%;                         /* 추가 스타일을 넣을 수 있음 */
+.notice .title {
     font-family: 'UhBeeSe_hyun';
+    font-size: 40px;
+    margin-top: 3%;
+    margin-bottom: 1%;
+    font-weight: bold;
 }
 
-.css2 {
-    font-size: 160%;
-    color: rgba(0, 0, 0, 0.7);
-    font-family: 'UhBeeSe_hyun';
+.notice .subtit {
+   font-family: 'UhBeeSe_hyun';
+   font-size: 20px;
+   color: #666;
+   margin-top: 5%;
+   
 }
 
-
-@keyframes fadeInUp {
-    0% {
-        opacity: 0;
-        transform: translateY(100px);
-    }
-    100% {
-        opacity: 1;
-        transform: translateY(0);
-    }
+.img {
+   margin-top:5%;
+   margin-bottom:5%;
+   width:100%;
 }
 
+.img .image {
+    width: 80%;
+    display: flex;
+    margin-left: 25%;
+}
+
+.img .image2 {
+   width: 80%;
+   display: flex;
+   margin-left: 25%;
+   margin-top: 20px;
+}
+
+.img .image li, .img .image2 li {
+    height: 385px;
+    width: 75%;
+    background-size: cover;                            /* 기본 크기 유지 */
+    border-radius: 20px;
+    list-style: none;                                  /* 리스트 스타일 제거 */
+}
+
+.img .image li {
+    background: url(img/subcontainerimg.png) no-repeat;
+}
+
+.img .image2 li {
+   background: url(img/subcontainerimg2.png) no-repeat;
+}
+
+.img .image li:hover, .img .image2 li:hover {
+    transform: scale(1.05); /* 컨테이너 자체 확대 */
+}
+
+.img .image li, .img .image2 li {
+    transition: transform 0.8s ease, opacity 1s ease; /* 부드러운 애니메이션 */
+    opacity: 0;                               /* 초기 상태 숨김 */
+    transform: translateY(20px);                   /* 초기 상태 아래로 이동 */
+}
+
+.img .image li.visible, .img .image2 li.visible {
+    opacity: 1;             /* 보이도록 */
+    transform: translateY(0);    /* 원래 위치로 이동 */
+}
 </style>
 </head>
 <body>
 
-<div class="SubContainer" id="target">
-    <div id="notice">
-        <h1 class="css1">심리검사</h1>
-        <h1 class="css2">심리검사를 통한 우리 아이 심리 확인</h1>
+<div class="SubContainer">
+    <div class="notice">
+        <span class="title">심리검사</span><br>
+        <span class="subtit">
+        심리검사를 통한 우리 아이 심리 확인
+        </span>
+    </div>
+    
+    <div class="img"> 
+       <div class="image">   
+          <ul class="list"></ul>
+          <li></li>
+       </div>
+       <div class="image2">   
+          <ul class="list"></ul>
+          <li></li>
+       </div>
     </div>
 </div>
-
 <script>
-//Intersection Observer를 사용하여 요소가 화면에 보일 때 애니메이션을 추가합니다.
-document.addEventListener("DOMContentLoaded", function() {
-    const observerOptions = {
-        root: null,           // 전체 뷰포트를 기준으로
-        rootMargin: "0px",    // 뷰포트의 여백을 설정
-        threshold: 0.1        // 요소의 10%가 보이면 콜백 실행
-    };
+document.addEventListener("DOMContentLoaded", function () {
+    // notice와 img 요소들을 모두 선택
+    const targets = document.querySelectorAll(".notice, .img .image li, .img .image2 li");
 
-    const fadeInObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in-visible');
-                observer.unobserve(entry.target); // 애니메이션 후에 더 이상 관찰하지 않음
-            }
-        });
-    }, observerOptions);
+    // IntersectionObserver 생성
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("visible"); // 요소가 뷰포트에 들어오면 visible 클래스 추가
+                }
+            });
+        },
+        {
+            root: null, // 뷰포트를 기준으로
+            threshold: 0.1, // 10% 이상 보일 때 트리거
+        }
+    );
 
-    // #notice 요소를 관찰
-    const noticeElement = document.querySelector('#notice');
-    fadeInObserver.observe(noticeElement);
-
-    // .SubContainer 요소도 관찰
-    const subContainerElement = document.querySelector('#target');
-    fadeInObserver.observe(subContainerElement);
+    // 모든 타겟 요소를 관찰
+    targets.forEach((target) => observer.observe(target));
 });
 </script>
 
