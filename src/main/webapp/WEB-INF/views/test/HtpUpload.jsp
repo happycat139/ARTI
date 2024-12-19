@@ -210,7 +210,10 @@ main {
     text-align: center;
     cursor: pointer;
     margin: 20px;
-    height: 250px;
+    height: 270px;
+    align-items: center;
+	display: flex;
+	flex-direction: column;
 }
 
 .upload-area:hover {
@@ -255,6 +258,7 @@ main {
 </head>
 <body>
 <%@ include file="../Header.jsp"%>
+<%@ include file="LoadingPage.jsp" %>
 
 <main>
     <div class="container">
@@ -299,9 +303,12 @@ main {
 			<div class="modal-body">
             	<form id="uploadForm" action="/htp/upload" method="post" enctype="multipart/form-data">
                 <div class="upload-area" id="uploadArea">
-                    <input type="file" id="fileInput" name="file" accept="image/*" required>	
-                    <p>이미지를 선택하거나 여기에 드래그하세요.</p>
-                </div>
+								<input type="file" id="fileInput" name="file" accept="image/*"
+									required>
+								<p>이미지를 선택하거나 여기에 드래그하세요.</p>
+								<img id="previewImage"
+									style="max-width: 100%; max-height: 200px; display: none;" />
+							</div>
                 <div id="fileNameContainer" style="text-align: center; margin-top: 20px;">
     				<span id="fileName" style="font-size: 1em; color: #555;">파일이 선택되지 않았습니다.</span>
 				</div>
@@ -339,55 +346,88 @@ function closeModal() {
 const uploadArea = document.getElementById('uploadArea');
 const fileInput = document.getElementById('fileInput');
 const fileNameSpan = document.getElementById('fileName');
+const previewImage = document.getElementById('previewImage');
 
-/* 드래그 앤 드롭 및 파일 선택 핸들러 */
-uploadArea.addEventListener('click', () => {
-    console.log("uploadArea 클릭 이벤트 발생"); // 디버깅용
+/* 파일 선택 클릭 이벤트 */
+uploadArea.addEventListener('click', function() {
     fileInput.click(); // 클릭 시 파일 선택 창 열기
 });
 
-fileInput.addEventListener('change', (event) => {
-    console.log("파일 선택 이벤트 발생"); // 디버깅용
-    const file = event.target.files[0];
+/* 파일 선택 이벤트 */
+fileInput.addEventListener('change', function(event) {
+    const file = event.target.files[0]; // 선택된 파일 가져오기
     if (file) {
-        fileNameSpan.textContent = `선택된 파일: ${file.name}`;
-        fileNameSpan.style.display = "block"; // 강제로 표시
-        fileNameSpan.style.visibility = "visible"; // 숨겨진 상태 해제
-        console.log("선택된 파일 이름:", file.name); // 디버깅용
+        fileNameSpan.textContent = '선택된 파일: ' + file.name; // 파일 이름 표시
+        showPreview(file); // 이미지 미리 보기
     } else {
         fileNameSpan.textContent = '파일이 선택되지 않았습니다.';
-        fileNameSpan.style.display = "block"; // 초기화 시에도 표시
-        console.log("파일 선택 취소"); // 디버깅용
+        resetPreview(); // 미리 보기 초기화
     }
 });
 
-uploadArea.addEventListener('dragover', (event) => {
-    console.log("dragover 이벤트 발생"); // 디버깅용
+/* 드래그 앤 드롭 처리 */
+uploadArea.addEventListener('dragover', function(event) {
     event.preventDefault(); // 기본 드래그 동작 방지
     uploadArea.style.backgroundColor = '#f0f0f0'; // 드래그 중 스타일 변경
 });
 
-uploadArea.addEventListener('dragleave', () => {
-    console.log("dragleave 이벤트 발생"); // 디버깅용
+uploadArea.addEventListener('dragleave', function() {
     uploadArea.style.backgroundColor = ''; // 드래그 종료 시 스타일 초기화
 });
 
-uploadArea.addEventListener('drop', (event) => {
-    console.log("drop 이벤트 발생"); // 디버깅용
+uploadArea.addEventListener('drop', function(event) {
     event.preventDefault(); // 기본 드롭 동작 방지
     uploadArea.style.backgroundColor = ''; // 드래그 종료 시 스타일 초기화
-
-    const files = event.dataTransfer.files;
-    console.log("드롭된 파일 개수:", files.length); // 디버깅용
-    if (files.length > 0) {
-        const file = files[0];
-        fileNameSpan.textContent = `선택된 파일: ${file.name}`;
-        console.log("드래그 앤 드롭 파일 이름:", file.name); // 디버깅용
+    const file = event.dataTransfer.files[0]; // 드롭된 파일 가져오기
+    if (file) {
+        fileNameSpan.textContent = '선택된 파일: ' + file.name; // 파일 이름 표시
+        showPreview(file); // 이미지 미리 보기
     } else {
         fileNameSpan.textContent = '파일이 선택되지 않았습니다.';
-        console.log("드래그 앤 드롭 실패 또는 파일 없음"); // 디버깅용
+        resetPreview(); // 미리 보기 초기화
     }
 });
+
+/* 이미지 미리 보기 함수 */
+function showPreview(file) {
+    if (!file.type.startsWith('image/')) {
+        alert('이미지 파일만 업로드 가능합니다.');
+        return;
+    }
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        previewImage.src = e.target.result; // 파일의 Data URL을 이미지로 설정
+        previewImage.style.display = 'block'; // 이미지 태그 표시
+    };
+    reader.readAsDataURL(file); // 파일 읽기
+}
+
+/* 미리 보기 초기화 */
+function resetPreview() {
+    previewImage.style.display = 'none'; // 이미지 숨기기
+    previewImage.src = ''; // src 초기화
+}
+
+
+//로딩 화면 표시 함수
+function showLoadingScreen() {
+	document.getElementById("loading-screen").style.display = "flex";
+}
+
+// 로딩 화면 숨김 함수 (필요 시 사용)
+function hideLoadingScreen() {
+	document.getElementById("loading-screen").style.display = "none";
+}
+
+// 폼 제출 이벤트와 로딩 화면 연결
+document.querySelector("form").addEventListener("submit",
+		function(event) {
+			// 로딩 화면 표시
+			showLoadingScreen();
+
+			// 폼이 정상적으로 제출되도록 기본 동작 유지
+		});
+
 </script>
 
 </body>
