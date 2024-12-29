@@ -16,6 +16,69 @@
 
 <br>
 
+# ✍ 구현 기능
+
+<b>1. AI기반 동화책 </b> (OpenAI API를 활용한 AI 기반 동화책 생성)
+
+-  
+
+- 
+
+<p>
+<img src="https://github.com/user-attachments/assets/e9a77a5e-e6aa-47bd-b491-0d637e6455f1">
+</p>
+![Uploading KakaoTalk_20241229_164004736.gif…]()
+
+
+<br>
+
+<br>
+
+<b>2. 결제 기능 </b> (Toss Payments API를 활용한 결제 및 코인 충전 기능 구현)
+
+- 생성된 동화책을 장바구니에 담아 결제할 수 있는 기능 제공.
+
+- 이미지 수정 및 추가 생성을 위해 필요한 코인을 Toss Payments API를 통해 간편하게 충전 가능.
+
+<p>
+<img src="https://github.com/user-attachments/assets/919a2c0b-3093-426b-b6ee-3b92744f3238">
+</p>
+
+
+<br>
+
+<br>
+
+
+<b>3. 소셜로그인 기능 </b> (Spring MVC 기반으로 Google OAuth 2.0 소셜 로그인 구현)
+
+-  OAuth 2.0 인증 프로토콜을 사용하여 간결하고 효율적인 방식으로 소셜 로그인 기능을 완성.
+  
+- 로그인한 사용자의 프로필 정보를 인증 후 세션에 저장하여, 간편하게 다른 페이지에서도 접근 가능하도록 구현.
+
+<p>
+<img src="https://github.com/user-attachments/assets/198daf32-8c76-4a04-bc04-f78666b4932a">
+</p>
+
+
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## ⛏ 기술스택
 <table>
     <tr>
