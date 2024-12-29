@@ -1,4 +1,4 @@
-# ARTI🎨 
+![KakaoTalk_20241229_164004736](https://github.com/user-attachments/assets/1e7512af-0516-4d92-a419-f6b232dbd8b8)# ARTI🎨 
 ![Inrto](https://github.com/user-attachments/assets/b92cca70-427c-40e6-9f88-13ecc1a46895)
 
 # 👀 서비스 소개
@@ -25,9 +25,10 @@
 - 
 
 <p>
-<img src="https://github.com/user-attachments/assets/e9a77a5e-e6aa-47bd-b491-0d637e6455f1">
+![KakaoTalk_20241229_164004736](https://github.com/user-attachments/assets/f18101a0-943c-477c-8089-bba179a3cb08)
 </p>
-![Uploading KakaoTalk_20241229_164004736.gif…]()
+
+
 
 
 <br>
