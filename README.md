@@ -1,4 +1,4 @@
-![KakaoTalk_20241229_164004736](https://github.com/user-attachments/assets/1e7512af-0516-4d92-a419-f6b232dbd8b8)# ARTI🎨 
+# ARTI🎨 
 ![Inrto](https://github.com/user-attachments/assets/b92cca70-427c-40e6-9f88-13ecc1a46895)
 
 # 👀 서비스 소개
