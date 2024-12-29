@@ -20,19 +20,25 @@
 
 <b>1. AI기반 동화책 </b> (OpenAI API를 활용한 AI 기반 동화책 생성)
 
--  
+기본정보 -> 줄거리 -> 이미지 순서
 
-- 
+- 사용자에게 주제를 입력받아 동화의 기본정보, 11페이지 분량의 줄거리 생성
+- 한국어에 능통하고 응답속도가 빠른 ChatGPT 4.0 모델 사용
 
 <p>
-![KakaoTalk_20241229_164004736](https://github.com/user-attachments/assets/f18101a0-943c-477c-8089-bba179a3cb08)
+<img src="https://github.com/user-attachments/assets/f18101a0-943c-477c-8089-bba179a3cb08">
 </p>
-
-
-
 
 <br>
 
+- 동화 ai이미지 생성 및 세부사항 편집
+- 이미지의 퀄리티가 높고 한국어 프롬프트 전송이 가능한  DALL·E 3 모델로 이미지 생성
+
+<p>
+<img src="https://github.com/user-attachments/assets/05a234c8-d651-42b5-9174-83f9255b96c4">
+</p>
+
+<br>
 <br>
 
 <b>2. 결제 기능 </b> (Toss Payments API를 활용한 결제 및 코인 충전 기능 구현)
