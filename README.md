@@ -26,7 +26,7 @@
 - 한국어에 능통하고 응답속도가 빠른 ChatGPT 4.0 모델 사용
 
 <p>
-<img src="https://github.com/user-attachments/assets/f18101a0-943c-477c-8089-bba179a3cb08">
+<img src="https://github.com/user-attachments/assets/8f813286-7a3e-4266-aeb8-ec28cec77696">
 </p>
 
 <br>
@@ -48,12 +48,11 @@
 - 이미지 수정 및 추가 생성을 위해 필요한 코인을 Toss Payments API를 통해 간편하게 충전 가능.
 
 <p>
-<img src="https://github.com/user-attachments/assets/919a2c0b-3093-426b-b6ee-3b92744f3238">
+<img src="https://github.com/user-attachments/assets/505ce57e-334c-4243-a6f9-2753ba8f80df">
 </p>
 
 
 <br>
-
 <br>
 
 
@@ -64,27 +63,10 @@
 - 로그인한 사용자의 프로필 정보를 인증 후 세션에 저장하여, 간편하게 다른 페이지에서도 접근 가능하도록 구현.
 
 <p>
-<img src="https://github.com/user-attachments/assets/198daf32-8c76-4a04-bc04-f78666b4932a">
+<img src="https://github.com/user-attachments/assets/128fd88b-75d5-4abd-9ccd-2f17f6ebb69e">
 </p>
 
-
 <br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ## ⛏ 기술스택
 <table>
@@ -161,6 +143,14 @@
 
 ## 📌 ER다이어그램
 ![ERD](https://github.com/user-attachments/assets/512b03c0-361b-43e8-b09d-f672c78eae33)
+
+<br>
+
+
+# 💣 트러블슈팅
+
+
+
 
 <br>
 
